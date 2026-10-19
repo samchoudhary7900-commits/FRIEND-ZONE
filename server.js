@@ -112,7 +112,12 @@ app.get('/', (req, res) => {
 
                 async function joinVoiceRoom() {
                     try {
-                        document.getElementById('room-status').innerText = "Connecting...";
+                        document.getElementById('room-status').innerText = "Requesting Mic Access...";
+                        
+                        // Explicitly prompt browser/webview for media device access first
+                        await navigator.mediaDevices.getUserMedia({ audio: true });
+
+                        document.getElementById('room-status').innerText = "Connecting to Room...";
                         client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
                         
                         client.on("user-published", async (user, mediaType) => {
@@ -129,7 +134,8 @@ app.get('/', (req, res) => {
                         document.getElementById('mic-btn').style.display = 'block';
                         document.getElementById('leave-btn').style.display = 'block';
                     } catch (e) {
-                        document.getElementById('room-status').innerText = "❌ Connection/Mic Failed";
+                        console.error(e);
+                        document.getElementById('room-status').innerText = "❌ Mic Permission Denied or Failed";
                     }
                 }
 
