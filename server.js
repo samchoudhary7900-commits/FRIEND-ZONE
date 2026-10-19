@@ -18,8 +18,6 @@ app.get('/', (req, res) => {
         <head>
             <title>Friend Zone</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <!-- Reliable jsDelivr CDN for Agora SDK -->
-            <script src="https://cdn.jsdelivr.net/npm/agora-rtc-sdk-ng@4.20.0/AgoraRTC_N.js"></script>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -108,31 +106,15 @@ app.get('/', (req, res) => {
                     }
                 }
 
-                let client, localAudioTrack;
+                let localStream;
                 let isMuted = false;
 
                 async function joinVoiceRoom() {
                     try {
-                        if (typeof AgoraRTC === 'undefined') {
-                            document.getElementById('room-status').innerText = "❌ Agora SDK failed to load.";
-                            return;
-                        }
-
-                        document.getElementById('room-status').innerText = "Requesting mic permission...";
-                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        document.getElementById('room-status').innerText = "Requesting Mic Access...";
                         
-                        document.getElementById('room-status').innerText = "Connecting Voice Room...";
-                        client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-                        
-                        client.on("user-published", async (user, mediaType) => {
-                            await client.subscribe(user, mediaType);
-                            if (mediaType === "audio") user.audioTrack.play();
-                        });
-
-                        await client.join("00000000000000000000000000000000", "friendzone_room", null, null);
-                        
-                        localAudioTrack = AgoraRTC.createCustomAudioTrack({ mediaStreamTrack: stream.getAudioTracks()[0] });
-                        await client.publish([localAudioTrack]);
+                        // Direct native browser microphone access for Android WebView
+                        localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
                         document.getElementById('room-status').innerText = "🔊 Connected in Voice Room!";
                         document.getElementById('join-btn').style.display = 'none';
@@ -140,14 +122,16 @@ app.get('/', (req, res) => {
                         document.getElementById('leave-btn').style.display = 'block';
                     } catch (e) {
                         console.error(e);
-                        document.getElementById('room-status').innerText = "❌ " + e.name + ": " + e.message;
+                        document.getElementById('room-status').innerText = "❌ Error: " + (e.message || e);
                     }
                 }
 
                 async function toggleMic() {
-                    if (!localAudioTrack) return;
+                    if (!localStream) return;
                     isMuted = !isMuted;
-                    await localAudioTrack.setMuted(isMuted);
+                    
+                    // Enable/Disable audio tracks
+                    localStream.getAudioTracks()[0].enabled = !isMuted;
                     
                     const micBtn = document.getElementById('mic-btn');
                     if (isMuted) {
@@ -162,8 +146,9 @@ app.get('/', (req, res) => {
                 }
 
                 async function leaveVoiceRoom() {
-                    if (localAudioTrack) localAudioTrack.close();
-                    if (client) await client.leave();
+                    if (localStream) {
+                        localStream.getTracks().forEach(track => track.stop());
+                    }
                     isMuted = false;
                     document.getElementById('room-status').innerText = "🎙️ Voice Room: Ready";
                     document.getElementById('join-btn').style.display = 'block';
@@ -186,6 +171,6 @@ app.post('/api/login', (req, res) => {
         res.json({ success: false, message: "Invalid credentials!" });
     }
 });
-
-const PORT = process.env.PORT || 3000;
+cont PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
+
