@@ -1,41 +1,16 @@
-<style>
-    /* Dark Neon WePlay Theme CSS */
-    #room-screen {
-        display: none;
-        background: radial-gradient(circle at center, #2e1065 0%, #0f0728 100%);
-        border-radius: 20px;
-        padding: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        border: 1px solid rgba(168, 85, 247, 0.4);
-        margin-top: 5px;
-        position: relative;
-        overflow: hidden;
-    }
-    .room-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 12px; }
+<div class="seat-grid">
+    <div class="seat">
+        <div id="seat-1" class="seat-circle occupied">A</div>
+        <span id="seat-1-name" class="seat-name">admin</span>
+    </div>
+    <div class="seat" onclick="claimSeat(2)"><div id="seat-2" class="seat-circle">+</div><span id="seat-2-name" class="seat-name">Seat 2</span></div>
+    <div class="seat" onclick="claimSeat(3)"><div id="seat-3" class="seat-circle">+</div><span id="seat-3-name" class="seat-name">Seat 3</span></div>
+    <div class="seat" onclick="claimSeat(4)"><div id="seat-4" class="seat-circle">+</div><span id="seat-4-name" class="seat-name">Seat 4</span></div>
+    <div class="seat" onclick="claimSeat(5)"><div id="seat-5" class="seat-circle">+</div><span id="seat-5-name" class="seat-name">Seat 5</span></div>
+    <div class="seat" onclick="claimSeat(6)"><div id="seat-6" class="seat-circle">+</div><span id="seat-6-name" class="seat-name">Seat 6</span></div>
+    <div class="seat" onclick="claimSeat(7)"><div id="seat-7" class="seat-circle">+</div><span id="seat-7-name" class="seat-name">Seat 7</span></div>
+    <div class="seat" onclick="claimSeat(8)"><div id="seat-8" class="seat-circle">+</div><span id="seat-8-name" class="seat-name">Seat 8</span></div>
+    <div class="seat" onclick="claimSeat(9)"><div id="seat-9" class="seat-circle">+</div><span id="seat-9-name" class="seat-name">Seat 9</span></div>
+    <div class="seat" onclick="claimSeat(10)"><div id="seat-10" class="seat-circle">+</div><span id="seat-10-name" class="seat-name">Seat 10</span></div>
+</div>
     
-    /* Seat Grid - WePlay Style Layout */
-    .seat-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        text-align: center;
-        margin: 15px 0;
-    }
-    .seat { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
-    .seat-circle {
-        width: 50px; height: 50px; border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 2px dashed rgba(168, 85, 247, 0.5);
-        display: flex; align-items: center; justify-content: center;
-        font-size: 16px; color: #a855f7;
-        box-shadow: inset 0 0 10px rgba(168, 85, 247, 0.2);
-    }
-    .seat-circle.occupied {
-        background: linear-gradient(135deg, #a855f7, #ec4899);
-        border: 2px solid #34d399;
-        color: #fff;
-        box-shadow: 0 0 15px rgba(236, 72, 153, 0.6);
-    }
-    .seat-name { font-size: 10px; color: #e9d5ff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55px; }
-</style>
-            
