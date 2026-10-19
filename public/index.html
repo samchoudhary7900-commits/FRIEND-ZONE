@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Voice Lounge</title>
+    <style>
+        body {
+            background: #111827;
+            color: #fff;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+        /* 5 Seats WePlay VIP Layout (1 Upper Middle, 2 Left, 2 Right) */
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-areas:
+                ". seat1 seat1 ."
+                "seat2 seat3 seat4 seat5";
+            gap: 15px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .seat:nth-child(1) { grid-area: seat1; }
+        .seat:nth-child(2) { grid-area: seat2; }
+        .seat:nth-child(3) { grid-area: seat3; }
+        .seat:nth-child(4) { grid-area: seat4; }
+        .seat:nth-child(5) { grid-area: seat5; }
+
+        .seat-circle {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1f2937;
+            border: 2px dashed #4b5563;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .seat-circle.occupied {
+            background: #ec4899;
+            border: 2px solid #f472b6;
+        }
+        .seat-name {
+            font-size: 12px;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🎙️ VIP Voice Lounge</h2>
+        
+        <div class="seat-grid">
+            <div class="seat">
+                <div id="seat-1" class="seat-circle occupied">A</div>
+                <span id="seat-1-name" class="seat-name">admin</span>
+            </div>
+            <div class="seat">
+                <div id="seat-2" class="seat-circle">+</div>
+                <span id="seat-2-name" class="seat-name">Seat 2</span>
+            </div>
+            <div class="seat">
+                <div id="seat-3" class="seat-circle">+</div>
+                <span id="seat-3-name" class="seat-name">Seat 3</span>
+            </div>
+            <div class="seat">
+                <div id="seat-4" class="seat-circle">+</div>
+                <span id="seat-4-name" class="seat-name">Seat 4</span>
+            </div>
+            <div class="seat">
+                <div id="seat-5" class="seat-circle">+</div>
+                <span id="seat-5-name" class="seat-name">Seat 5</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
