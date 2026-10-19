@@ -28,19 +28,33 @@
         #homeScreen {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            gap: 20px;
+            height: 100%;
+            text-align: left;
         }
-        .home-card {
+        .home-banner {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            padding: 15px;
+            border-radius: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+        .room-card {
             background: #1f2937;
             border: 1px solid #374151;
-            padding: 25px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .room-card:hover {
+            background: #374151;
         }
 
         /* Room Screen (Initially Hidden) */
@@ -170,13 +184,42 @@
 
     <div class="container">
         
-        <!-- Home Screen -->
+        <!-- Home Screen with Room List -->
         <div id="homeScreen">
-            <h2>🎙️ VIP Voice Lounge</h2>
-            <div class="home-card">
-                <h3>Welcome Home!</h3>
-                <p style="font-size: 13px; color: #9ca3af; margin-bottom: 20px;">Click below to enter the live VIP Room.</p>
-                <button class="btn" style="width: 100%; border-radius: 12px;" onclick="goToRoom()">🏠 Home / Enter Room</button>
+            <h2 style="text-align: center; margin-bottom: 15px;">🎙️ VIP Voice Lounge</h2>
+            
+            <div class="home-banner">
+                <div>
+                    <h3 style="margin: 0; font-size: 15px;">🔥 Create Your Room</h3>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; opacity: 0.9;">Start your own VIP voice lounge</p>
+                </div>
+                <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="goToRoom('My VIP Lounge')">+ Go Live</button>
+            </div>
+
+            <h4 style="margin: 5px 0 10px 0; font-size: 13px; color: #9ca3af;">Trending Live Rooms</h4>
+
+            <div class="room-card" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
+                <div>
+                    <h4 style="margin: 0; font-size: 14px;">👑 Sam's Elite VIP Lounge</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Admin • 1/5 Seats Occupied</p>
+                </div>
+                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
+            </div>
+
+            <div class="room-card" onclick="goToRoom('Chill & Music Nights')">
+                <div>
+                    <h4 style="margin: 0; font-size: 14px;">🎵 Chill & Music Nights</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Rahul • 0/5 Seats</p>
+                </div>
+                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
+            </div>
+
+            <div class="room-card" onclick="goToRoom('Gaming & Fun Zone')">
+                <div>
+                    <h4 style="margin: 0; font-size: 14px;">🎮 Gaming & Fun Zone</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Priya • 2/5 Seats</p>
+                </div>
+                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
             </div>
         </div>
 
@@ -184,7 +227,7 @@
         <div id="roomScreen">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
-                <h3 style="margin: 0;">🎙️ VIP Voice Room</h3>
+                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ VIP Room</h3>
                 <div style="width: 50px;"></div>
             </div>
             
@@ -241,7 +284,8 @@
     <script>
         let currentUser = "User_" + Math.floor(Math.random() * 900 + 100);
 
-        function goToRoom() {
+        function goToRoom(roomName) {
+            document.getElementById('roomTitle').innerText = `🎙️ ${roomName}`;
             document.getElementById('homeScreen').style.display = 'none';
             document.getElementById('roomScreen').style.display = 'flex';
         }
