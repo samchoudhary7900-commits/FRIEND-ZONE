@@ -6,6 +6,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Disable caching so WebView always fetches the latest code
+app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+});
+
 const DUMMY_USER = {
     username: "admin",
     password: "password123"
@@ -16,7 +24,7 @@ app.get('/', (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Friend Zone</title>
+            <title>Friend Zone - V2</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
                 body {
@@ -76,7 +84,7 @@ app.get('/', (req, res) => {
                 <h2>Friend Zone</h2>
                 <h3 id="welcome-user">Welcome!</h3>
                 <div style="margin:20px 0; padding:10px; background:#e7f5ff; border-radius:8px;">
-                    <p id="room-status" style="font-size: 12px; word-break: break-all;">🎙️ Voice Room: Ready</p>
+                    <p id="room-status" style="font-size: 13px;">🎙️ Voice Room: Ready</p>
                     <button id="join-btn" class="voice-btn" onclick="joinVoiceRoom()">Join Voice Room</button>
                     <button id="mic-btn" class="mic-btn" style="display:none;" onclick="toggleMic()">Mute Mic</button>
                     <button id="leave-btn" class="leave-btn" style="display:none;" onclick="leaveVoiceRoom()">Leave Room</button>
@@ -113,7 +121,6 @@ app.get('/', (req, res) => {
                     try {
                         document.getElementById('room-status').innerText = "Requesting Mic Access...";
                         
-                        // Direct native browser microphone access for Android WebView
                         localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
                         document.getElementById('room-status').innerText = "🔊 Connected in Voice Room!";
@@ -122,15 +129,13 @@ app.get('/', (req, res) => {
                         document.getElementById('leave-btn').style.display = 'block';
                     } catch (e) {
                         console.error(e);
-                        document.getElementById('room-status').innerText = "❌ Error: " + (e.message || e);
+                        document.getElementById('room-status').innerText = "❌ Mic Error: " + (e.message || e);
                     }
                 }
 
                 async function toggleMic() {
                     if (!localStream) return;
                     isMuted = !isMuted;
-                    
-                    // Enable/Disable audio tracks
                     localStream.getAudioTracks()[0].enabled = !isMuted;
                     
                     const micBtn = document.getElementById('mic-btn');
@@ -171,6 +176,6 @@ app.post('/api/login', (req, res) => {
         res.json({ success: false, message: "Invalid credentials!" });
     }
 });
-cont PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Server running"));
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running"));
