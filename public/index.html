@@ -3,102 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Voice Lounge</title>
+    <title>VIP Voice Lounge - WePlay Style</title>
     <style>
         * { box-sizing: border-box; }
-        body { background: #111827; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 15px; margin: 0; }
-        .container { width: 100%; max-width: 400px; text-align: center; display: flex; flex-direction: column; min-height: 90vh; position: relative; }
+        body { background: #f3e8ff; color: #1f2937; font-family: sans-serif; display: flex; justify-content: center; padding: 10px; margin: 0; }
+        .container { width: 100%; max-width: 400px; text-align: center; display: flex; flex-direction: column; min-height: 92vh; position: relative; }
         .tab-view { display: none; flex-direction: column; padding-bottom: 70px; text-align: left; }
         .tab-view.active { display: flex; }
-        .profile-card { background: #1f2937; border: 1px solid #374151; border-radius: 14px; padding: 12px 15px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
-        .user-info { display: flex; align-items: center; gap: 10px; }
-        .avatar { width: 42px; height: 42px; border-radius: 50%; background: #ec4899; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 2px solid #f472b6; }
-        .user-details h4 { margin: 0; font-size: 14px; }
-        .user-details span { font-size: 11px; color: #f59e0b; font-weight: bold; }
-        .wallet-badge { background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #fbbf24; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-        .ludo-king-section { background: #1f2937; border: 1px solid #f59e0b; border-radius: 14px; padding: 15px; margin-bottom: 15px; text-align: center; }
-        .ludo-board-grid { width: 260px; height: 260px; margin: 10px auto; background: #374151; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); border: 3px solid #f59e0b; border-radius: 8px; }
-        .ludo-base { display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; }
-        .base-red { background: #ef4444; } .base-green { background: #10b981; } .base-yellow { background: #f59e0b; } .base-blue { background: #3b82f6; }
-        .ludo-center { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 14px; color: #fbbf24; }
-        .ludo-btn { background: #f59e0b; color: #111827; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 13px; }
-        .home-banner { background: linear-gradient(135deg, #8b5cf6, #ec4899); padding: 15px; border-radius: 14px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        .room-card { background: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; flex-direction: column; z-index: 50; padding: 15px; }
+
+        /* Top Header Bar */
+        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .user-profile-mini { display: flex; align-items: center; gap: 8px; }
+        .avatar-mini { width: 38px; height: 38px; border-radius: 50%; background: #ec4899; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; border: 2px solid #f472b6; }
+        .coin-pill { background: #fef08a; border: 1px solid #facc15; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        /* Quick Icons Row (WePlay Style) */
+        .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; text-align: center; }
+        .icon-card { background: #fff; border-radius: 12px; padding: 8px 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); cursor: pointer; }
+        .icon-card span { font-size: 20px; display: block; margin-bottom: 2px; }
+        .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #4b5563; }
+
+        /* Section Title */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 5px 0 10px 0; }
+        .section-header h3 { margin: 0; font-size: 16px; color: #374151; }
+
+        /* Game Banners (WePlay Grid/List Style) */
+        .game-banner-large { background: linear-gradient(135deg, #34d399, #059669); border-radius: 14px; padding: 14px; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(5,150,105,0.2); }
+        
+        .games-grid-weplay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .game-card-mini { background: #fff; border-radius: 12px; padding: 10px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #e5e7eb; transition: transform 0.2s; }
+        .game-card-mini:hover { transform: scale(1.02); }
+        .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
+        .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
+
+        /* Room Screen & Bottom Nav */
+        #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
         .seat-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-areas: "seat1 seat1" "seat2 seat3" "seat4 seat5"; gap: 15px; text-align: center; margin: 15px auto; max-width: 250px; }
         .seat:nth-child(1) { grid-area: seat1; } .seat:nth-child(2) { grid-area: seat2; } .seat:nth-child(3) { grid-area: seat3; } .seat:nth-child(4) { grid-area: seat4; } .seat:nth-child(5) { grid-area: seat5; }
-        .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; color:#fff; }
         .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
         .seat-name { font-size: 12px; color: #9ca3af; display: block; }
         .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 200px; }
         .chat-msg { font-size: 13px; background: rgba(255, 255, 255, 0.05); padding: 6px 10px; border-radius: 8px; }
-        .chat-msg .sender { color: #f472b6; font-weight: bold; }
-        .chat-msg.gift-msg { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; font-weight: bold; }
-        .chat-msg.game-msg { background: linear-gradient(90deg, #f59e0b, #ef4444); color: #fff; font-weight: bold; }
         .controls { display: flex; gap: 8px; margin-top: 10px; }
         .controls input { flex: 1; background: #1f2937; border: 1px solid #4b5563; border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px; }
         .btn { background: #ec4899; border: none; color: #fff; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        .gift-btn { background: #8b5cf6; } .game-btn { background: #f59e0b; }
-        .gift-menu { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #1f2937; border: 1px solid #4b5563; border-radius: 16px; padding: 12px; gap: 15px; z-index: 100; }
-        .gift-item { font-size: 26px; cursor: pointer; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #1f2937; border-top: 1px solid #374151; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #fff; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
         .nav-item { background: none; border: none; color: #9ca3af; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
         .nav-item span { font-size: 16px; } .nav-item.active { color: #ec4899; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Tab 1: Home Screen -->
+        <!-- Tab 1: WePlay Home Screen -->
         <div id="tab-home" class="tab-view active">
-            <h2 style="text-align: center; margin: 5px 0 15px 0;">🎙️ VIP Voice Lounge</h2>
             
-            <div class="profile-card">
-                <div class="user-info">
-                    <div class="avatar" id="userAvatar">A</div>
-                    <div class="user-details">
-                        <h4 id="userNameDisplay">Admin User</h4>
-                        <span>⭐ VIP Level 1</span>
-                    </div>
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="user-profile-mini">
+                    <div class="avatar-mini" id="userAvatar">A</div>
+                    <span id="userNameDisplay" style="font-weight: bold; font-size: 13px; color: #1f2937;">Admin</span>
                 </div>
-                <div class="wallet-badge">🪙 <span id="userCoins">1,000</span></div>
+                <div class="coin-pill">🪙 <span id="userCoins">1,250</span></div>
             </div>
 
-            <!-- Ludo King Styled Section -->
-            <div class="ludo-king-section">
-                <h4 style="margin: 0 0 5px 0; color: #f59e0b;">🎲 Ludo King Arena</h4>
-                <p id="ludoKingText" style="margin: 0; font-size: 11px; color: #9ca3af;">Roll dice & move your tokens!</p>
-                
-                <div class="ludo-board-grid">
-                    <div class="ludo-base base-red">🔴</div>
-                    <div class="ludo-center">
-                        <span id="ludoDiceDisplay" style="font-size: 22px;">🎲 ⚀</span>
-                    </div>
-                    <div class="ludo-base base-green">🟢</div>
-                    <div class="ludo-base" style="background:#111827;"></div>
-                    <div class="ludo-center" style="font-size: 10px; color:#9ca3af;">KING</div>
-                    <div class="ludo-base" style="background:#111827;"></div>
-                    <div class="ludo-base base-yellow">🟡</div>
-                    <div class="ludo-center">🏁</div>
-                    <div class="ludo-base base-blue">🔵</div>
+            <!-- Quick Icons Row -->
+            <div class="quick-icons-row">
+                <div class="icon-card" onclick="switchTab('tab-ranking', document.querySelectorAll('.nav-item')[2])">
+                    <span>👑</span>
+                    <p>Ranking</p>
                 </div>
-
-                <button class="ludo-btn" onclick="rollLudoKingDice()">Roll Dice 🎲</button>
+                <div class="icon-card" onclick="alert('Fan Cards feature coming soon!')">
+                    <span>🃏</span>
+                    <p>Fan Cards</p>
+                </div>
+                <div class="icon-card" onclick="switchTab('tab-messages', document.querySelectorAll('.nav-item')[1])">
+                    <span>💬</span>
+                    <p>Tips</p>
+                </div>
+                <div class="icon-card" onclick="alert('Online Friends list open!')">
+                    <span>👥</span>
+                    <p>Friends</p>
+                </div>
             </div>
 
-            <div class="home-banner">
+            <div class="section-header">
+                <h3>Games & Rooms</h3>
+                <span style="font-size: 12px; color: #6b7280; cursor: pointer;" onclick="goToRoom('Global Game Lounge')">Game Rooms →</span>
+            </div>
+
+            <!-- Featured Large Banner -->
+            <div class="game-banner-large" onclick="goToRoom('Ludo King Arena Room')">
                 <div>
-                    <h3 style="margin: 0; font-size: 15px;">🔥 Create Your Room</h3>
-                    <p style="margin: 3px 0 0 0; font-size: 11px; opacity: 0.9;">Start your VIP voice lounge</p>
+                    <h3 style="margin: 0; font-size: 16px;">🎲 Ludo King Arena</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Play live with friends & voice chat</p>
                 </div>
-                <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="goToRoom('My VIP Lounge')">+ Go Live</button>
+                <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
 
-            <h4 style="margin: 5px 0 10px 0; font-size: 13px; color: #9ca3af;">Trending Live Rooms</h4>
-            
-            <div class="room-card" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
+            <!-- WePlay Mini Games Grid -->
+            <div class="games-grid-weplay">
+                <div class="game-card-mini" onclick="goToRoom('Food Rush Party')">
+                    <span style="font-size: 22px;">🍔</span>
+                    <h4>Food Rush</h4>
+                    <p>Fast fun party game</p>
+                </div>
+                <div class="game-card-mini" onclick="goToRoom('Prank Simulator')">
+                    <span style="font-size: 22px;">🐵</span>
+                    <h4>Prank Sim</h4>
+                    <p>Laugh & prank friends</p>
+                </div>
+                <div class="game-card-mini" onclick="goToRoom('Trickster Cafe')">
+                    <span style="font-size: 22px;">☕</span>
+                    <h4>Trickster Cafe</h4>
+                    <p>Deduction & chat</p>
+                </div>
+                <div class="game-card-mini" onclick="goToRoom('Space Werewolf')">
+                    <span style="font-size: 22px;">🐺</span>
+                    <h4>Space Wolf</h4>
+                    <p>Mystery & deduction</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h3>Live Voice Lounges</h3>
+            </div>
+
+            <div class="room-card" style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; cursor:pointer;" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
                 <div>
-                    <h4 style="margin: 0; font-size: 14px;">👑 Sam's Elite VIP Lounge</h4>
-                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Admin • 1/5 Seats</p>
+                    <h4 style="margin:0; font-size:14px; color:#111827;">👑 Sam's Elite VIP Lounge</h4>
+                    <p style="margin:3px 0 0 0; font-size:11px; color:#6b7280;">Host: Admin • 1/5 Seats Occupied</p>
                 </div>
                 <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
             </div>
@@ -106,35 +140,33 @@
 
         <!-- Tab 2: Messages -->
         <div id="tab-messages" class="tab-view">
-            <h3 style="margin: 5px 0 15px 0;">💬 Messages</h3>
-            <div class="room-card">
-                <div>
-                    <h4 style="margin: 0; font-size: 13px;">System Notifications</h4>
-                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Welcome to VIP Voice Lounge platform!</p>
-                </div>
+            <h3 style="margin: 5px 0 15px 0; color:#111827;">💬 Messages</h3>
+            <div style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb;">
+                <h4 style="margin: 0; font-size: 13px; color:#111827;">System Notifications</h4>
+                <p style="margin: 3px 0 0 0; font-size: 11px; color: #6b7280;">Welcome to WePlay style VIP Voice Lounge!</p>
             </div>
         </div>
 
         <!-- Tab 3: Ranking -->
         <div id="tab-ranking" class="tab-view">
-            <h3 style="margin: 5px 0 15px 0;">🏆 Top Gifters Ranking</h3>
-            <div class="room-card">
-                <span style="font-weight: bold; color: #f59e0b;">1. 👑 KingRahul</span>
-                <span style="font-size: 12px; color: #ec4899; font-weight: bold;">💎 50,000 Coins</span>
+            <h3 style="margin: 5px 0 15px 0; color:#111827;">🏆 Top Gifters Ranking</h3>
+            <div style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb; display:flex; justify-content:space-between;">
+                <span style="font-weight: bold; color: #d97706;">1. 👑 KingRahul</span>
+                <span style="font-size: 12px; color: #ec4899; font-weight: bold;">💎 50,000</span>
             </div>
         </div>
 
         <!-- Tab 4: Profile -->
         <div id="tab-profile" class="tab-view" style="align-items: center; text-align: center;">
-            <div class="avatar" style="width: 70px; height: 70px; font-size: 28px; margin-bottom: 10px;" id="profileAvatarBig">A</div>
-            <h3 style="margin: 0; font-size: 18px;" id="profileNameBig">Admin User</h3>
-            <p style="color: #9ca3af; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
+            <div class="avatar-mini" style="width: 70px; height: 70px; font-size: 28px; margin-bottom: 10px;" id="profileAvatarBig">A</div>
+            <h3 style="margin: 0; font-size: 18px; color:#111827;" id="profileNameBig">Admin User</h3>
+            <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
-        <!-- Room Screen Overlay -->
+                <!-- Room Screen Overlay -->
         <div id="roomScreen">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
-                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ VIP Room</h3>
+                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ Game & Voice Room</h3>
                 <div style="width: 50px;"></div>
             </div>
             
@@ -147,19 +179,10 @@
             </div>
 
             <div class="chat-box" id="chatBox">
-                <div class="chat-msg"><span class="sender">System:</span> Welcome to VIP Room! 🎉</div>
-            </div>
-
-            <div class="gift-menu" id="giftMenu">
-                <span class="gift-item" onclick="sendGift('🌹 Rose')">🌹</span>
-                <span class="gift-item" onclick="sendGift('👑 Crown')">👑</span>
-                <span class="gift-item" onclick="sendGift('🚀 Rocket')">🚀</span>
-                <span class="gift-item" onclick="sendGift('🔥 Fire')">🔥</span>
+                <div class="chat-msg"><span style="color:#f472b6; font-weight:bold;">System:</span> Welcome to game room! 🎉</div>
             </div>
 
             <div class="controls">
-                <button class="btn gift-btn" onclick="toggleGiftMenu()">🎁</button>
-                <button class="btn game-btn" onclick="rollDice()">🎲</button>
                 <input type="text" id="msgInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMsg()">
                 <button class="btn" onclick="sendMsg()">Send</button>
             </div>
@@ -185,14 +208,7 @@
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            btnElement.classList.add('active');
-        }
-
-        function rollLudoKingDice() {
-            let diceNum = Math.floor(Math.random() * 6) + 1;
-            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            document.getElementById('ludoDiceDisplay').innerText = `🎲 ${diceFaces[diceNum - 1]}`;
-            document.getElementById('ludoKingText').innerText = `Rolled a ${diceNum}! Token advanced forward.`;
+            if(btnElement) btnElement.classList.add('active');
         }
 
         function goToRoom(roomName) {
@@ -208,43 +224,14 @@
             let input = document.getElementById('msgInput');
             let msg = input.value.trim();
             if(!msg) return;
-            addChatMessage(currentUser, msg, false);
+
+            let chatBox = document.getElementById('chatBox');
+            let div = document.createElement('div');
+            div.className = 'chat-msg';
+            div.innerHTML = `<span style="color:#f472b6; font-weight:bold;">${currentUser}:</span> ${msg}`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
             input.value = '';
-        }
-
-        function toggleGiftMenu() {
-            let menu = document.getElementById('giftMenu');
-            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function sendGift(giftName) {
-            toggleGiftMenu();
-            addChatMessage(currentUser, `sent ${giftName} to Admin! ✨`, true);
-        }
-
-        function rollDice() {
-            let diceNum = Math.floor(Math.random() * 6) + 1;
-            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            let face = diceFaces[diceNum - 1];
-            let chatBox = document.getElementById('chatBox');
-            let div = document.createElement('div');
-            div.className = 'chat-msg game-msg';
-            div.innerHTML = `🎲 <b>${currentUser}</b> rolled a dice and got <b>${diceNum}</b> ${face}!`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function addChatMessage(sender, text, isGift) {
-            let chatBox = document.getElementById('chatBox');
-            let div = document.createElement('div');
-            div.className = 'chat-msg' + (isGift ? ' gift-msg' : '');
-            if(isGift) {
-                div.innerHTML = `🎁 <b>${sender}</b> ${text}`;
-            } else {
-                div.innerHTML = `<span class="sender">${sender}:</span> ${text}`;
-            }
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function claimSeat(seatNum) {
@@ -254,10 +241,8 @@
                 seat.classList.add('occupied');
                 seat.innerText = currentUser.charAt(0);
                 name.innerText = currentUser;
-                addChatMessage("System", `${currentUser} took Seat ${seatNum}`, false);
             }
         }
     </script>
 </body>
-                    </html>
-                    
+</html>
