@@ -24,62 +24,67 @@ app.get('/', (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Friend Zone - WePlay Style</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Friend Zone - Modern UI</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
             <style>
+                * {
+                    box-sizing: border-box;
+                }
                 body {
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    background: linear-gradient(135deg, #fbcfe8, #c084fc, #93c5fd);
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                    background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
                     background-attachment: fixed;
                     margin: 0;
-                    padding: 10px;
-                    color: #333;
+                    padding: 12px;
+                    color: #fff;
+                    min-height: 100vh;
                 }
                 .container {
                     max-width: 420px;
                     margin: 0 auto;
-                    padding-bottom: 40px;
+                    padding-bottom: 30px;
                 }
+
                 /* Login Card */
                 .login-card {
-                    background: white;
-                    padding: 30px;
-                    border-radius: 20px;
-                    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+                    background: #ffffff;
+                    padding: 30px 20px;
+                    border-radius: 24px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
                     text-align: center;
-                    margin-top: 40vh;
+                    margin-top: 35vh;
                     transform: translateY(-50%);
+                    color: #1f2937;
                 }
-                .login-card h2 { color: #8b5cf6; margin-bottom: 20px; }
+                .login-card h2 { color: #8b5cf6; margin-bottom: 20px; font-size: 24px; }
                 .login-card input {
                     width: 100%;
-                    padding: 12px;
+                    padding: 14px;
                     margin: 8px 0;
-                    box-sizing: border-box;
-                    border: 1px solid #ddd;
-                    border-radius: 10px;
+                    border: 1.5px solid #e5e7eb;
+                    border-radius: 12px;
                     outline: none;
+                    font-size: 15px;
                 }
                 .login-card button {
                     width: 100%;
-                    padding: 12px;
+                    padding: 14px;
                     background: linear-gradient(135deg, #a855f7, #ec4899);
                     color: white;
                     border: none;
-                    border-radius: 10px;
+                    border-radius: 12px;
                     font-size: 16px;
                     font-weight: bold;
                     cursor: pointer;
-                    margin-top: 10px;
+                    margin-top: 12px;
                 }
 
-                /* WePlay Dashboard Header */
+                /* Header Styling */
                 .header {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 10px 5px;
-                    margin-bottom: 15px;
+                    padding: 8px 0 16px 0;
                 }
                 .user-profile {
                     display: flex;
@@ -87,67 +92,86 @@ app.get('/', (req, res) => {
                     gap: 10px;
                 }
                 .avatar {
-                    width: 45px;
-                    height: 45px;
-                    background: #8b5cf6;
+                    width: 44px;
+                    height: 44px;
+                    background: rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(8px);
                     color: white;
+                    border: 2px solid rgba(255, 255, 255, 0.4);
                     border-radius: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     font-weight: bold;
                     font-size: 18px;
-                    box-shadow: 0 4px 10px rgba(139,92,246,0.3);
+                }
+                .user-info {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .username-text {
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                }
+                .status-text {
+                    font-size: 11px;
+                    color: #e9d5ff;
+                    font-weight: 500;
                 }
                 .coins-badge {
-                    background: rgba(255, 255, 255, 0.8);
-                    padding: 6px 12px;
+                    background: rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.4);
+                    padding: 6px 14px;
                     border-radius: 20px;
-                    font-weight: bold;
-                    font-size: 14px;
-                    color: #d97706;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+                    font-weight: 700;
+                    font-size: 13px;
+                    color: #ffffff;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 }
 
-                /* App Title Banner */
+                /* App Banner */
                 .app-banner {
                     text-align: center;
                     margin-bottom: 20px;
                 }
                 .app-banner h1 {
                     margin: 0;
-                    color: #fff;
-                    font-size: 28px;
-                    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    color: #ffffff;
+                    font-size: 26px;
+                    font-weight: 800;
+                    letter-spacing: -0.5px;
+                    text-shadow: 0 2px 6px rgba(0,0,0,0.2);
                 }
                 .app-banner p {
-                    margin: 5px 0 0 0;
+                    margin: 4px 0 0 0;
                     color: #f3e8ff;
                     font-size: 13px;
+                    opacity: 0.9;
                 }
 
-                /* Section Title */
+                /* Section Label */
                 .section-title {
-                    font-size: 18px;
-                    font-weight: bold;
-                    color: #fff;
-                    margin-bottom: 12px;
-                    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: #ffffff;
+                    margin: 16px 0 10px 0;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
                 }
 
-                /* Featured Banner Card */
+                /* Featured Card */
                 .featured-card {
                     background: linear-gradient(135deg, #10b981, #059669);
-                    border-radius: 16px;
-                    padding: 18px;
+                    border-radius: 20px;
+                    padding: 16px;
                     color: white;
-                    margin-bottom: 15px;
-                    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
                     cursor: pointer;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    transition: transform 0.2s;
                 }
                 .featured-card:active { transform: scale(0.98); }
 
@@ -156,61 +180,64 @@ app.get('/', (req, res) => {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
                     gap: 12px;
-                    margin-bottom: 20px;
                 }
                 .game-card {
-                    border-radius: 16px;
-                    padding: 15px;
+                    border-radius: 20px;
+                    padding: 16px;
                     color: white;
                     cursor: pointer;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    min-height: 80px;
-                    position: relative;
-                    overflow: hidden;
-                    transition: transform 0.2s;
+                    min-height: 95px;
                 }
                 .game-card:active { transform: scale(0.96); }
-                .card-1 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+                .card-1 { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
                 .card-2 { background: linear-gradient(135deg, #ec4899, #be185d); }
                 .card-3 { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
                 .card-4 { background: linear-gradient(135deg, #f59e0b, #d97706); }
                 .card-5 { background: linear-gradient(135deg, #06b6d4, #0891b2); }
                 .card-6 { background: linear-gradient(135deg, #10b981, #047857); }
 
-                .game-card h3 { margin: 0; font-size: 15px; }
-                .game-card span { font-size: 11px; opacity: 0.9; }
+                .game-card h3 { margin: 0; font-size: 15px; font-weight: 700; }
+                .game-card span { font-size: 11px; opacity: 0.85; }
 
-                /* Active Voice Room Overlay / Drawer */
+                /* Voice Room Drawer */
                 #room-drawer {
                     display: none;
-                    background: white;
-                    border-radius: 20px;
+                    background: #ffffff;
+                    border-radius: 24px;
                     padding: 20px;
-                    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
                     text-align: center;
-                    margin-top: 15px;
-                    animation: fadeIn 0.3s ease-in-out;
+                    margin-top: 18px;
+                    color: #1f2937;
+                    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 }
                 .control-btn {
                     width: 100%;
-                    padding: 12px;
+                    padding: 13px;
                     border: none;
-                    border-radius: 10px;
+                    border-radius: 14px;
                     font-size: 15px;
-                    font-weight: bold;
+                    font-weight: 700;
                     color: white;
                     cursor: pointer;
                     margin-top: 10px;
                 }
                 .mute-btn { background: #f59e0b; }
                 .leave-btn { background: #ef4444; }
-                .logout-btn { background: #9ca3af; margin-top: 15px; }
+                .logout-btn {
+                    background: rgba(255, 255, 255, 0.2);
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    margin-top: 20px;
+                }
 
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(10px); }
+                @keyframes slideUp {
+                    from { opacity: 0; transform: translateY(20px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
             </style>
@@ -223,17 +250,17 @@ app.get('/', (req, res) => {
                     <input type="text" id="username" placeholder="Username (admin)">
                     <input type="password" id="password" placeholder="Password (password123)">
                     <button onclick="handleLogin()">Login</button>
-                    <div id="message" style="margin-top:10px; color:red; font-size:13px;"></div>
+                    <div id="message" style="margin-top:10px; color:#ef4444; font-size:13px;"></div>
                 </div>
 
-                <!-- WePlay Dashboard View -->
+                <!-- Dashboard View -->
                 <div id="dashboard-box" style="display:none;">
                     <div class="header">
                         <div class="user-profile">
                             <div id="user-avatar" class="avatar">A</div>
-                            <div>
-                                <h3 id="welcome-user" style="margin:0; color:#fff; font-size:15px;">admin</h3>
-                                <span style="font-size:11px; color:#f3e8ff;">Online</span>
+                            <div class="user-info">
+                                <span id="welcome-user" class="username-text">admin</span>
+                                <span class="status-text">🟢 Online</span>
                             </div>
                         </div>
                         <div class="coins-badge">🪙 1,500</div>
@@ -241,16 +268,16 @@ app.get('/', (req, res) => {
 
                     <div class="app-banner">
                         <h1>Friend Zone</h1>
-                        <p>Explore voice rooms & fun games</p>
+                        <p>Explore voice rooms & play games</p>
                     </div>
 
                     <div class="section-title">Featured Room</div>
                     <div class="featured-card" onclick="joinVoiceRoom('VIP Voice Lounge')">
                         <div>
-                            <h3 style="margin:0; font-size:16px;">🎙️ VIP Voice Lounge</h3>
+                            <h3 style="margin:0; font-size:16px; font-weight:700;">🎙️ VIP Voice Lounge</h3>
                             <span style="font-size:12px; opacity:0.9;">Tap to join audio chat & party</span>
                         </div>
-                        <div style="background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:10px; font-size:12px; font-weight:bold;">Join</div>
+                        <div style="background:rgba(255,255,255,0.25); padding:6px 14px; border-radius:12px; font-size:12px; font-weight:700;">Join</div>
                     </div>
 
                     <div class="section-title">Game Rooms</div>
@@ -281,10 +308,10 @@ app.get('/', (req, res) => {
                         </div>
                     </div>
 
-                    <!-- Voice Room Connected Drawer -->
+                    <!-- Voice Control Overlay -->
                     <div id="room-drawer">
-                        <h3 id="active-room-name" style="margin:0 0 5px 0; color:#8b5cf6;">🎙️ Connected</h3>
-                        <p id="room-status" style="font-size: 13px; color:#4b5563; margin-bottom:15px;">Microphone Active</p>
+                        <h3 id="active-room-name" style="margin:0 0 6px 0; color:#8b5cf6; font-size:18px;">🎙️ Connected</h3>
+                        <p id="room-status" style="font-size:13px; color:#6b7280; margin:0 0 14px 0;">Microphone Active</p>
                         <button id="mic-btn" class="control-btn mute-btn" onclick="toggleMic()">Mute Mic</button>
                         <button class="control-btn leave-btn" onclick="leaveVoiceRoom()">Leave Room</button>
                     </div>
@@ -375,6 +402,8 @@ app.post('/api/login', (req, res) => {
         res.json({ success: false, message: "Invalid credentials!" });
     }
 });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Server running"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
