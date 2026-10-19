@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
                 <h2>Friend Zone</h2>
                 <h3 id="welcome-user">Welcome!</h3>
                 <div style="margin:20px 0; padding:10px; background:#e7f5ff; border-radius:8px;">
-                    <p id="room-status">🎙️ Voice Room: Ready</p>
+                    <p id="room-status" style="font-size: 12px; word-break: break-all;">🎙️ Voice Room: Ready</p>
                     <button id="join-btn" class="voice-btn" onclick="joinVoiceRoom()">Join Voice Room</button>
                     <button id="mic-btn" class="mic-btn" style="display:none;" onclick="toggleMic()">Mute Mic</button>
                     <button id="leave-btn" class="leave-btn" style="display:none;" onclick="leaveVoiceRoom()">Leave Room</button>
@@ -112,8 +112,12 @@ app.get('/', (req, res) => {
 
                 async function joinVoiceRoom() {
                     try {
-                        document.getElementById('room-status').innerText = "Connecting Voice Stream...";
+                        document.getElementById('room-status').innerText = "Asking browser mic...";
                         
+                        // Force browser permission request first
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        
+                        document.getElementById('room-status').innerText = "Connecting Agora...";
                         client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
                         
                         client.on("user-published", async (user, mediaType) => {
@@ -123,8 +127,7 @@ app.get('/', (req, res) => {
 
                         await client.join("00000000000000000000000000000000", "friendzone_room", null, null);
                         
-                        // Direct Agora Microphone Audio Track Creation
-                        localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                        localAudioTrack = AgoraRTC.createCustomAudioTrack({ mediaStreamTrack: stream.getAudioTracks()[0] });
                         await client.publish([localAudioTrack]);
 
                         document.getElementById('room-status').innerText = "🔊 Connected in Voice Room!";
@@ -133,7 +136,8 @@ app.get('/', (req, res) => {
                         document.getElementById('leave-btn').style.display = 'block';
                     } catch (e) {
                         console.error(e);
-                        document.getElementById('room-status').innerText = "❌ Enable Mic Permission in Phone Settings";
+                        // Show exact JS error name and message
+                        document.getElementById('room-status').innerText = "❌ " + e.name + ": " + e.message;
                     }
                 }
 
