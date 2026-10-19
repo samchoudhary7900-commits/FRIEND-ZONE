@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Friend Zone - Voice Room</title>
+            <title>Friend Zone - VIP Lounge</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
                 * { box-sizing: border-box; }
@@ -31,58 +31,71 @@ app.get('/', (req, res) => {
                     font-family: sans-serif;
                     background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6);
                     background-attachment: fixed;
-                    margin: 0; padding: 12px; color: #fff; min-height: 100vh;
+                    margin: 0; padding: 10px; color: #fff; min-height: 100vh;
                 }
-                .container { max-width: 420px; margin: 0 auto; padding-bottom: 30px; }
+                .container { max-width: 420px; margin: 0 auto; padding-bottom: 20px; }
                 .card {
-                    background: #ffffff; padding: 30px 20px; border-radius: 24px;
+                    background: #ffffff; padding: 25px 20px; border-radius: 20px;
                     color: #1f2937; margin-top: 35vh; transform: translateY(-50%);
                     box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center;
                 }
-                input { width: 100%; padding: 14px; margin: 8px 0; border: 1.5px solid #e5e7eb; border-radius: 12px; outline: none; }
+                input { width: 100%; padding: 12px; margin: 8px 0; border: 1.5px solid #e5e7eb; border-radius: 10px; outline: none; }
                 button {
-                    width: 100%; padding: 14px; background: linear-gradient(135deg, #a855f7, #ec4899); color: white;
-                    border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 12px; font-size: 16px;
+                    width: 100%; padding: 12px; background: linear-gradient(135deg, #a855f7, #ec4899); color: white;
+                    border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 15px;
                 }
-                .header { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 16px 0; }
-                .avatar { width: 44px; height: 44px; background: rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; }
-                .coins-badge { background: rgba(255,255,255,0.25); padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; }
-                .section-title { font-size: 16px; font-weight: 700; margin: 16px 0 10px 0; }
+                .header { display: flex; justify-content: space-between; align-items: center; padding: 6px 0 12px 0; }
+                .avatar { width: 40px; height: 40px; background: rgba(255,255,255,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; }
+                .coins-badge { background: rgba(255,255,255,0.25); padding: 5px 12px; border-radius: 20px; font-weight: 700; font-size: 12px; }
+                .section-title { font-size: 15px; font-weight: 700; margin: 12px 0 8px 0; }
                 .featured-card {
                     background: linear-gradient(135deg, #10b981, #059669);
-                    border-radius: 20px; padding: 16px; color: white; cursor: pointer;
+                    border-radius: 16px; padding: 14px; color: white; cursor: pointer;
                     display: flex; justify-content: space-between; align-items: center;
-                    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+                    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
                 }
-                .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+                .game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
                 .game-card {
-                    border-radius: 20px; padding: 16px; color: white; cursor: pointer;
-                    box-shadow: 0 6px 16px rgba(0,0,0,0.15); min-height: 95px;
+                    border-radius: 16px; padding: 14px; color: white; cursor: pointer;
+                    box-shadow: 0 5px 12px rgba(0,0,0,0.15); min-height: 85px;
                     display: flex; flex-direction: column; justify-content: space-between;
                 }
                 .c1 { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
                 .c2 { background: linear-gradient(135deg, #ec4899, #be185d); }
-                .game-card h3 { margin: 0; font-size: 15px; font-weight: 700; }
-                .game-card span { font-size: 11px; opacity: 0.85; }
-                .logout-btn { width: 100%; padding: 12px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 12px; margin-top: 20px; font-weight: bold; cursor: pointer; }
+                .game-card h3 { margin: 0; font-size: 14px; font-weight: 700; }
+                .game-card span { font-size: 10px; opacity: 0.85; }
+                .logout-btn { width: 100%; padding: 10px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer; }
 
                 /* Room Active Screen */
                 #room-screen {
-                    display: none; background: #1e1b4b; border-radius: 24px; padding: 20px;
-                    box-shadow: 0 15px 35px rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.15); margin-top: 10px;
+                    display: none; background: #1e1b4b; border-radius: 20px; padding: 15px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.15); margin-top: 5px;
                 }
-                .room-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px; }
-                .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center; margin: 20px 0; }
-                .seat { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+                .room-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 10px; }
+                .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin: 10px 0; }
+                .seat { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
                 .seat-circle {
-                    width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.1);
+                    width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1);
                     border: 2px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;
-                    font-size: 20px; font-weight: bold; color: #fff;
+                    font-size: 16px; font-weight: bold; color: #fff;
                 }
                 .seat-circle.occupied { background: linear-gradient(135deg, #8b5cf6, #ec4899); border: 2px solid #34d399; }
-                .seat-name { font-size: 12px; color: #d8b4fe; }
-                .room-controls { display: flex; gap: 10px; margin-top: 20px; }
-                .control-btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; color: white; cursor: pointer; text-align: center; }
+                .seat-name { font-size: 10px; color: #d8b4fe; }
+
+                .gift-bar { display: flex; justify-content: space-around; background: rgba(255,255,255,0.1); padding: 6px; border-radius: 10px; margin-bottom: 8px; }
+                .gift-btn { background: none; border: none; font-size: 16px; cursor: pointer; }
+
+                .room-chat {
+                    background: rgba(0,0,0,0.3); border-radius: 10px; padding: 8px;
+                    height: 95px; overflow-y: auto; font-size: 11px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px;
+                }
+                .chat-msg { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px; }
+                .chat-input-row { display: flex; gap: 6px; }
+                .chat-input-row input { flex: 1; padding: 8px; border-radius: 8px; border: none; outline: none; background: rgba(255,255,255,0.2); color: #fff; font-size: 11px; margin: 0; }
+                .chat-input-row button { padding: 8px 12px; border-radius: 8px; border: none; background: #8b5cf6; color: #fff; font-weight: bold; cursor: pointer; margin: 0; font-size: 11px; width: auto; }
+
+                .room-controls { display: flex; gap: 8px; margin-top: 10px; }
+                .control-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; font-size: 12px; font-weight: 700; color: white; cursor: pointer; text-align: center; }
                 .mute-btn { background: #f59e0b; }
                 .leave-btn { background: #ef4444; }
             </style>
@@ -102,23 +115,23 @@ app.get('/', (req, res) => {
                 <div id="dashboard-box" style="display:none;">
                     <div id="main-lobby">
                         <div class="header">
-                            <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
                                 <div id="user-avatar" class="avatar">A</div>
                                 <div>
-                                    <div id="user-display" style="font-weight:700; font-size:16px;">admin</div>
-                                    <div style="font-size:11px; color:#e9d5ff;">🟢 Online</div>
+                                    <div id="user-display" style="font-weight:700; font-size:15px;">admin</div>
+                                    <div style="font-size:10px; color:#e9d5ff;">🟢 Online</div>
                                 </div>
                             </div>
-                            <div class="coins-badge">🪙 1,500</div>
+                            <div class="coins-badge">🪙 <span id="coin-count">1,500</span></div>
                         </div>
 
                         <div class="section-title">Featured Room</div>
                         <div class="featured-card" onclick="joinVoiceRoom('VIP Voice Lounge')">
                             <div>
-                                <h3 style="margin:0; font-size:16px;">🎙️ VIP Voice Lounge</h3>
-                                <span style="font-size:12px; opacity:0.9;">Tap to join audio chat</span>
+                                <h3 style="margin:0; font-size:15px;">🎙️ VIP Voice Lounge</h3>
+                                <span style="font-size:11px; opacity:0.9;">Tap to join audio chat</span>
                             </div>
-                            <div style="background:rgba(255,255,255,0.25); padding:6px 14px; border-radius:12px; font-size:12px; font-weight:700;">Join</div>
+                            <div style="background:rgba(255,255,255,0.25); padding:5px 12px; border-radius:10px; font-size:11px; font-weight:700;">Join</div>
                         </div>
 
                         <div class="section-title">Game Rooms</div>
@@ -139,10 +152,10 @@ app.get('/', (req, res) => {
                     <div id="room-screen">
                         <div class="room-header">
                             <div>
-                                <h3 id="active-room-name" style="margin:0; font-size:16px; color:#f3e8ff;">🎙️ Room</h3>
-                                <span id="room-status" style="font-size:11px; color:#34d399;">🟢 Connected</span>
+                                <h3 id="active-room-name" style="margin:0; font-size:14px; color:#f3e8ff;">🎙️ Room</h3>
+                                <span id="room-status" style="font-size:10px; color:#34d399;">🟢 Connected</span>
                             </div>
-                            <span style="background:rgba(255,255,255,0.15); padding:4px 10px; border-radius:10px; font-size:12px;">👥 Live</span>
+                            <span style="background:rgba(255,255,255,0.15); padding:3px 8px; border-radius:6px; font-size:10px;">👥 Live</span>
                         </div>
 
                         <!-- Speaker Seats -->
@@ -161,10 +174,27 @@ app.get('/', (req, res) => {
                             </div>
                         </div>
 
+                        <!-- Gift Toolbar -->
+                        <div class="gift-bar">
+                            <button class="gift-btn" onclick="sendGift('🌹 Rose (50)', 50)">🌹</button>
+                            <button class="gift-btn" onclick="sendGift('💖 Heart (100)', 100)">💖</button>
+                            <button class="gift-btn" onclick="sendGift('⭐ Star (200)', 200)">⭐</button>
+                            <button class="gift-btn" onclick="sendGift('🚀 Rocket (500)', 500)">🚀</button>
+                        </div>
+
+                        <!-- Chat Box -->
+                        <div id="chat-container" class="room-chat">
+                            <div class="chat-msg"><b>System:</b> Welcome to the Voice Room chat! 👋</div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="chat-input" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendChatMessage()">Send</button>
+                        </div>
+
                         <!-- Controls -->
                         <div class="room-controls">
                             <button id="mic-btn" class="control-btn mute-btn" onclick="toggleMic()">Mute Mic</button>
-                            <button class="control-btn leave-btn" onclick="leaveVoiceRoom()">Leave Room</button>
+                            <button class="control-btn leave-btn" onclick="leaveVoiceRoom()">Leave</button>
                         </div>
                     </div>
                 </div>
@@ -172,6 +202,7 @@ app.get('/', (req, res) => {
 
             <script>
                 let currentUsername = "admin";
+                let userCoins = 1500;
                 let localStream;
                 let isMuted = false;
 
@@ -223,7 +254,41 @@ app.get('/', (req, res) => {
                         seatCircle.classList.add('occupied');
                         seatCircle.innerText = currentUsername.charAt(0).toUpperCase();
                         seatName.innerText = currentUsername + " (Seat " + seatNum + ")";
+                        
+                        const chatContainer = document.getElementById('chat-container');
+                        chatContainer.innerHTML += '<div class="chat-msg"><b>System:</b> ' + currentUsername + ' took Seat ' + seatNum + ' 💺</div>';
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
                     }
+                }
+
+                function sendGift(giftName, cost) {
+                    if (userCoins < cost) {
+                        alert("Not enough coins!");
+                        return;
+                    }
+                    userCoins -= cost;
+                    document.getElementById('coin-count').innerText = userCoins.toLocaleString();
+
+                    const chatContainer = document.getElementById('chat-container');
+                    chatContainer.innerHTML += '<div class="chat-msg" style="color:#fde047;"><b>🎁 Gift:</b> ' + currentUsername + ' sent ' + giftName + '!</div>';
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+
+                function handleKeyPress(e) {
+                    if (e.key === 'Enter') {
+                        sendChatMessage();
+                    }
+                }
+
+                function sendChatMessage() {
+                    const input = document.getElementById('chat-input');
+                    const text = input.value.trim();
+                    if (!text) return;
+
+                    const chatContainer = document.getElementById('chat-container');
+                    chatContainer.innerHTML += '<div class="chat-msg"><b>' + currentUsername + ':</b> ' + text + '</div>';
+                    input.value = '';
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
                 }
 
                 async function toggleMic() {
