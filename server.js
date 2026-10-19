@@ -31,4 +31,12 @@ app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
     if (username && password) {
         res.json({ success: true, message: "Login successful!", user: { username } });
-    
+    } else {
+        res.json({ success: false, message: "Invalid Username or Password!" });
+    }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});
