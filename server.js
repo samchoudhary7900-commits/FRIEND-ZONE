@@ -395,7 +395,7 @@ app.get('/', (req, res) => {
                     const chatContainer = document.getElementById('chat-container');
                     chatContainer.innerHTML += `<div class="chat-msg"><b>${currentUsername}:</b>${text}</div>`;
                     input.value = '';
-                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                      chatContainer.scrollTop = chatContainer.scrollHeight;
                 }
 
                 async function leaveVoiceRoom() {
@@ -426,3 +426,4 @@ app.post('/api/login', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running"));
+     
