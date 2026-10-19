@@ -235,3 +235,201 @@
         .nav-item.active { color: #ec4899; font-weight: bold; }
     </style>
 </head>
+    <body>
+    <div class="container">
+        <div id="tab-home" class="tab-view active">
+            <h2 style="text-align: center; margin: 5px 0 15px 0;">🎙️ VIP Voice Lounge</h2>
+            <div class="profile-card">
+                <div class="user-info">
+                    <div class="avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <h4 id="userNameDisplay">Admin User</h4>
+                        <span>⭐ VIP Level 1</span>
+                    </div>
+                </div>
+                <div class="wallet-badge">🪙 <span id="userCoins">1,000</span></div>
+            </div>
+
+            <div class="ludo-section">
+                <h4 style="margin: 0 0 5px 0; color: #f59e0b;">🎲 Simple Ludo Quick Roll</h4>
+                <p id="ludoText" style="margin: 0 0 10px 0; font-size: 12px; color: #9ca3af;">Tap to roll your Ludo dice!</p>
+                <button class="ludo-btn" onclick="simpleRollLudo()">Roll Ludo Dice 🎲</button>
+            </div>
+
+            <div class="home-banner">
+                <div>
+                    <h3 style="margin: 0; font-size: 15px;">🔥 Create Your Room</h3>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; opacity: 0.9;">Start your VIP voice lounge</p>
+                </div>
+                <button class="btn" style="padding: 6px 14px; font-size: 12px;" onclick="goToRoom('My VIP Lounge')">+ Go Live</button>
+            </div>
+
+            <h4 style="margin: 5px 0 10px 0; font-size: 13px; color: #9ca3af;">Trending Live Rooms</h4>
+            <div class="room-card" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
+                <div>
+                    <h4 style="margin: 0; font-size: 14px;">👑 Sam's Elite VIP Lounge</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Admin • 1/5 Seats</p>
+                </div>
+                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
+            </div>
+            <div class="room-card" onclick="goToRoom('Chill & Music Nights')">
+                <div>
+                    <h4 style="margin: 0; font-size: 14px;">🎵 Chill & Music Nights</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Rahul • 0/5 Seats</p>
+                </div>
+                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
+            </div>
+        </div>
+
+        <div id="tab-messages" class="tab-view">
+            <h3 style="margin: 5px 0 15px 0;">💬 Messages</h3>
+            <div class="room-card">
+                <div>
+                    <h4 style="margin: 0; font-size: 13px;">System Notifications</h4>
+                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Welcome to VIP Voice Lounge platform!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-ranking" class="tab-view">
+            <h3 style="margin: 5px 0 15px 0;">🏆 Top Gifters Ranking</h3>
+            <div class="room-card">
+                <span style="font-weight: bold; color: #f59e0b;">1. 👑 KingRahul</span>
+                <span style="font-size: 12px; color: #ec4899; font-weight: bold;">💎 50,000 Coins</span>
+            </div>
+        </div>
+
+        <div id="tab-profile" class="tab-view" style="align-items: center; text-align: center;">
+            <div class="avatar" style="width: 70px; height: 70px; font-size: 28px; margin-bottom: 10px;" id="profileAvatarBig">A</div>
+            <h3 style="margin: 0; font-size: 18px;" id="profileNameBig">Admin User</h3>
+            <p style="color: #9ca3af; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
+        </div>
+
+        <div id="roomScreen">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; padding-top: 5px;">
+                <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
+                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ VIP Room</h3>
+                <div style="width: 50px;"></div>
+            </div>
+            
+            <div class="seat-grid">
+                <div class="seat"><div id="seat-1" class="seat-circle occupied">A</div><span id="seat-1-name" class="seat-name">Admin</span></div>
+                <div class="seat" onclick="claimSeat(2)"><div id="seat-2" class="seat-circle">+</div><span id="seat-2-name" class="seat-name">Seat 2</span></div>
+                <div class="seat" onclick="claimSeat(3)"><div id="seat-3" class="seat-circle">+</div><span id="seat-3-name" class="seat-name">Seat 3</span></div>
+                <div class="seat" onclick="claimSeat(4)"><div id="seat-4" class="seat-circle">+</div><span id="seat-4-name" class="seat-name">Seat 4</span></div>
+                <div class="seat" onclick="claimSeat(5)"><div id="seat-5" class="seat-circle">+</div><span id="seat-5-name" class="seat-name">Seat 5</span></div>
+            </div>
+
+            <div class="chat-box" id="chatBox">
+                <div class="chat-msg"><span class="sender">System:</span> Welcome to VIP Room! 🎉</div>
+            </div>
+
+            <div class="gift-menu" id="giftMenu">
+                <span class="gift-item" onclick="sendGift('🌹 Rose')">🌹</span>
+                <span class="gift-item" onclick="sendGift('👑 Crown')">👑</span>
+                <span class="gift-item" onclick="sendGift('🚀 Rocket')">🚀</span>
+                <span class="gift-item" onclick="sendGift('🔥 Fire')">🔥</span>
+            </div>
+
+            <div class="controls">
+                <button class="btn gift-btn" onclick="toggleGiftMenu()">🎁</button>
+                <button class="btn game-btn" onclick="rollDice()">🎲</button>
+                <input type="text" id="msgInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMsg()">
+                <button class="btn" onclick="sendMsg()">Send</button>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('tab-home', this)"><span>🏠</span>Home</button>
+            <button class="nav-item" onclick="switchTab('tab-messages', this)"><span>💬</span>Messages</button>
+            <button class="nav-item" onclick="switchTab('tab-ranking', this)"><span>🏆</span>Ranking</button>
+            <button class="nav-item" onclick="switchTab('tab-profile', this)"><span>👤</span>Profile</button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = "User_" + Math.floor(Math.random() * 900 + 100);
+        document.getElementById('userNameDisplay').innerText = currentUser;
+        document.getElementById('userAvatar').innerText = currentUser.charAt(0).toUpperCase();
+        document.getElementById('profileNameBig').innerText = currentUser;
+        document.getElementById('profileAvatarBig').innerText = currentUser.charAt(0).toUpperCase();
+
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function simpleRollLudo() {
+            let diceNum = Math.floor(Math.random() * 6) + 1;
+            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            document.getElementById('ludoText').innerText = `You rolled a ${diceNum} ${diceFaces[diceNum - 1]}! Moving token...`;
+        }
+
+        function goToRoom(roomName) {
+            document.getElementById('roomTitle').innerText = `🎙️ ${roomName}`;
+            document.getElementById('roomScreen').style.display = 'flex';
+        }
+
+        function goBackHome() {
+            document.getElementById('roomScreen').style.display = 'none';
+        }
+
+        function sendMsg() {
+            let input = document.getElementById('msgInput');
+            let msg = input.value.trim();
+            if(!msg) return;
+            addChatMessage(currentUser, msg, false);
+            input.value = '';
+        }
+
+        function toggleGiftMenu() {
+            let menu = document.getElementById('giftMenu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function sendGift(giftName) {
+            toggleGiftMenu();
+            addChatMessage(currentUser, `sent ${giftName} to Admin! ✨`, true);
+        }
+
+        function rollDice() {
+            let diceNum = Math.floor(Math.random() * 6) + 1;
+            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            let face = diceFaces[diceNum - 1];
+            let chatBox = document.getElementById('chatBox');
+            let div = document.createElement('div');
+            div.className = 'chat-msg game-msg';
+            div.innerHTML = `🎲 <b>${currentUser}</b> rolled a dice and got <b>${diceNum}</b> ${face}!`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function addChatMessage(sender, text, isGift) {
+            let chatBox = document.getElementById('chatBox');
+            let div = document.createElement('div');
+            div.className = 'chat-msg' + (isGift ? ' gift-msg' : '');
+            if(isGift) {
+                div.innerHTML = `🎁 <b>${sender}</b> ${text}`;
+            } else {
+                div.innerHTML = `<span class="sender">${sender}:</span> ${text}`;
+            }
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function claimSeat(seatNum) {
+            let seat = document.getElementById(`seat-${seatNum}`);
+            let name = document.getElementById(`seat-${seatNum}-name`);
+            if(!seat.classList.contains('occupied')) {
+                seat.classList.add('occupied');
+                seat.innerText = currentUser.charAt(0);
+                name.innerText = currentUser;
+                addChatMessage("System", `${currentUser} took Seat ${seatNum}`, false);
+            }
+        }
+    </script>
+</body>
+</html>
+
