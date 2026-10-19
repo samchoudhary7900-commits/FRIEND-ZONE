@@ -14,7 +14,6 @@
             justify-content: center;
             padding: 15px;
             margin: 0;
-            overflow: hidden;
         }
         .container {
             width: 100%;
@@ -22,16 +21,14 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            height: 95vh;
+            min-height: 90vh;
             position: relative;
         }
         .tab-view {
             display: none;
             flex-direction: column;
-            height: calc(100% - 60px);
-            overflow-y: auto;
+            padding-bottom: 70px;
             text-align: left;
-            padding-bottom: 20px;
         }
         .tab-view.active { display: flex; }
         .profile-card {
@@ -109,15 +106,13 @@
         }
         #roomScreen {
             display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: #111827;
             flex-direction: column;
             z-index: 50;
-            padding-bottom: 15px;
+            padding: 15px;
         }
         .seat-grid {
             display: grid;
@@ -134,108 +129,61 @@
         .seat:nth-child(4) { grid-area: seat4; }
         .seat:nth-child(5) { grid-area: seat5; }
         .seat-circle {
-            width: 55px;
-            height: 55px;
+            width: 55px; height: 55px;
             border-radius: 50%;
             background: #1f2937;
             border: 2px dashed #4b5563;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 4px;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer;
         }
         .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
         .seat-name { font-size: 12px; color: #9ca3af; display: block; }
         .chat-box {
             flex: 1;
             background: rgba(31, 41, 55, 0.6);
-            border-radius: 12px;
-            padding: 10px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            text-align: left;
-            margin-top: 10px;
-            border: 1px solid #374151;
-            max-height: 200px;
+            border-radius: 12px; padding: 10px;
+            overflow-y: auto; display: flex; flex-direction: column;
+            gap: 8px; text-align: left; margin-top: 10px;
+            border: 1px solid #374151; max-height: 200px;
         }
         .chat-msg {
-            font-size: 13px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 6px 10px;
-            border-radius: 8px;
+            font-size: 13px; background: rgba(255, 255, 255, 0.05);
+            padding: 6px 10px; border-radius: 8px;
         }
         .chat-msg .sender { color: #f472b6; font-weight: bold; }
         .chat-msg.gift-msg { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; font-weight: bold; }
         .chat-msg.game-msg { background: linear-gradient(90deg, #f59e0b, #ef4444); color: #fff; font-weight: bold; }
         .controls { display: flex; gap: 8px; margin-top: 10px; }
         .controls input {
-            flex: 1;
-            background: #1f2937;
-            border: 1px solid #4b5563;
-            border-radius: 20px;
-            padding: 10px 15px;
-            color: #fff;
-            outline: none;
-            font-size: 13px;
+            flex: 1; background: #1f2937; border: 1px solid #4b5563;
+            border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px;
         }
         .btn {
-            background: #ec4899;
-            border: none;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
+            background: #ec4899; border: none; color: #fff;
+            padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold;
         }
         .gift-btn { background: #8b5cf6; }
         .game-btn { background: #f59e0b; }
         .gift-menu {
-            display: none;
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            border: 1px solid #4b5563;
-            border-radius: 16px;
-            padding: 12px;
-            gap: 15px;
-            z-index: 100;
+            display: none; position: fixed; bottom: 70px; left: 50%;
+            transform: translateX(-50%); background: #1f2937;
+            border: 1px solid #4b5563; border-radius: 16px; padding: 12px; gap: 15px; z-index: 100;
         }
         .gift-item { font-size: 26px; cursor: pointer; }
         .bottom-nav {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 55px;
-            background: #1f2937;
-            border-top: 1px solid #374151;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 40;
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 55px;
+            background: #1f2937; border-top: 1px solid #374151;
+            display: flex; justify-content: space-around; align-items: center; z-index: 40;
         }
         .nav-item {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 10px;
-            cursor: pointer;
+            background: none; border: none; color: #9ca3af;
+            display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer;
         }
         .nav-item span { font-size: 16px; }
         .nav-item.active { color: #ec4899; font-weight: bold; }
     </style>
 </head>
-    <body>
+<body>
     <div class="container">
         <div id="tab-home" class="tab-view active">
             <h2 style="text-align: center; margin: 5px 0 15px 0;">🎙️ VIP Voice Lounge</h2>
@@ -306,7 +254,7 @@
         </div>
 
         <div id="roomScreen">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; padding-top: 5px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
                 <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ VIP Room</h3>
                 <div style="width: 50px;"></div>
@@ -432,4 +380,3 @@
     </script>
 </body>
 </html>
-
