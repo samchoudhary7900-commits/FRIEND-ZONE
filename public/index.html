@@ -15,14 +15,6 @@
             padding: 15px;
             margin: 0;
         }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            height: 95vh;
-        }
         
         /* Fullscreen Login Modal */
         #loginModal {
@@ -136,6 +128,16 @@
         .fb-btn { border-color: #1877f2; }
         .phone-btn { border-color: #10b981; }
 
+        /* Main Container (Initially Hidden) */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            display: none; /* Login ke baad show hoga */
+            flex-direction: column;
+            height: 95vh;
+        }
+        
         /* VIP Seat Grid Layout */
         .seat-grid {
             display: grid;
@@ -268,7 +270,7 @@
 </head>
 <body>
 
-    <!-- Advanced Login Modal -->
+    <!-- Login Screen Modal -->
     <div id="loginModal">
         <div class="login-card">
             <h2>🎙️ VIP Voice Lounge</h2>
@@ -300,7 +302,8 @@
         </div>
     </div>
 
-    <div class="container">
+    <!-- Voice Room Container (Hidden by default) -->
+    <div class="container" id="loungeContainer">
         <h3>🎙️ VIP Voice Lounge</h3>
         
         <!-- 5 Seats Layout -->
@@ -402,6 +405,7 @@
 
         function finishLogin(username) {
             document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('loungeContainer').style.display = 'flex';
             addChatMessage("System", `${username} successfully joined the room! 🎉`, false);
         }
 
