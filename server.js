@@ -112,12 +112,8 @@ app.get('/', (req, res) => {
 
                 async function joinVoiceRoom() {
                     try {
-                        document.getElementById('room-status').innerText = "Requesting Mic Access...";
+                        document.getElementById('room-status').innerText = "Connecting Voice Stream...";
                         
-                        // Explicitly prompt browser/webview for media device access first
-                        await navigator.mediaDevices.getUserMedia({ audio: true });
-
-                        document.getElementById('room-status').innerText = "Connecting to Room...";
                         client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
                         
                         client.on("user-published", async (user, mediaType) => {
@@ -126,6 +122,8 @@ app.get('/', (req, res) => {
                         });
 
                         await client.join("00000000000000000000000000000000", "friendzone_room", null, null);
+                        
+                        // Direct Agora Microphone Audio Track Creation
                         localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
                         await client.publish([localAudioTrack]);
 
@@ -135,7 +133,7 @@ app.get('/', (req, res) => {
                         document.getElementById('leave-btn').style.display = 'block';
                     } catch (e) {
                         console.error(e);
-                        document.getElementById('room-status').innerText = "❌ Mic Permission Denied or Failed";
+                        document.getElementById('room-status').innerText = "❌ Enable Mic Permission in Phone Settings";
                     }
                 }
 
