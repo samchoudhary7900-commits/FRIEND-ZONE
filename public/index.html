@@ -41,11 +41,11 @@
         }
         .login-card {
             background: #1f2937;
-            padding: 25px;
+            padding: 22px;
             border-radius: 16px;
             border: 1px solid #374151;
             width: 100%;
-            max-width: 320px;
+            max-width: 340px;
             text-align: center;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
@@ -56,7 +56,7 @@
         }
         .tab-buttons {
             display: flex;
-            margin: 15px 0;
+            margin: 12px 0;
             background: #111827;
             border-radius: 8px;
             padding: 3px;
@@ -67,7 +67,7 @@
             border: none;
             color: #9ca3af;
             padding: 8px;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
@@ -81,15 +81,60 @@
             background: #111827;
             border: 1px solid #4b5563;
             border-radius: 10px;
-            padding: 12px;
+            padding: 10px 12px;
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             outline: none;
-            font-size: 14px;
+            font-size: 13px;
         }
         .login-card input:focus {
             border-color: #ec4899;
         }
+        
+        /* Social Login Buttons */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #6b7280;
+            font-size: 11px;
+            margin: 12px 0;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #374151;
+        }
+        .divider::before { margin-right: .5em; }
+        .divider::after { margin-left: .5em; }
+
+        .social-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .social-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #4b5563;
+            background: #111827;
+            color: #fff;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .social-btn:hover {
+            background: #374151;
+        }
+        .google-btn { border-color: #ea4335; }
+        .fb-btn { border-color: #1877f2; }
+        .phone-btn { border-color: #10b981; }
 
         /* VIP Seat Grid Layout */
         .seat-grid {
@@ -223,21 +268,35 @@
 </head>
 <body>
 
-    <!-- ID Password Login / Sign Up Modal -->
+    <!-- Advanced Login Modal -->
     <div id="loginModal">
         <div class="login-card">
             <h2>🎙️ VIP Voice Lounge</h2>
-            <p style="font-size: 12px; color: #9ca3af; margin: 0;">Enter ID & Password to Login</p>
+            <p style="font-size: 11px; color: #9ca3af; margin: 0 0 10px 0;">Sign in to join the lounge</p>
             
             <div class="tab-buttons">
-                <button id="loginTab" class="tab-btn active" onclick="switchAuthTab('login')">Login</button>
+                <button id="loginTab" class="tab-btn active" onclick="switchAuthTab('login')">ID Login</button>
                 <button id="signupTab" class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
             </div>
 
-            <input type="text" id="userIdInput" placeholder="User ID / Username">
+            <input type="text" id="userIdInput" placeholder="User ID / Username / Email">
             <input type="password" id="userPassInput" placeholder="Password">
             
-            <button class="btn" style="width: 100%; border-radius: 10px; margin-top: 5px;" id="authSubmitBtn" onclick="handleAuth()">Login Now</button>
+            <button class="btn" style="width: 100%; border-radius: 10px; margin-bottom: 5px;" id="authSubmitBtn" onclick="handleAuth()">Login Now</button>
+            
+            <div class="divider">OR CONNECT WITH</div>
+
+            <div class="social-btns">
+                <button class="social-btn google-btn" onclick="socialLogin('Google')">
+                    🌐 Continue with Google
+                </button>
+                <button class="social-btn phone-btn" onclick="socialLogin('Phone')">
+                    📱 Login with Phone Number
+                </button>
+                <button class="social-btn fb-btn" onclick="socialLogin('Facebook')">
+                    📘 Continue with Facebook
+                </button>
+            </div>
         </div>
     </div>
 
@@ -321,14 +380,29 @@
                 return;
             }
 
-            if (pass.length < 4) {
-                alert("Password kam se kam 4 characters ka hona chahiye!");
-                return;
-            }
-
             currentUser = userId;
+            finishLogin(currentUser);
+        }
+
+        function socialLogin(provider) {
+            if (provider === 'Phone') {
+                let phone = prompt("Apna 10-digit Phone Number daaliye:");
+                if(!phone || phone.length < 10) {
+                    alert("Valid phone number enter karein!");
+                    return;
+                }
+                currentUser = "User_" + phone.slice(-4);
+            } else if (provider === 'Google') {
+                currentUser = "GoogleUser_" + Math.floor(Math.random() * 900 + 100);
+            } else if (provider === 'Facebook') {
+                currentUser = "FBUser_" + Math.floor(Math.random() * 900 + 100);
+            }
+            finishLogin(currentUser);
+        }
+
+        function finishLogin(username) {
             document.getElementById('loginModal').style.display = 'none';
-            addChatMessage("System", `${currentUser} successfully logged in! 🎉`, false);
+            addChatMessage("System", `${username} successfully joined the room! 🎉`, false);
         }
 
         function sendMsg() {
