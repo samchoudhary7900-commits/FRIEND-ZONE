@@ -277,7 +277,7 @@ app.get('/', (req, res) => {
                             <span style="background:rgba(255,255,255,0.15); padding:4px 10px; border-radius:10px; font-size:12px;">👥 1 Online</span>
                         </div>
 
-                        <!-- Speaker Seats (WePlay Style) -->
+                        <!-- Speaker Seats -->
                         <div class="seat-grid">
                             <div class="seat">
                                 <div id="seat-1" class="seat-circle occupied">A</div>
