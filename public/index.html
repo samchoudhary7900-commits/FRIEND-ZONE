@@ -31,6 +31,57 @@
             height: 100%;
             text-align: left;
         }
+
+        /* Profile & Wallet Header Card */
+        .profile-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 14px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #ec4899;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            border: 2px solid #f472b6;
+        }
+        .user-details h4 {
+            margin: 0;
+            font-size: 14px;
+        }
+        .user-details span {
+            font-size: 11px;
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        .wallet-badge {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid #f59e0b;
+            color: #fbbf24;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         .home-banner {
             background: linear-gradient(135deg, #8b5cf6, #ec4899);
             padding: 15px;
@@ -184,10 +235,23 @@
 
     <div class="container">
         
-        <!-- Home Screen with Room List -->
+        <!-- Home Screen -->
         <div id="homeScreen">
-            <h2 style="text-align: center; margin-bottom: 15px;">🎙️ VIP Voice Lounge</h2>
             
+            <!-- User Profile & Wallet Top Bar -->
+            <div class="profile-card">
+                <div class="user-info">
+                    <div class="avatar" id="userAvatar">A</div>
+                    <div class="user-details">
+                        <h4 id="userNameDisplay">Admin User</h4>
+                        <span>⭐ VIP Level 1</span>
+                    </div>
+                </div>
+                <div class="wallet-badge">
+                    🪙 <span id="userCoins">1,000</span>
+                </div>
+            </div>
+
             <div class="home-banner">
                 <div>
                     <h3 style="margin: 0; font-size: 15px;">🔥 Create Your Room</h3>
@@ -283,6 +347,10 @@
 
     <script>
         let currentUser = "User_" + Math.floor(Math.random() * 900 + 100);
+
+        // Initial setup
+        document.getElementById('userNameDisplay').innerText = currentUser;
+        document.getElementById('userAvatar').innerText = currentUser.charAt(0).toUpperCase();
 
         function goToRoom(roomName) {
             document.getElementById('roomTitle').innerText = `🎙️ ${roomName}`;
