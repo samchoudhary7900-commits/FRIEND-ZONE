@@ -6,187 +6,52 @@
     <title>VIP Voice Lounge</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            background: #111827;
-            color: #fff;
-            font-family: sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 15px;
-            margin: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 90vh;
-            position: relative;
-        }
-        .tab-view {
-            display: none;
-            flex-direction: column;
-            padding-bottom: 70px;
-            text-align: left;
-        }
+        body { background: #111827; color: #fff; font-family: sans-serif; display: flex; justify-content: center; padding: 15px; margin: 0; }
+        .container { width: 100%; max-width: 400px; text-align: center; display: flex; flex-direction: column; min-height: 90vh; position: relative; }
+        .tab-view { display: none; flex-direction: column; padding-bottom: 70px; text-align: left; }
         .tab-view.active { display: flex; }
-        .profile-card {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 14px;
-            padding: 12px 15px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        .profile-card { background: #1f2937; border: 1px solid #374151; border-radius: 14px; padding: 12px 15px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
         .user-info { display: flex; align-items: center; gap: 10px; }
-        .avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: #ec4899;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 18px;
-            border: 2px solid #f472b6;
-        }
+        .avatar { width: 42px; height: 42px; border-radius: 50%; background: #ec4899; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; border: 2px solid #f472b6; }
         .user-details h4 { margin: 0; font-size: 14px; }
         .user-details span { font-size: 11px; color: #f59e0b; font-weight: bold; }
-        .wallet-badge {
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid #f59e0b;
-            color: #fbbf24;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        .ludo-section {
-            background: #1f2937;
-            border: 1px solid #f59e0b;
-            border-radius: 14px;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .ludo-btn {
-            background: #f59e0b;
-            color: #111827;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        .home-banner {
-            background: linear-gradient(135deg, #8b5cf6, #ec4899);
-            padding: 15px;
-            border-radius: 14px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .room-card {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        #roomScreen {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #111827;
-            flex-direction: column;
-            z-index: 50;
-            padding: 15px;
-        }
-        .seat-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-areas: "seat1 seat1" "seat2 seat3" "seat4 seat5";
-            gap: 15px;
-            text-align: center;
-            margin: 15px auto;
-            max-width: 250px;
-        }
-        .seat:nth-child(1) { grid-area: seat1; }
-        .seat:nth-child(2) { grid-area: seat2; }
-        .seat:nth-child(3) { grid-area: seat3; }
-        .seat:nth-child(4) { grid-area: seat4; }
-        .seat:nth-child(5) { grid-area: seat5; }
-        .seat-circle {
-            width: 55px; height: 55px;
-            border-radius: 50%;
-            background: #1f2937;
-            border: 2px dashed #4b5563;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer;
-        }
+        .wallet-badge { background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #fbbf24; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .ludo-king-section { background: #1f2937; border: 1px solid #f59e0b; border-radius: 14px; padding: 15px; margin-bottom: 15px; text-align: center; }
+        .ludo-board-grid { width: 260px; height: 260px; margin: 10px auto; background: #374151; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); border: 3px solid #f59e0b; border-radius: 8px; }
+        .ludo-base { display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; }
+        .base-red { background: #ef4444; } .base-green { background: #10b981; } .base-yellow { background: #f59e0b; } .base-blue { background: #3b82f6; }
+        .ludo-center { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 14px; color: #fbbf24; }
+        .ludo-btn { background: #f59e0b; color: #111827; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 13px; }
+        .home-banner { background: linear-gradient(135deg, #8b5cf6, #ec4899); padding: 15px; border-radius: 14px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .room-card { background: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; flex-direction: column; z-index: 50; padding: 15px; }
+        .seat-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-areas: "seat1 seat1" "seat2 seat3" "seat4 seat5"; gap: 15px; text-align: center; margin: 15px auto; max-width: 250px; }
+        .seat:nth-child(1) { grid-area: seat1; } .seat:nth-child(2) { grid-area: seat2; } .seat:nth-child(3) { grid-area: seat3; } .seat:nth-child(4) { grid-area: seat4; } .seat:nth-child(5) { grid-area: seat5; }
+        .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; }
         .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
         .seat-name { font-size: 12px; color: #9ca3af; display: block; }
-        .chat-box {
-            flex: 1;
-            background: rgba(31, 41, 55, 0.6);
-            border-radius: 12px; padding: 10px;
-            overflow-y: auto; display: flex; flex-direction: column;
-            gap: 8px; text-align: left; margin-top: 10px;
-            border: 1px solid #374151; max-height: 200px;
-        }
-        .chat-msg {
-            font-size: 13px; background: rgba(255, 255, 255, 0.05);
-            padding: 6px 10px; border-radius: 8px;
-        }
+        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 200px; }
+        .chat-msg { font-size: 13px; background: rgba(255, 255, 255, 0.05); padding: 6px 10px; border-radius: 8px; }
         .chat-msg .sender { color: #f472b6; font-weight: bold; }
         .chat-msg.gift-msg { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; font-weight: bold; }
         .chat-msg.game-msg { background: linear-gradient(90deg, #f59e0b, #ef4444); color: #fff; font-weight: bold; }
         .controls { display: flex; gap: 8px; margin-top: 10px; }
-        .controls input {
-            flex: 1; background: #1f2937; border: 1px solid #4b5563;
-            border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px;
-        }
-        .btn {
-            background: #ec4899; border: none; color: #fff;
-            padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold;
-        }
-        .gift-btn { background: #8b5cf6; }
-        .game-btn { background: #f59e0b; }
-        .gift-menu {
-            display: none; position: fixed; bottom: 70px; left: 50%;
-            transform: translateX(-50%); background: #1f2937;
-            border: 1px solid #4b5563; border-radius: 16px; padding: 12px; gap: 15px; z-index: 100;
-        }
+        .controls input { flex: 1; background: #1f2937; border: 1px solid #4b5563; border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px; }
+        .btn { background: #ec4899; border: none; color: #fff; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        .gift-btn { background: #8b5cf6; } .game-btn { background: #f59e0b; }
+        .gift-menu { display: none; position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #1f2937; border: 1px solid #4b5563; border-radius: 16px; padding: 12px; gap: 15px; z-index: 100; }
         .gift-item { font-size: 26px; cursor: pointer; }
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 55px;
-            background: #1f2937; border-top: 1px solid #374151;
-            display: flex; justify-content: space-around; align-items: center; z-index: 40;
-        }
-        .nav-item {
-            background: none; border: none; color: #9ca3af;
-            display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer;
-        }
-        .nav-item span { font-size: 16px; }
-        .nav-item.active { color: #ec4899; font-weight: bold; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #1f2937; border-top: 1px solid #374151; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
+        .nav-item { background: none; border: none; color: #9ca3af; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
+        .nav-item span { font-size: 16px; } .nav-item.active { color: #ec4899; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Tab 1: Home Screen -->
         <div id="tab-home" class="tab-view active">
             <h2 style="text-align: center; margin: 5px 0 15px 0;">🎙️ VIP Voice Lounge</h2>
+            
             <div class="profile-card">
                 <div class="user-info">
                     <div class="avatar" id="userAvatar">A</div>
@@ -198,10 +63,26 @@
                 <div class="wallet-badge">🪙 <span id="userCoins">1,000</span></div>
             </div>
 
-            <div class="ludo-section">
-                <h4 style="margin: 0 0 5px 0; color: #f59e0b;">🎲 Simple Ludo Quick Roll</h4>
-                <p id="ludoText" style="margin: 0 0 10px 0; font-size: 12px; color: #9ca3af;">Tap to roll your Ludo dice!</p>
-                <button class="ludo-btn" onclick="simpleRollLudo()">Roll Ludo Dice 🎲</button>
+            <!-- Ludo King Styled Section -->
+            <div class="ludo-king-section">
+                <h4 style="margin: 0 0 5px 0; color: #f59e0b;">🎲 Ludo King Arena</h4>
+                <p id="ludoKingText" style="margin: 0; font-size: 11px; color: #9ca3af;">Roll dice & move your tokens!</p>
+                
+                <div class="ludo-board-grid">
+                    <div class="ludo-base base-red">🔴</div>
+                    <div class="ludo-center">
+                        <span id="ludoDiceDisplay" style="font-size: 22px;">🎲 ⚀</span>
+                    </div>
+                    <div class="ludo-base base-green">🟢</div>
+                    <div class="ludo-base" style="background:#111827;"></div>
+                    <div class="ludo-center" style="font-size: 10px; color:#9ca3af;">KING</div>
+                    <div class="ludo-base" style="background:#111827;"></div>
+                    <div class="ludo-base base-yellow">🟡</div>
+                    <div class="ludo-center">🏁</div>
+                    <div class="ludo-base base-blue">🔵</div>
+                </div>
+
+                <button class="ludo-btn" onclick="rollLudoKingDice()">Roll Dice 🎲</button>
             </div>
 
             <div class="home-banner">
@@ -213,6 +94,7 @@
             </div>
 
             <h4 style="margin: 5px 0 10px 0; font-size: 13px; color: #9ca3af;">Trending Live Rooms</h4>
+            
             <div class="room-card" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
                 <div>
                     <h4 style="margin: 0; font-size: 14px;">👑 Sam's Elite VIP Lounge</h4>
@@ -220,15 +102,9 @@
                 </div>
                 <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
             </div>
-            <div class="room-card" onclick="goToRoom('Chill & Music Nights')">
-                <div>
-                    <h4 style="margin: 0; font-size: 14px;">🎵 Chill & Music Nights</h4>
-                    <p style="margin: 3px 0 0 0; font-size: 11px; color: #9ca3af;">Host: Rahul • 0/5 Seats</p>
-                </div>
-                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
-            </div>
         </div>
 
+        <!-- Tab 2: Messages -->
         <div id="tab-messages" class="tab-view">
             <h3 style="margin: 5px 0 15px 0;">💬 Messages</h3>
             <div class="room-card">
@@ -239,6 +115,7 @@
             </div>
         </div>
 
+        <!-- Tab 3: Ranking -->
         <div id="tab-ranking" class="tab-view">
             <h3 style="margin: 5px 0 15px 0;">🏆 Top Gifters Ranking</h3>
             <div class="room-card">
@@ -247,12 +124,13 @@
             </div>
         </div>
 
+        <!-- Tab 4: Profile -->
         <div id="tab-profile" class="tab-view" style="align-items: center; text-align: center;">
             <div class="avatar" style="width: 70px; height: 70px; font-size: 28px; margin-bottom: 10px;" id="profileAvatarBig">A</div>
             <h3 style="margin: 0; font-size: 18px;" id="profileNameBig">Admin User</h3>
             <p style="color: #9ca3af; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
-
+        <!-- Room Screen Overlay -->
         <div id="roomScreen">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
@@ -287,6 +165,7 @@
             </div>
         </div>
 
+        <!-- Bottom Navigation Bar -->
         <div class="bottom-nav">
             <button class="nav-item active" onclick="switchTab('tab-home', this)"><span>🏠</span>Home</button>
             <button class="nav-item" onclick="switchTab('tab-messages', this)"><span>💬</span>Messages</button>
@@ -309,10 +188,11 @@
             btnElement.classList.add('active');
         }
 
-        function simpleRollLudo() {
+        function rollLudoKingDice() {
             let diceNum = Math.floor(Math.random() * 6) + 1;
             let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            document.getElementById('ludoText').innerText = `You rolled a ${diceNum} ${diceFaces[diceNum - 1]}! Moving token...`;
+            document.getElementById('ludoDiceDisplay').innerText = `🎲 ${diceFaces[diceNum - 1]}`;
+            document.getElementById('ludoKingText').innerText = `Rolled a ${diceNum}! Token advanced forward.`;
         }
 
         function goToRoom(roomName) {
@@ -379,4 +259,5 @@
         }
     </script>
 </body>
-</html>
+                    </html>
+                    
