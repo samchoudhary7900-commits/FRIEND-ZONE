@@ -66,28 +66,28 @@ app.get('/', (req, res) => {
                 .game-card span { font-size: 10px; opacity: 0.85; }
                 .logout-btn { width: 100%; padding: 10px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer; }
 
-                /* Room Active Screen */
+                /* Room Active Screen - 5 Seats Layout */
                 #room-screen {
                     display: none; background: #1e1b4b; border-radius: 20px; padding: 15px;
                     box-shadow: 0 10px 25px rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.15); margin-top: 5px;
                 }
                 .room-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; margin-bottom: 10px; }
-                .seat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; text-align: center; margin: 10px 0; }
-                .seat { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
+                .seat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; text-align: center; margin: 10px 0; }
+                .seat { display: flex; flex-direction: column; align-items: center; gap: 2px; cursor: pointer; }
                 .seat-circle {
                     width: 45px; height: 45px; border-radius: 50%; background: rgba(255,255,255,0.1);
-                    border: 2px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;
-                    font-size: 16px; font-weight: bold; color: #fff;
+                    border: 1.5px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center;
+                    font-size: 15px; font-weight: bold; color: #fff;
                 }
-                .seat-circle.occupied { background: linear-gradient(135deg, #8b5cf6, #ec4899); border: 2px solid #34d399; }
-                .seat-name { font-size: 10px; color: #d8b4fe; }
+                .seat-circle.occupied { background: linear-gradient(135deg, #8b5cf6, #ec4899); border: 1.5px solid #34d399; }
+                .seat-name { font-size: 9px; color: #d8b4fe; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50px; }
 
                 .gift-bar { display: flex; justify-content: space-around; background: rgba(255,255,255,0.1); padding: 6px; border-radius: 10px; margin-bottom: 8px; }
                 .gift-btn { background: none; border: none; font-size: 16px; cursor: pointer; }
 
                 .room-chat {
                     background: rgba(0,0,0,0.3); border-radius: 10px; padding: 8px;
-                    height: 95px; overflow-y: auto; font-size: 11px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px;
+                    height: 85px; overflow-y: auto; font-size: 11px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px;
                 }
                 .chat-msg { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 6px; }
                 .chat-input-row { display: flex; gap: 6px; }
@@ -148,7 +148,7 @@ app.get('/', (req, res) => {
                         <button class="logout-btn" onclick="location.reload()">Logout</button>
                     </div>
 
-                    <!-- Active Voice Room Screen -->
+                    <!-- Active Voice Room Screen with 5 Seats -->
                     <div id="room-screen">
                         <div class="room-header">
                             <div>
@@ -158,11 +158,11 @@ app.get('/', (req, res) => {
                             <span style="background:rgba(255,255,255,0.15); padding:3px 8px; border-radius:6px; font-size:10px;">👥 Live</span>
                         </div>
 
-                        <!-- Speaker Seats -->
+                        <!-- 5 Speaker Seats Grid -->
                         <div class="seat-grid">
                             <div class="seat">
                                 <div id="seat-1" class="seat-circle occupied">A</div>
-                                <span id="seat-1-name" class="seat-name">admin (You)</span>
+                                <span id="seat-1-name" class="seat-name">admin</span>
                             </div>
                             <div class="seat" onclick="claimSeat(2)">
                                 <div id="seat-2" class="seat-circle">🎙️</div>
@@ -171,6 +171,14 @@ app.get('/', (req, res) => {
                             <div class="seat" onclick="claimSeat(3)">
                                 <div id="seat-3" class="seat-circle">🎙️</div>
                                 <span id="seat-3-name" class="seat-name">Seat 3</span>
+                            </div>
+                            <div class="seat" onclick="claimSeat(4)">
+                                <div id="seat-4" class="seat-circle">🎙️</div>
+                                <span id="seat-4-name" class="seat-name">Seat 4</span>
+                            </div>
+                            <div class="seat" onclick="claimSeat(5)">
+                                <div id="seat-5" class="seat-circle">🎙️</div>
+                                <span id="seat-5-name" class="seat-name">Seat 5</span>
                             </div>
                         </div>
 
@@ -225,7 +233,7 @@ app.get('/', (req, res) => {
                         document.getElementById('user-display').innerText = currentUsername;
                         document.getElementById('user-avatar').innerText = currentUsername.charAt(0).toUpperCase();
                         document.getElementById('seat-1').innerText = currentUsername.charAt(0).toUpperCase();
-                        document.getElementById('seat-1-name').innerText = currentUsername + " (You)";
+                        document.getElementById('seat-1-name').innerText = currentUsername;
                     } else {
                         msg.innerText = data.message;
                     }
@@ -253,7 +261,7 @@ app.get('/', (req, res) => {
                     if (!seatCircle.classList.contains('occupied')) {
                         seatCircle.classList.add('occupied');
                         seatCircle.innerText = currentUsername.charAt(0).toUpperCase();
-                        seatName.innerText = currentUsername + " (Seat " + seatNum + ")";
+                        seatName.innerText = currentUsername;
                         
                         const chatContainer = document.getElementById('chat-container');
                         chatContainer.innerHTML += '<div class="chat-msg"><b>System:</b> ' + currentUsername + ' took Seat ' + seatNum + ' 💺</div>';
