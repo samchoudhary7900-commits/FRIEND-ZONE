@@ -15,123 +15,42 @@
             padding: 15px;
             margin: 0;
         }
-        
-        /* Fullscreen Login Modal */
-        #loginModal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #111827;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 20px;
-        }
-        .login-card {
-            background: #1f2937;
-            padding: 22px;
-            border-radius: 16px;
-            border: 1px solid #374151;
-            width: 100%;
-            max-width: 340px;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-        }
-        .login-card h2 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            color: #ec4899;
-        }
-        .tab-buttons {
-            display: flex;
-            margin: 12px 0;
-            background: #111827;
-            border-radius: 8px;
-            padding: 3px;
-        }
-        .tab-btn {
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: #9ca3af;
-            padding: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .tab-btn.active {
-            background: #ec4899;
-            color: #fff;
-        }
-        .login-card input {
-            width: 100%;
-            background: #111827;
-            border: 1px solid #4b5563;
-            border-radius: 10px;
-            padding: 10px 12px;
-            color: #fff;
-            margin-bottom: 10px;
-            outline: none;
-            font-size: 13px;
-        }
-        
-        /* Social Login Buttons */
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #6b7280;
-            font-size: 11px;
-            margin: 12px 0;
-        }
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid #374151;
-        }
-        .divider::before { margin-right: .5em; }
-        .divider::after { margin-left: .5em; }
-
-        .social-btns {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .social-btn {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #4b5563;
-            background: #111827;
-            color: #fff;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .google-btn { border-color: #ea4335; }
-        .fb-btn { border-color: #1877f2; }
-        .phone-btn { border-color: #10b981; }
-
-        /* Main Container */
         .container {
             width: 100%;
             max-width: 400px;
             text-align: center;
-            display: none;
+            display: flex;
             flex-direction: column;
             height: 95vh;
         }
         
-        /* VIP Seat Grid */
+        /* Home Screen */
+        #homeScreen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            gap: 20px;
+        }
+        .home-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+            padding: 25px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        /* Room Screen (Initially Hidden) */
+        #roomScreen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* 5 Seats Layout */
         .seat-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -196,25 +115,14 @@
             border-radius: 8px;
             word-break: break-word;
         }
-        .chat-msg .sender {
-            color: #f472b6;
-            font-weight: bold;
-        }
-        .chat-msg.gift-msg {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            color: #fff;
-            font-weight: bold;
-        }
-        .chat-msg.game-msg {
-            background: linear-gradient(90deg, #f59e0b, #ef4444);
-            color: #fff;
-            font-weight: bold;
-        }
+        .chat-msg .sender { color: #f472b6; font-weight: bold; }
+        .chat-msg.gift-msg { background: linear-gradient(90deg, #8b5cf6, #ec4899); color: #fff; font-weight: bold; }
+        .chat-msg.game-msg { background: linear-gradient(90deg, #f59e0b, #ef4444); color: #fff; font-weight: bold; }
 
-        /* Controls Area */
+        /* Controls */
         .controls {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             margin-top: 10px;
         }
         .controls input {
@@ -222,7 +130,7 @@
             background: #1f2937;
             border: 1px solid #4b5563;
             border-radius: 20px;
-            padding: 10px 12px;
+            padding: 10px 15px;
             color: #fff;
             outline: none;
             font-size: 13px;
@@ -231,11 +139,10 @@
             background: #ec4899;
             border: none;
             color: #fff;
-            padding: 10px 12px;
+            padding: 10px 18px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
         }
         .gift-btn { background: #8b5cf6; }
         .game-btn { background: #f59e0b; }
@@ -255,148 +162,93 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
             z-index: 10;
         }
-        .gift-item {
-            font-size: 26px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+        .gift-item { font-size: 26px; cursor: pointer; transition: transform 0.2s; }
         .gift-item:hover { transform: scale(1.3); }
     </style>
 </head>
 <body>
 
-    <!-- Login Screen Modal -->
-    <div id="loginModal">
-        <div class="login-card">
-            <h2>🎙️ VIP Voice Lounge</h2>
-            <p style="font-size: 11px; color: #9ca3af; margin: 0 0 10px 0;">Sign in to join the lounge</p>
-            
-            <div class="tab-buttons">
-                <button id="loginTab" class="tab-btn active" onclick="switchAuthTab('login')">ID Login</button>
-                <button id="signupTab" class="tab-btn" onclick="switchAuthTab('signup')">Sign Up</button>
-            </div>
-
-            <input type="text" id="userIdInput" placeholder="User ID / Username / Email">
-            <input type="password" id="userPassInput" placeholder="Password">
-            
-            <button class="btn" style="width: 100%; border-radius: 10px; margin-bottom: 5px;" id="authSubmitBtn" onclick="handleAuth()">Login Now</button>
-            
-            <div class="divider">OR CONNECT WITH</div>
-
-            <div class="social-btns">
-                <button class="social-btn google-btn" onclick="socialLogin('Google')">🌐 Continue with Google</button>
-                <button class="social-btn phone-btn" onclick="socialLogin('Phone')">📱 Login with Phone Number</button>
-                <button class="social-btn fb-btn" onclick="socialLogin('Facebook')">📘 Continue with Facebook</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Voice Room Container -->
-    <div class="container" id="loungeContainer">
-        <h3>🎙️ VIP Voice Lounge</h3>
+    <div class="container">
         
-        <!-- 5 Seats Layout -->
-        <div class="seat-grid">
-            <div class="seat">
-                <div id="seat-1" class="seat-circle occupied">A</div>
-                <span id="seat-1-name" class="seat-name">Admin</span>
-            </div>
-            <div class="seat" onclick="claimSeat(2)">
-                <div id="seat-2" class="seat-circle">+</div>
-                <span id="seat-2-name" class="seat-name">Seat 2</span>
-            </div>
-            <div class="seat" onclick="claimSeat(3)">
-                <div id="seat-3" class="seat-circle">+</div>
-                <span id="seat-3-name" class="seat-name">Seat 3</span>
-            </div>
-            <div class="seat" onclick="claimSeat(4)">
-                <div id="seat-4" class="seat-circle">+</div>
-                <span id="seat-4-name" class="seat-name">Seat 4</span>
-            </div>
-            <div class="seat" onclick="claimSeat(5)">
-                <div id="seat-5" class="seat-circle">+</div>
-                <span id="seat-5-name" class="seat-name">Seat 5</span>
+        <!-- Home Screen -->
+        <div id="homeScreen">
+            <h2>🎙️ VIP Voice Lounge</h2>
+            <div class="home-card">
+                <h3>Welcome Home!</h3>
+                <p style="font-size: 13px; color: #9ca3af; margin-bottom: 20px;">Click below to enter the live VIP Room.</p>
+                <button class="btn" style="width: 100%; border-radius: 12px;" onclick="goToRoom()">🏠 Home / Enter Room</button>
             </div>
         </div>
 
-        <!-- Chat Messages -->
-        <div class="chat-box" id="chatBox">
-            <div class="chat-msg">
-                <span class="sender">System:</span> Welcome to VIP Room! 🎉
+        <!-- Room Screen -->
+        <div id="roomScreen">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+                <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
+                <h3 style="margin: 0;">🎙️ VIP Voice Room</h3>
+                <div style="width: 50px;"></div>
+            </div>
+            
+            <!-- 5 Seats Layout -->
+            <div class="seat-grid">
+                <div class="seat">
+                    <div id="seat-1" class="seat-circle occupied">A</div>
+                    <span id="seat-1-name" class="seat-name">Admin</span>
+                </div>
+                <div class="seat" onclick="claimSeat(2)">
+                    <div id="seat-2" class="seat-circle">+</div>
+                    <span id="seat-2-name" class="seat-name">Seat 2</span>
+                </div>
+                <div class="seat" onclick="claimSeat(3)">
+                    <div id="seat-3" class="seat-circle">+</div>
+                    <span id="seat-3-name" class="seat-name">Seat 3</span>
+                </div>
+                <div class="seat" onclick="claimSeat(4)">
+                    <div id="seat-4" class="seat-circle">+</div>
+                    <span id="seat-4-name" class="seat-name">Seat 4</span>
+                </div>
+                <div class="seat" onclick="claimSeat(5)">
+                    <div id="seat-5" class="seat-circle">+</div>
+                    <span id="seat-5-name" class="seat-name">Seat 5</span>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-box" id="chatBox">
+                <div class="chat-msg">
+                    <span class="sender">System:</span> Welcome to VIP Room! 🎉
+                </div>
+            </div>
+
+            <!-- Gift Selector Popup -->
+            <div class="gift-menu" id="giftMenu">
+                <span class="gift-item" onclick="sendGift('🌹 Rose')">🌹</span>
+                <span class="gift-item" onclick="sendGift('👑 Crown')">👑</span>
+                <span class="gift-item" onclick="sendGift('🚀 Rocket')">🚀</span>
+                <span class="gift-item" onclick="sendGift('🔥 Fire')">🔥</span>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="controls">
+                <button class="btn gift-btn" onclick="toggleGiftMenu()">🎁</button>
+                <button class="btn game-btn" onclick="rollDice()">🎲</button>
+                <input type="text" id="msgInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMsg()">
+                <button class="btn" onclick="sendMsg()">Send</button>
             </div>
         </div>
 
-        <!-- Gift Selector Popup -->
-        <div class="gift-menu" id="giftMenu">
-            <span class="gift-item" onclick="sendGift('🌹 Rose')">🌹</span>
-            <span class="gift-item" onclick="sendGift('👑 Crown')">👑</span>
-            <span class="gift-item" onclick="sendGift('🚀 Rocket')">🚀</span>
-            <span class="gift-item" onclick="sendGift('🔥 Fire')">🔥</span>
-        </div>
-
-        <!-- Input Bar & Game/Gift Buttons -->
-        <div class="controls">
-            <button class="btn gift-btn" onclick="toggleGiftMenu()" title="Send Gift">🎁</button>
-            <button class="btn game-btn" onclick="rollDice()" title="Roll Dice Game">🎲</button>
-            <input type="text" id="msgInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMsg()">
-            <button class="btn" onclick="sendMsg()">Send</button>
-        </div>
     </div>
 
     <script>
-        let currentUser = "";
-        let authMode = "login";
+        let currentUser = "User_" + Math.floor(Math.random() * 900 + 100);
 
-        function switchAuthTab(mode) {
-            authMode = mode;
-            let loginTab = document.getElementById('loginTab');
-            let signupTab = document.getElementById('signupTab');
-            let submitBtn = document.getElementById('authSubmitBtn');
-
-            if(mode === 'login') {
-                loginTab.classList.add('active');
-                signupTab.classList.remove('active');
-                submitBtn.innerText = 'Login Now';
-            } else {
-                signupTab.classList.add('active');
-                loginTab.classList.remove('active');
-                submitBtn.innerText = 'Create Account';
-            }
+        function goToRoom() {
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('roomScreen').style.display = 'flex';
         }
 
-        function handleAuth() {
-            let userId = document.getElementById('userIdInput').value.trim();
-            let pass = document.getElementById('userPassInput').value.trim();
-
-            if (!userId || !pass) {
-                alert("Kripya User ID aur Password dono enter karein!");
-                return;
-            }
-
-            currentUser = userId;
-            finishLogin(currentUser);
-        }
-
-        function socialLogin(provider) {
-            if (provider === 'Phone') {
-                let phone = prompt("Apna 10-digit Phone Number daaliye:");
-                if(!phone || phone.length < 10) {
-                    alert("Valid phone number enter karein!");
-                    return;
-                }
-                currentUser = "User_" + phone.slice(-4);
-            } else if (provider === 'Google') {
-                currentUser = "GoogleUser_" + Math.floor(Math.random() * 900 + 100);
-            } else if (provider === 'Facebook') {
-                currentUser = "FBUser_" + Math.floor(Math.random() * 900 + 100);
-            }
-            finishLogin(currentUser);
-        }
-
-        function finishLogin(username) {
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('loungeContainer').style.display = 'flex';
-            addChatMessage("System", `${username} successfully joined the room! 🎉`, false);
+        function goBackHome() {
+            document.getElementById('roomScreen').style.display = 'none';
+            document.getElementById('homeScreen').style.display = 'flex';
         }
 
         function sendMsg() {
@@ -451,7 +303,7 @@
             let name = document.getElementById(`seat-${seatNum}-name`);
             if(!seat.classList.contains('occupied')) {
                 seat.classList.add('occupied');
-                seat.innerText = currentUser.charAt(0).toUpperCase();
+                seat.innerText = currentUser.charAt(0);
                 name.innerText = currentUser;
                 addChatMessage("System", `${currentUser} took Seat ${seatNum}`, false);
             }
