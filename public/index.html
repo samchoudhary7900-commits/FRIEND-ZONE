@@ -11,30 +11,35 @@
         .tab-view { display: none; flex-direction: column; padding-bottom: 70px; text-align: left; }
         .tab-view.active { display: flex; }
 
-        /* Top Header Bar */
         .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .user-profile-mini { display: flex; align-items: center; gap: 8px; }
         .avatar-mini { width: 38px; height: 38px; border-radius: 50%; background: #ec4899; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; border: 2px solid #f472b6; }
         .coin-pill { background: #fef08a; border: 1px solid #facc15; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
-        /* Quick Icons Row (WePlay Style) */
         .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; text-align: center; }
         .icon-card { background: #fff; border-radius: 12px; padding: 8px 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); cursor: pointer; }
         .icon-card span { font-size: 20px; display: block; margin-bottom: 2px; }
         .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #4b5563; }
 
-        /* Section Title */
         .section-header { display: flex; justify-content: space-between; align-items: center; margin: 5px 0 10px 0; }
         .section-header h3 { margin: 0; font-size: 16px; color: #374151; }
 
-        /* Game Banners (WePlay Grid/List Style) */
         .game-banner-large { background: linear-gradient(135deg, #34d399, #059669); border-radius: 14px; padding: 14px; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(5,150,105,0.2); }
         
         .games-grid-weplay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .game-card-mini { background: #fff; border-radius: 12px; padding: 10px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #e5e7eb; transition: transform 0.2s; }
-        .game-card-mini:hover { transform: scale(1.02); }
+        .game-card-mini { background: #fff; border-radius: 12px; padding: 10px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #e5e7eb; }
         .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
         .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
+
+        /* Full Screen Ludo Modal Overlay */
+        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; z-index: 100; flex-direction: column; padding: 15px; align-items: center; justify-content: space-between; }
+        .ludo-game-board { width: 300px; height: 300px; background: #1f2937; border: 3px solid #f59e0b; border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; margin: 10px auto; }
+        .ludo-corner { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
+        .ludo-c-red { background: #ef4444; }
+        .ludo-c-green { background: #10b981; }
+        .ludo-c-yellow { background: #f59e0b; }
+        .ludo-c-blue { background: #3b82f6; }
+        .ludo-mid-center { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #fbbf24; }
 
         /* Room Screen & Bottom Nav */
         #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
@@ -43,7 +48,7 @@
         .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; color:#fff; }
         .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
         .seat-name { font-size: 12px; color: #9ca3af; display: block; }
-        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 200px; }
+        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 180px; }
         .chat-msg { font-size: 13px; background: rgba(255, 255, 255, 0.05); padding: 6px 10px; border-radius: 8px; }
         .controls { display: flex; gap: 8px; margin-top: 10px; }
         .controls input { flex: 1; background: #1f2937; border: 1px solid #4b5563; border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px; }
@@ -58,7 +63,6 @@
         <!-- Tab 1: WePlay Home Screen -->
         <div id="tab-home" class="tab-view active">
             
-            <!-- Top Header -->
             <div class="top-header">
                 <div class="user-profile-mini">
                     <div class="avatar-mini" id="userAvatar">A</div>
@@ -67,7 +71,6 @@
                 <div class="coin-pill">🪙 <span id="userCoins">1,250</span></div>
             </div>
 
-            <!-- Quick Icons Row -->
             <div class="quick-icons-row">
                 <div class="icon-card" onclick="switchTab('tab-ranking', document.querySelectorAll('.nav-item')[2])">
                     <span>👑</span>
@@ -92,16 +95,15 @@
                 <span style="font-size: 12px; color: #6b7280; cursor: pointer;" onclick="goToRoom('Global Game Lounge')">Game Rooms →</span>
             </div>
 
-            <!-- Featured Large Banner -->
-            <div class="game-banner-large" onclick="goToRoom('Ludo King Arena Room')">
+            <!-- Full Screen Ludo Launching Banner -->
+            <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 Ludo King Arena</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Play live with friends & voice chat</p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Tap to play full screen Ludo match</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
 
-            <!-- WePlay Mini Games Grid -->
             <div class="games-grid-weplay">
                 <div class="game-card-mini" onclick="goToRoom('Food Rush Party')">
                     <span style="font-size: 22px;">🍔</span>
@@ -162,11 +164,39 @@
             <h3 style="margin: 0; font-size: 18px; color:#111827;" id="profileNameBig">Admin User</h3>
             <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
-                <!-- Room Screen Overlay -->
+
+        <!-- FULL SCREEN LUDO ARENA MODAL -->
+        <div id="ludoArenaModal">
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <button class="btn" style="background:#374151; padding: 6px 14px; font-size: 12px;" onclick="closeLudoArena()">← Leave Ludo</button>
+                <h3 style="margin:0; font-size: 15px; color:#f59e0b;">🎲 Ludo King Match</h3>
+                <div style="width: 60px;"></div>
+            </div>
+
+            <p id="ludoStatusText" style="font-size: 13px; color: #9ca3af; margin: 10px 0;">Your turn! Tap Roll Dice button.</p>
+
+            <div class="ludo-game-board">
+                <div class="ludo-corner ludo-c-red">🔴</div>
+                <div class="ludo-mid-center" style="background:#111827;">
+                    <span id="ludoDiceShow" style="font-size: 32px;">🎲</span>
+                </div>
+                <div class="ludo-corner ludo-c-green">🟢</div>
+                <div class="ludo-mid-center" style="background:#111827;"></div>
+                <div class="ludo-mid-center">👑<br>KING</div>
+                <div class="ludo-mid-center" style="background:#111827;"></div>
+                <div class="ludo-corner ludo-c-yellow">🟡</div>
+                <div class="ludo-mid-center" style="font-size: 20px;">🏁</div>
+                <div class="ludo-corner ludo-c-blue">🔵</div>
+            </div>
+
+            <button class="btn" style="background: #f59e0b; color: #111827; width: 80%; padding: 12px; font-size: 15px;" onclick="playLudoRoll()">Roll Dice 🎲</button>
+        </div>
+
+        <!-- Room Screen Overlay -->
         <div id="roomScreen">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
                 <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
-                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ Game & Voice Room</h3>
+                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ Voice Lounge</h3>
                 <div style="width: 50px;"></div>
             </div>
             
@@ -179,7 +209,7 @@
             </div>
 
             <div class="chat-box" id="chatBox">
-                <div class="chat-msg"><span style="color:#f472b6; font-weight:bold;">System:</span> Welcome to game room! 🎉</div>
+                <div class="chat-msg"><span style="color:#f472b6; font-weight:bold;">System:</span> Welcome to voice room! 🎉</div>
             </div>
 
             <div class="controls">
@@ -209,6 +239,21 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             if(btnElement) btnElement.classList.add('active');
+        }
+
+        function openLudoArena() {
+            document.getElementById('ludoArenaModal').style.display = 'flex';
+        }
+
+        function closeLudoArena() {
+            document.getElementById('ludoArenaModal').style.display = 'none';
+        }
+
+        function playLudoRoll() {
+            let diceNum = Math.floor(Math.random() * 6) + 1;
+            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            document.getElementById('ludoDiceShow').innerText = diceFaces[diceNum - 1];
+            document.getElementById('ludoStatusText').innerText = `You rolled a ${diceNum}! Token moving forward...`;
         }
 
         function goToRoom(roomName) {
