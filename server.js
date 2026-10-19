@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
         <head>
             <title>Friend Zone</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <!-- Stable Agora RTC SDK CDN -->
-            <script src="https://download.agora.io/sdk/web/AgoraRTC_N-4.17.0.js"></script>
+            <!-- Reliable jsDelivr CDN for Agora SDK -->
+            <script src="https://cdn.jsdelivr.net/npm/agora-rtc-sdk-ng@4.20.0/AgoraRTC_N.js"></script>
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -114,14 +114,14 @@ app.get('/', (req, res) => {
                 async function joinVoiceRoom() {
                     try {
                         if (typeof AgoraRTC === 'undefined') {
-                            document.getElementById('room-status').innerText = "❌ Agora SDK failed to load. Check Internet.";
+                            document.getElementById('room-status').innerText = "❌ Agora SDK failed to load.";
                             return;
                         }
 
-                        document.getElementById('room-status').innerText = "Asking mic permission...";
+                        document.getElementById('room-status').innerText = "Requesting mic permission...";
                         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                         
-                        document.getElementById('room-status').innerText = "Connecting Agora...";
+                        document.getElementById('room-status').innerText = "Connecting Voice Room...";
                         client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
                         
                         client.on("user-published", async (user, mediaType) => {
