@@ -28,7 +28,6 @@
         #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 6px; align-items: center; justify-content: space-between; overflow-y: auto; }
         .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 2px 4px; }
         
-        /* Screenshot matching 4 Player Corner Cards with Dice */
         .players-board-layout { width: 330px; display: flex; flex-direction: column; gap: 4px; margin: 4px auto; }
         .player-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
         
@@ -38,7 +37,6 @@
 
         .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.8); }
 
-        /* Exact Corner Bases as per image */
         .base-yellow { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #f59e0b; border: 2px solid #000; padding: 6px; }
         .base-blue { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #3b82f6; border: 2px solid #000; padding: 6px; }
         .base-green { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #10b981; border: 2px solid #000; padding: 6px; }
@@ -114,7 +112,7 @@
             </div>
 
             <div class="players-board-layout">
-                <!-- Top Row: Computer 3 (Yellow) & Computer 4 (Blue) with Dices[span_4](start_span)[span_4](end_span) -->
+                <!-- Top Row: Computer 3 (Yellow) & Computer 4 (Blue) with Dices -->
                 <div class="player-row">
                     <div id="cardYellow" class="player-box-card active-turn" style="color:#f59e0b;">
                         <div>
@@ -134,10 +132,8 @@
 
                 <!-- 15x15 Standard Ludo Board Grid -->
                 <div class="real-ludo-grid">
-                    <!-- TOP-LEFT: YELLOW BASE[span_5](start_span)[span_5](end_span) -->
                     <div class="base-yellow"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div></div></div>
                     
-                    <!-- TOP TRACK -->
                     <div class="cell"></div><div class="cell"></div><div class="cell"></div>
                     <div class="cell c-blue">↓</div><div class="cell c-blue"></div><div class="cell c-star">⭐</div>
                     <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
@@ -145,28 +141,22 @@
                     <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
                     <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
 
-                    <!-- TOP-RIGHT: BLUE BASE[span_6](start_span)[span_6](end_span) -->
                     <div class="base-blue"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div></div></div>
 
-                    <!-- LEFT TRACK -->
                     <div class="cell"></div><div class="cell c-yellow">⭐</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
                     <div class="cell c-yellow">→</div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div>
                     <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
 
-                    <!-- CENTER HOME -->
                     <div class="center-home">
                         <div class="tri-yellow"></div><div class="tri-blue"></div><div class="tri-green"></div><div class="tri-red"></div>
                     </div>
 
-                    <!-- RIGHT TRACK -->
                     <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
                     <div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red">←</div>
                     <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-red">⭐</div><div class="cell"></div>
 
-                    <!-- BOTTOM-LEFT: GREEN BASE[span_7](start_span)[span_7](end_span) -->
                     <div class="base-green"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div></div></div>
 
-                    <!-- BOTTOM TRACK -->
                     <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
                     <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
                     <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
@@ -174,11 +164,10 @@
                     <div class="cell c-star">⭐</div><div class="cell c-green"></div><div class="cell c-green">↑</div>
                     <div class="cell"></div><div class="cell"></div><div class="cell"></div>
 
-                    <!-- BOTTOM-RIGHT: RED (YOU) BASE[span_8](start_span)[span_8](end_span) -->
                     <div class="base-red"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div></div></div>
                 </div>
 
-                <!-- Bottom Row: Computer 2 (Green) & You (Red) with Dices[span_9](start_span)[span_9](end_span) -->
+                <!-- Bottom Row: Computer 2 (Green) & You (Red) with Dices -->
                 <div class="player-row">
                     <div id="cardGreen" class="player-box-card" style="color:#10b981;">
                         <div>
@@ -216,7 +205,7 @@
         const diceIds = { yellow: 'diceYellow', blue: 'diceBlue', green: 'diceGreen', red: 'diceRed' };
         
         let turnIndex = 0;
-        let playerScores = { yellow: 0, blue: 0, green: 0, raw: 0, red: 0 };
+        let playerScores = { yellow: 0, blue: 0, green: 0, red: 0 };
         let isRolling = false;
 
         function switchTab(tabId) {
@@ -224,16 +213,20 @@
             document.getElementById(tabId).classList.add('active');
         }
 
-        function openLudoArena() { document.getElementById('ludoArenaModal').style.display = 'flex'; }
-        function closeLudoArena() { document.getElementById('ludoArenaModal').style.display = 'none'; }
+        function openLudoArena() { 
+            document.getElementById('ludoArenaModal').style.display = 'flex'; 
+        }
+        
+        function closeLudoArena() { 
+            document.getElementById('ludoArenaModal').style.display = 'none'; 
+        }
 
-        /* EXACT IMAGE ORIENTED INDIVIDUAL DICE CONTROLS */
         function rollSpecificDice(color) {
             if (isRolling) return;
             let activeColor = playerList[turnIndex];
 
             if (color !== activeColor) {
-                alert(`Yeh turn ${activeColor.toUpperCase()} ki hai! Pehle inka dice chalne dein.`);
+                alert(`Abhi turn ${activeColor.toUpperCase()} ki hai! Inka dice click karein.`);
                 return;
             }
 
@@ -261,10 +254,12 @@
                 let nextColor = playerList[turnIndex];
 
                 document.getElementById(cardIds[nextColor]).classList.add('active-turn');
-                document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()'s turn! Click its dice.`;
+                document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()}'s turn! Click its dice.`;
                 isRolling = false;
             }, 700);
         }
     </script>
 </body>
 </html>
+                                                                                                          </html>
+                                                                                                          
