@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Voice Lounge - Real Ludo</title>
+    <title>VIP Voice Lounge - 4 Player Ludo</title>
     <style>
         * { box-sizing: border-box; }
         body { background: #f3e8ff; color: #1f2937; font-family: sans-serif; display: flex; justify-content: center; padding: 10px; margin: 0; }
@@ -31,40 +31,26 @@
         .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
         .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
 
-        /* Real Ludo King Board Styles */
+        /* 4 Player Ludo Arena Styles */
         #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; z-index: 100; flex-direction: column; padding: 10px; align-items: center; justify-content: space-between; overflow-y: auto; }
         
-        .real-ludo-board { width: 330px; height: 330px; background: #fff; border: 4px solid #111827; border-radius: 8px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .real-ludo-board { width: 310px; height: 310px; background: #fff; border: 4px solid #111827; border-radius: 8px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         
-        /* Board Sections */
         .ludo-home-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .ludo-home-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .ludo-home-yellow { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .ludo-home-blue { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #3b82f6; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
 
         .inner-base { width: 75%; height: 75%; background: #fff; border-radius: 6px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 6px; padding: 8px; }
-        
-        .base-spot { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
-        .spot-red { background: #ef4444; }
-        .spot-green { background: #10b981; }
-        .spot-yellow { background: #f59e0b; }
-        .spot-blue { background: #3b82f6; }
+        .base-spot { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .spot-red { background: #ef4444; } .spot-green { background: #10b981; } .spot-yellow { background: #f59e0b; } .spot-blue { background: #3b82f6; }
 
-        .ludo-center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #111827; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; color: #f59e0b; text-align: center; }
+        .ludo-center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #111827; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #f59e0b; text-align: center; }
+        .pawn { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #000; display: inline-block; cursor: pointer; }
 
-        /* Path cells */
-        .track-cell { border: 1px solid #e5e7eb; background: #fff; font-size: 8px; display: flex; align-items: center; justify-content: center; }
-        .cell-red { background: #fca5a5; }
-        .cell-green { background: #6ee7b7; }
-        .cell-yellow { background: #fde047; }
-        .cell-blue { background: #93c5fd; }
-        .cell-star { background: #fef08a; font-size: 10px; }
-
-        .pawn { width: 16px; height: 16px; border-radius: 50%; border: 1px solid #000; display: inline-block; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
-
-        .player-status-row { display: flex; justify-content: space-around; width: 100%; font-size: 11px; background: rgba(255,255,255,0.08); padding: 5px; border-radius: 6px; }
-        .player-badge { padding: 2px 6px; border-radius: 4px; font-weight: bold; opacity: 0.5; }
-        .player-badge.active-turn { opacity: 1; border: 1px solid #f59e0b; background: rgba(245,158,11,0.2); }
+        .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; font-size: 11px; background: rgba(255,255,255,0.06); padding: 8px; border-radius: 8px; }
+        .player-card-box { background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; border: 1px solid transparent; }
+        .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245,158,11,0.15); }
 
         /* Room & Nav */
         #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
@@ -73,7 +59,7 @@
         .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; color:#fff; }
         .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
         .seat-name { font-size: 12px; color: #9ca3af; display: block; }
-        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 160px; }
+        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 150px; }
         .chat-msg { font-size: 13px; background: rgba(255, 255, 255, 0.05); padding: 6px 10px; border-radius: 8px; }
         .controls { display: flex; gap: 8px; margin-top: 10px; }
         .controls input { flex: 1; background: #1f2937; border: 1px solid #4b5563; border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px; }
@@ -120,11 +106,11 @@
                 <span style="font-size: 12px; color: #6b7280; cursor: pointer;" onclick="goToRoom('Global Game Lounge')">Game Rooms →</span>
             </div>
 
-            <!-- Full Screen Real Ludo Launching Banner -->
+            <!-- Full Screen 4-Player Ludo Launching Banner -->
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
-                    <h3 style="margin: 0; font-size: 16px;">🎲 Real Ludo King</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Real 4-color board with 4 pawns each</p>
+                    <h3 style="margin: 0; font-size: 16px;">🎲 4-Player Ludo Master</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Play live with Red, Green, Yellow & Blue bots</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
@@ -190,75 +176,82 @@
             <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
 
-        <!-- REAL LUDO KING MODAL -->
+        <!-- 4-PLAYER LUDO ARENA MODAL -->
         <div id="ludoArenaModal">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                <button class="btn" style="background:#374151; padding: 5px 12px; font-size: 11px;" onclick="closeLudoArena()">← Exit Match</button>
-                <h3 style="margin:0; font-size: 14px; color:#f59e0b;">🎲 Real Ludo Arena</h3>
+                <button class="btn" style="background:#374151; padding: 4px 10px; font-size: 11px;" onclick="closeLudoArena()">← Exit Match</button>
+                <h3 style="margin:0; font-size: 14px; color:#f59e0b;">🎲 4-Player Ludo Master</h3>
                 <div style="width: 50px;"></div>
             </div>
 
-            <!-- Player Status Badges -->
-            <div class="player-status-row">
-                <div id="badgeRed" class="player-badge active-turn" style="color:#ef4444;">🔴 Red</div>
-                <div id="badgeGreen" class="player-badge" style="color:#10b981;">🟢 Green</div>
-                <div id="badgeYellow" class="player-badge" style="color:#f59e0b;">🟡 Yellow</div>
-                <div id="badgeBlue" class="player-badge" style="color:#3b82f6;">🔵 Blue</div>
+            <!-- 4 Players Status Panel -->
+            <div class="players-4-panel">
+                <div id="cardRed" class="player-card-box active-turn" style="color:#ef4444;">
+                    <span>🔴 Red (You)</span>
+                    <span id="scoreRed" style="font-weight:bold;">0 pt</span>
+                </div>
+                <div id="cardGreen" class="player-card-box" style="color:#10b981;">
+                    <span>🟢 Green (Bot)</span>
+                    <span id="scoreGreen" style="font-weight:bold;">0 pt</span>
+                </div>
+                <div id="cardYellow" class="player-card-box" style="color:#f59e0b;">
+                    <span>🟡 Yellow (Bot)</span>
+                    <span id="scoreYellow" style="font-weight:bold;">0 pt</span>
+                </div>
+                <div id="cardBlue" class="player-card-box" style="color:#3b82f6;">
+                    <span>🔵 Blue (Bot)</span>
+                    <span id="scoreBlue" style="font-weight:bold;">0 pt</span>
+                </div>
             </div>
 
             <!-- Real Ludo Grid Board -->
             <div class="real-ludo-board">
-                <!-- RED BASE -->
                 <div class="ludo-home-red">
                     <div class="inner-base">
-                        <div class="base-spot spot-red"><div id="pawn-red-1" class="pawn" style="background:#ef4444;" onclick="selectPawn('red', 1)"></div></div>
-                        <div class="base-spot spot-red"><div id="pawn-red-2" class="pawn" style="background:#ef4444;" onclick="selectPawn('red', 2)"></div></div>
-                        <div class="base-spot spot-red"><div id="pawn-red-3" class="pawn" style="background:#ef4444;" onclick="selectPawn('red', 3)"></div></div>
-                        <div class="base-spot spot-red"><div id="pawn-red-4" class="pawn" style="background:#ef4444;" onclick="selectPawn('red', 4)"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
                     </div>
                 </div>
 
-                <!-- GREEN BASE -->
                 <div class="ludo-home-green">
                     <div class="inner-base">
-                        <div class="base-spot spot-green"><div id="pawn-green-1" class="pawn" style="background:#10b981;" onclick="selectPawn('green', 1)"></div></div>
-                        <div class="base-spot spot-green"><div id="pawn-green-2" class="pawn" style="background:#10b981;" onclick="selectPawn('green', 2)"></div></div>
-                        <div class="base-spot spot-green"><div id="pawn-green-3" class="pawn" style="background:#10b981;" onclick="selectPawn('green', 3)"></div></div>
-                        <div class="base-spot spot-green"><div id="pawn-green-4" class="pawn" style="background:#10b981;" onclick="selectPawn('green', 4)"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
                     </div>
                 </div>
 
-                <!-- CENTER HOME -->
                 <div class="ludo-center-home">
                     <span>👑<br>HOME</span>
                 </div>
 
-                <!-- YELLOW BASE -->
                 <div class="ludo-home-yellow">
                     <div class="inner-base">
-                        <div class="base-spot spot-yellow"><div id="pawn-yellow-1" class="pawn" style="background:#f59e0b;" onclick="selectPawn('yellow', 1)"></div></div>
-                        <div class="base-spot spot-yellow"><div id="pawn-yellow-2" class="pawn" style="background:#f59e0b;" onclick="selectPawn('yellow', 2)"></div></div>
-                        <div class="base-spot spot-yellow"><div id="pawn-yellow-3" class="pawn" style="background:#f59e0b;" onclick="selectPawn('yellow', 3)"></div></div>
-                        <div class="base-spot spot-yellow"><div id="pawn-yellow-4" class="pawn" style="background:#f59e0b;" onclick="selectPawn('yellow', 4)"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
                     </div>
                 </div>
 
-                <!-- BLUE BASE -->
                 <div class="ludo-home-blue">
                     <div class="inner-base">
-                        <div class="base-spot spot-blue"><div id="pawn-blue-1" class="pawn" style="background:#3b82f6;" onclick="selectPawn('blue', 1)"></div></div>
-                        <div class="base-spot spot-blue"><div id="pawn-blue-2" class="pawn" style="background:#3b82f6;" onclick="selectPawn('blue', 2)"></div></div>
-                        <div class="base-spot spot-blue"><div id="pawn-blue-3" class="pawn" style="background:#3b82f6;" onclick="selectPawn('blue', 3)"></div></div>
-                        <div class="base-spot spot-blue"><div id="pawn-blue-4" class="pawn" style="background:#3b82f6;" onclick="selectPawn('blue', 4)"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
                     </div>
                 </div>
             </div>
 
-            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Roll dice to start.</p>
+            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Roll dice to advance.</p>
 
-            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 5px;">
-                <span id="ludoDiceShow" style="font-size: 32px; background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 8px;">🎲</span>
-                <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; padding: 10px 20px; font-size: 14px;" onclick="playLudoRoll()">Roll Dice 🎲</button>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 2px;">
+                <span id="ludoDiceShow" style="font-size: 28px; background: rgba(255,255,255,0.1); padding: 2px 10px; border-radius: 6px;">🎲</span>
+                <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; padding: 8px 18px; font-size: 13px;" onclick="roll4PlayerDice()">Roll Dice 🎲</button>
             </div>
         </div>
 
@@ -304,17 +297,13 @@
         document.getElementById('profileNameBig').innerText = currentUser;
         document.getElementById('profileAvatarBig').innerText = currentUser.charAt(0).toUpperCase();
 
-        // Real Ludo Multi-Pawn Logic
-        const colors = ['red', 'green', 'yellow', 'blue'];
-        const badgeIds = ['badgeRed', 'badgeGreen', 'badgeYellow', 'badgeBlue'];
-        let activeTurnIndex = 0;
-        let currentDiceValue = 0;
-        let pawnPositions = {
-            red: [0, 0, 0, 0],
-            green: [0, 0, 0, 0],
-            yellow: [0, 0, 0, 0],
-            blue: [0, 0, 0, 0]
-        };
+        // 4 Player Match Variables
+        const playerList = ['red', 'green', 'yellow', 'blue'];
+        const cardIds = ['cardRed', 'cardGreen', 'cardYellow', 'cardBlue'];
+        const scoreIds = { red: 'scoreRed', green: 'scoreGreen', yellow: 'scoreYellow', blue: 'scoreBlue' };
+        let turnIndex = 0;
+        let lastRolledValue = 0;
+        let playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
 
         function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
@@ -331,39 +320,56 @@
             document.getElementById('ludoArenaModal').style.display = 'none';
         }
 
-        function playLudoRoll() {
-            currentDiceValue = Math.floor(Math.random() * 6) + 1;
-            let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            document.getElementById('ludoDiceShow').innerText = diceFaces[currentDiceValue - 1];
+        function roll4PlayerDice() {
+            let activeColor = playerList[turnIndex];
+            lastRolledValue = Math.floor(Math.random() * 6) + 1;
+            let faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            document.getElementById('ludoDiceShow').innerText = faces[lastRolledValue - 1];
 
-            let activeColor = colors[activeTurnIndex];
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled a ${currentDiceValue}! Tap your pawn to move.`;
-
-            // Auto-move first pawn for quick gameplay testing
-            setTimeout(() => {
-                movePawn(activeColor, 0, currentDiceValue);
-            }, 600);
+            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Tap your pawn to move.`;
+            
+            if(activeColor !== 'red') {
+                // Bot automatic move after 1 second
+                setTimeout(() => {
+                    executeMove(activeColor);
+                }, 800);
+            }
         }
 
-        function movePawn(color, pawnIndex, steps) {
-            pawnPositions[color][pawnIndex] += steps;
-            let currentSteps = pawnPositions[color][pawnIndex];
-            
-            document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} Pawn ${pawnIndex + 1} moved to step ${currentSteps}/57!`;
+        function onPawnClick(color) {
+            let activeColor = playerList[turnIndex];
+            if(activeColor === color && lastRolledValue > 0) {
+                executeMove(color);
+            } else {
+                document.getElementById('ludoStatusText').innerText = `Not your turn or roll dice first!`;
+            }
+        }
 
-            if(currentSteps >= 57) {
-                alert(`🎉 Congratulations! ${color.toUpperCase()} Pawn reached HOME! 🏆`);
+        function executeMove(color) {
+            playerScores[color] += lastRolledValue;
+            document.getElementById(scoreIds[color]).innerText = playerScores[color] + " pts";
+            document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} advanced by ${lastRolledValue} steps!`;
+
+            if(playerScores[color] >= 50) {
+                alert(`👑 Amazing! ${color.toUpperCase()} player won the 4-Player Ludo Match! 🎉`);
+                playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
+                Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
             }
 
-            // Next turn switch
-            badgeIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
-            activeTurnIndex = (activeTurnIndex + 1) % 4;
-            document.getElementById(badgeIds[activeTurnIndex]).classList.add('active-turn');
-        }
+            lastRolledValue = 0;
+            cardIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
+            turnIndex = (turnIndex + 1) % 4;
+            document.getElementById(cardIds[turnIndex]).classList.add('active-turn');
 
-        function selectPawn(color, id) {
-            if(colors[activeTurnIndex] === color && currentDiceValue > 0) {
-                movePawn(color, id - 1, currentDiceValue);
+            let nextColor = playerList[turnIndex];
+            document.getElementById('ludoStatusText').innerText = `${nextColor.toUpperCase()}'s turn! Roll the dice.`;
+
+            if(nextColor !== 'red') {
+                setTimeout(() => {
+                    if(document.getElementById('ludoArenaModal').style.display === 'flex') {
+                        roll4PlayerDice();
+                    }
+                }, 1000);
             }
         }
 
@@ -401,5 +407,4 @@
         }
     </script>
 </body>
-    </html>
-    
+</html>
