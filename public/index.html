@@ -31,15 +31,21 @@
         .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
         .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
 
-        /* Full Screen Ludo Modal Overlay */
+        /* Advanced Ludo Arena Styles */
         #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; z-index: 100; flex-direction: column; padding: 15px; align-items: center; justify-content: space-between; }
-        .ludo-game-board { width: 300px; height: 300px; background: #1f2937; border: 3px solid #f59e0b; border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; margin: 10px auto; }
-        .ludo-corner { display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
+        .ludo-game-board { width: 310px; height: 310px; background: #1f2937; border: 3px solid #f59e0b; border-radius: 12px; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; margin: 5px auto; }
+        .ludo-corner { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; position: relative; }
         .ludo-c-red { background: #ef4444; }
         .ludo-c-green { background: #10b981; }
         .ludo-c-yellow { background: #f59e0b; }
         .ludo-c-blue { background: #3b82f6; }
-        .ludo-mid-center { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: #fbbf24; }
+        .ludo-mid-center { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: #fbbf24; }
+        
+        .ludo-token { width: 22px; height: 22px; background: #fff; border-radius: 50%; border: 2px solid #000; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: #000; margin: 2px; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: all 0.3s ease; }
+        
+        .player-status-row { display: flex; justify-content: space-around; width: 100%; font-size: 12px; background: rgba(255,255,255,0.08); padding: 6px; border-radius: 8px; margin-bottom: 5px; }
+        .player-badge { padding: 3px 8px; border-radius: 6px; font-weight: bold; opacity: 0.6; }
+        .player-badge.active-turn { opacity: 1; border: 1px solid #f59e0b; background: rgba(245,158,11,0.2); }
 
         /* Room Screen & Bottom Nav */
         #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
@@ -99,7 +105,7 @@
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 Ludo King Arena</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Tap to play full screen Ludo match</p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Tap to play full screen 4-player Ludo match</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
@@ -165,31 +171,51 @@
             <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
 
-        <!-- FULL SCREEN LUDO ARENA MODAL -->
+        <!-- INTERACTIVE FULL SCREEN LUDO ARENA MODAL -->
         <div id="ludoArenaModal">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                <button class="btn" style="background:#374151; padding: 6px 14px; font-size: 12px;" onclick="closeLudoArena()">← Leave Ludo</button>
-                <h3 style="margin:0; font-size: 15px; color:#f59e0b;">🎲 Ludo King Match</h3>
+                <button class="btn" style="background:#374151; padding: 6px 14px; font-size: 12px;" onclick="closeLudoArena()">← Exit Match</button>
+                <h3 style="margin:0; font-size: 15px; color:#f59e0b;">🎲 Ludo King Arena</h3>
                 <div style="width: 60px;"></div>
             </div>
 
-            <p id="ludoStatusText" style="font-size: 13px; color: #9ca3af; margin: 10px 0;">Your turn! Tap Roll Dice button.</p>
+            <!-- Turn Indicators Row -->
+            <div class="player-status-row">
+                <div id="pRedBadge" class="player-badge active-turn" style="color:#ef4444;">🔴 Red (You)</div>
+                <div id="pGreenBadge" class="player-badge" style="color:#10b981;">🟢 Green (Bot)</div>
+                <div id="pYellowBadge" class="player-badge" style="color:#f59e0b;">🟡 Yellow (Bot)</div>
+                <div id="pBlueBadge" class="player-badge" style="color:#3b82f6;">🔵 Blue (Bot)</div>
+            </div>
+
+            <p id="ludoStatusText" style="font-size: 12px; color: #9ca3af; margin: 4px 0;">🔴 Red's turn! Tap Roll Dice to start.</p>
 
             <div class="ludo-game-board">
-                <div class="ludo-corner ludo-c-red">🔴</div>
+                <div class="ludo-corner ludo-c-red">
+                    <span style="font-size:11px; margin-bottom:2px; color:#fff;">RED</span>
+                    <div id="tokenRed" class="ludo-token">🔴</div>
+                </div>
                 <div class="ludo-mid-center" style="background:#111827;">
                     <span id="ludoDiceShow" style="font-size: 32px;">🎲</span>
                 </div>
-                <div class="ludo-corner ludo-c-green">🟢</div>
+                <div class="ludo-corner ludo-c-green">
+                    <span style="font-size:11px; margin-bottom:2px; color:#fff;">GREEN</span>
+                    <div id="tokenGreen" class="ludo-token">🟢</div>
+                </div>
                 <div class="ludo-mid-center" style="background:#111827;"></div>
-                <div class="ludo-mid-center">👑<br>KING</div>
+                <div class="ludo-mid-center">👑<br><span id="centerProgress" style="font-size:10px; color:#f59e0b;">HOME</span></div>
                 <div class="ludo-mid-center" style="background:#111827;"></div>
-                <div class="ludo-corner ludo-c-yellow">🟡</div>
+                <div class="ludo-corner ludo-c-yellow">
+                    <span style="font-size:11px; margin-bottom:2px; color:#fff;">YELLOW</span>
+                    <div id="tokenYellow" class="ludo-token">🟡</div>
+                </div>
                 <div class="ludo-mid-center" style="font-size: 20px;">🏁</div>
-                <div class="ludo-corner ludo-c-blue">🔵</div>
+                <div class="ludo-corner ludo-c-blue">
+                    <span style="font-size:11px; margin-bottom:2px; color:#fff;">BLUE</span>
+                    <div id="tokenBlue" class="ludo-token">🔵</div>
+                </div>
             </div>
 
-            <button class="btn" style="background: #f59e0b; color: #111827; width: 80%; padding: 12px; font-size: 15px;" onclick="playLudoRoll()">Roll Dice 🎲</button>
+            <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; width: 85%; padding: 12px; font-size: 15px;" onclick="playLudoRoll()">Roll Dice 🎲</button>
         </div>
 
         <!-- Room Screen Overlay -->
@@ -234,6 +260,12 @@
         document.getElementById('profileNameBig').innerText = currentUser;
         document.getElementById('profileAvatarBig').innerText = currentUser.charAt(0).toUpperCase();
 
+        // Ludo Interactive State Variables
+        let playerPositions = { red: 0, green: 0, yellow: 0, blue: 0 };
+        let activeTurnIndex = 0; // 0: Red, 1: Green, 2: Yellow, 3: Blue
+        const players = ['red', 'green', 'yellow', 'blue'];
+        const badgeIds = ['pRedBadge', 'pGreenBadge', 'pYellowBadge', 'pBlueBadge'];
+
         function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
@@ -250,10 +282,34 @@
         }
 
         function playLudoRoll() {
+            let rollBtn = document.getElementById('rollDiceBtn');
+            rollBtn.disabled = true;
+
             let diceNum = Math.floor(Math.random() * 6) + 1;
             let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
             document.getElementById('ludoDiceShow').innerText = diceFaces[diceNum - 1];
-            document.getElementById('ludoStatusText').innerText = `You rolled a ${diceNum}! Token moving forward...`;
+
+            let currentPlayer = players[activeTurnIndex];
+            playerPositions[currentPlayer] += diceNum;
+
+            document.getElementById('ludoStatusText').innerText = `${currentPlayer.toUpperCase()} rolled a ${diceNum}! Advanced to step ${playerPositions[currentPlayer]}/50`;
+
+            // Check Win Condition
+            if(playerPositions[currentPlayer] >= 50) {
+                alert(`🎉 Congratulations! ${currentPlayer.toUpperCase()} won the Ludo Match! 👑`);
+                playerPositions = { red: 0, green: 0, yellow: 0, blue: 0 };
+            }
+
+            // Next Turn Switch
+            setTimeout(() => {
+                badgeIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
+                activeTurnIndex = (activeTurnIndex + 1) % 4;
+                document.getElementById(badgeIds[activeTurnIndex]).classList.add('active-turn');
+                
+                let nextPlayer = players[activeTurnIndex];
+                document.getElementById('ludoStatusText').innerText = `${nextPlayer.toUpperCase()}'s turn now!`;
+                rollBtn.disabled = false;
+            }, 800);
         }
 
         function goToRoom(roomName) {
@@ -290,4 +346,5 @@
         }
     </script>
 </body>
-</html>
+                </html>
+                
