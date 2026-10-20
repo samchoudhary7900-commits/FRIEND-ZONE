@@ -5,56 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIP Voice Lounge - Real Ludo King</title>
     <style>
-        * { box-sizing: border-box; }
-        body { background: #f3e8ff; color: #1f2937; font-family: sans-serif; display: flex; justify-content: center; padding: 10px; margin: 0; }
-        .container { width: 100%; max-width: 400px; text-align: center; display: flex; flex-direction: column; min-height: 92vh; position: relative; }
-        .tab-view { display: none; flex-direction: column; padding-bottom: 70px; text-align: left; }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
+        body { background: #121826; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .app-container { width: 100%; max-width: 420px; background: #1a2234; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        
+        .tab-view { display: none; flex-direction: column; padding: 12px; padding-bottom: 70px; }
         .tab-view.active { display: flex; }
 
-        .top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .user-profile-mini { display: flex; align-items: center; gap: 8px; }
-        .avatar-mini { width: 38px; height: 38px; border-radius: 50%; background: #ec4899; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; border: 2px solid #f472b6; }
-        .coin-pill { background: #fef08a; border: 1px solid #facc15; color: #854d0e; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #232d42; border-bottom: 1px solid #2d3952; }
+        .user-profile-mini { display: flex; align-items: center; gap: 10px; }
+        .avatar-mini { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #f472b6; }
+        .coin-pill { background: #2d3952; border: 1px solid #facc15; color: #facc15; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
-        .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; text-align: center; }
-        .icon-card { background: #fff; border-radius: 12px; padding: 8px 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); cursor: pointer; }
-        .icon-card span { font-size: 20px; display: block; margin-bottom: 2px; }
-        .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #4b5563; }
+        .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; text-align: center; }
+        .icon-card { background: #232d42; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1px solid #2d3952; }
+        .icon-card span { font-size: 22px; display: block; margin-bottom: 2px; }
+        .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #9ca3af; }
 
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 5px 0 10px 0; }
-        .section-header h3 { margin: 0; font-size: 16px; color: #374151; }
-
-        .game-banner-large { background: linear-gradient(135deg, #34d399, #059669); border-radius: 14px; padding: 14px; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(5,150,105,0.2); }
-        .games-grid-weplay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .game-card-mini { background: #fff; border-radius: 12px; padding: 10px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; border: 1px solid #e5e7eb; }
-        .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
-        .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
-
-        /* REAL 15x15 LUDO BOARD GRID STYLES */
-        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; z-index: 100; flex-direction: column; padding: 8px; align-items: center; justify-content: space-between; overflow-y: auto; }
+        .game-banner-large { background: linear-gradient(135deg, #059669, #10b981); border-radius: 16px; padding: 16px; color: #fff; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
         
-        .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
+        .games-grid-weplay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .game-card-mini { background: #232d42; border-radius: 12px; padding: 12px; text-align: left; border: 1px solid #2d3952; cursor: pointer; }
+        .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #fff; }
+        .game-card-mini p { margin: 0; font-size: 10px; color: #9ca3af; }
+
+        /* LUDO ARENA STYLES */
+        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 10px; align-items: center; justify-content: space-between; overflow-y: auto; }
+        .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 8px; }
+        
+        .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; margin: 8px 0; }
+        .player-card-box { background: #1e293b; padding: 8px; border-radius: 10px; border: 2px solid transparent; display: flex; justify-content: space-between; align-items: center; opacity: 0.6; }
+        .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+
+        .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 4px auto; box-shadow: 0 8px 25px rgba(0,0,0,0.8); }
 
         .base-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; padding: 8px; }
         .base-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; padding: 8px; }
         .base-yellow { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; padding: 8px; }
         .base-blue { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #3b82f6; border: 2px solid #000; padding: 8px; }
 
-        .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 8px; padding: 8px; border: 2px solid #000; }
-        .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
-        
-        .pawn { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #000; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
+        .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 6px; padding: 6px; border: 2px solid #000; }
+        .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+        .pawn { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #000; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .pawn-red { background: #ef4444; }
         .pawn-green { background: #10b981; }
         .pawn-yellow { background: #f59e0b; }
         .pawn-blue { background: #3b82f6; }
 
-        .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; position: relative; }
+        .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; position: relative; }
         .c-red { background: #ef4444; color: #fff; }
         .c-green { background: #10b981; color: #fff; }
         .c-yellow { background: #f59e0b; color: #fff; }
         .c-blue { background: #3b82f6; color: #fff; }
-        .c-star { background: #fef08a; }
+        .c-star { background: #fef08a; color: #854d0e; }
 
         .center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #fff; border: 2px solid #000; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
         .tri-red { background: #ef4444; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
@@ -62,141 +66,95 @@
         .tri-yellow { background: #f59e0b; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
         .tri-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
 
-        .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; font-size: 11px; background: rgba(255,255,255,0.06); padding: 6px; border-radius: 8px; }
-        .player-card-box { background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; border: 1px solid transparent; }
-        .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245,158,11,0.2); }
+        .controls-area { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; margin-top: 6px; }
+        .dice-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; padding: 10px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(245,158,11,0.4); }
 
-        #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
-        .seat-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-areas: "seat1 seat1" "seat2 seat3" "seat4 seat5"; gap: 15px; text-align: center; margin: 15px auto; max-width: 250px; }
-        .seat:nth-child(1) { grid-area: seat1; } .seat:nth-child(2) { grid-area: seat2; } .seat:nth-child(3) { grid-area: seat3; } .seat:nth-child(4) { grid-area: seat4; } .seat:nth-child(5) { grid-area: seat5; }
-        .seat-circle { width: 55px; height: 55px; border-radius: 50%; background: #1f2937; border: 2px dashed #4b5563; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-weight: bold; font-size: 16px; cursor: pointer; color:#fff; }
-        .seat-circle.occupied { background: #ec4899; border: 2px solid #f472b6; }
-        .seat-name { font-size: 12px; color: #9ca3af; display: block; }
-        .chat-box { flex: 1; background: rgba(31, 41, 55, 0.6); border-radius: 12px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; text-align: left; margin-top: 10px; border: 1px solid #374151; max-height: 150px; }
-        .chat-msg { font-size: 13px; background: rgba(255, 255, 255, 0.05); padding: 6px 10px; border-radius: 8px; }
-        .controls { display: flex; gap: 8px; margin-top: 10px; }
-        .controls input { flex: 1; background: #1f2937; border: 1px solid #4b5563; border-radius: 20px; padding: 10px 15px; color: #fff; outline: none; font-size: 13px; }
-        .btn { background: #ec4899; border: none; color: #fff; padding: 10px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: 55px; background: #fff; border-top: 1px solid #e5e7eb; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
-        .nav-item { background: none; border: none; color: #9ca3af; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
-        .nav-item span { font-size: 16px; } .nav-item.active { color: #ec4899; font-weight: bold; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 55px; background: #1e293b; border-top: 1px solid #334155; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
+        .nav-item { background: none; border: none; color: #64748b; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
+        .nav-item span { font-size: 18px; }
+        .nav-item.active { color: #ec4899; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Tab 1: WePlay Home Screen -->
-        <div id="tab-home" class="tab-view active">
-            <div class="top-header">
-                <div class="user-profile-mini">
-                    <div class="avatar-mini" id="userAvatar">A</div>
-                    <span id="userNameDisplay" style="font-weight: bold; font-size: 13px; color: #1f2937;">Admin</span>
-                </div>
-                <div class="coin-pill">🪙 <span id="userCoins">1,250</span></div>
+    <div class="app-container">
+        <!-- TOP USER BAR -->
+        <div class="top-header">
+            <div class="user-profile-mini">
+                <div class="avatar-mini" id="userAvatar">A</div>
+                <span id="userNameDisplay" style="font-weight: bold; font-size: 13px;">Admin</span>
             </div>
+            <div class="coin-pill">🪙 <span id="userCoins">2,500</span></div>
+        </div>
 
+        <!-- HOME TAB -->
+        <div id="tab-home" class="tab-view active">
             <div class="quick-icons-row">
-                <div class="icon-card" onclick="switchTab('tab-ranking', document.querySelectorAll('.nav-item')[2])">
+                <div class="icon-card" onclick="switchTab('tab-ranking')">
                     <span>👑</span>
                     <p>Ranking</p>
                 </div>
-                <div class="icon-card" onclick="alert('Fan Cards feature coming soon!')">
+                <div class="icon-card" onclick="alert('Fan Cards feature active!')">
                     <span>🃏</span>
                     <p>Fan Cards</p>
                 </div>
-                <div class="icon-card" onclick="switchTab('tab-messages', document.querySelectorAll('.nav-item')[1])">
+                <div class="icon-card" onclick="switchTab('tab-messages')">
                     <span>💬</span>
                     <p>Tips</p>
                 </div>
-                <div class="icon-card" onclick="alert('Online Friends list open!')">
+                <div class="icon-card" onclick="alert('Friends list')">
                     <span>👥</span>
                     <p>Friends</p>
                 </div>
             </div>
 
-            <div class="section-header">
-                <h3>Games & Rooms</h3>
-                <span style="font-size: 12px; color: #6b7280; cursor: pointer;" onclick="goToRoom('Global Game Lounge')">Game Rooms →</span>
-            </div>
-
-            <!-- Game Banner -->
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
-                    <h3 style="margin: 0; font-size: 16px;">🎲 Real Ludo King 15x15</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Manual dice roll & 4 pawns each</p>
+                    <h3 style="margin: 0; font-size: 16px;">🎲 Classic Ludo King 15x15</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Manual Click Roll & Individual Pawns</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
 
             <div class="games-grid-weplay">
-                <div class="game-card-mini" onclick="goToRoom('Food Rush Party')">
+                <div class="game-card-mini">
                     <span style="font-size: 22px;">🍔</span>
                     <h4>Food Rush</h4>
-                    <p>Fast fun party game</p>
+                    <p>Party Game</p>
                 </div>
-                <div class="game-card-mini" onclick="goToRoom('Prank Simulator')">
-                    <span style="font-size: 22px;">🐵</span>
-                    <h4>Prank Sim</h4>
-                    <p>Laugh & prank friends</p>
-                </div>
-                <div class="game-card-mini" onclick="goToRoom('Trickster Cafe')">
-                    <span style="font-size: 22px;">☕</span>
-                    <h4>Trickster Cafe</h4>
-                    <p>Deduction & chat</p>
-                </div>
-                <div class="game-card-mini" onclick="goToRoom('Space Werewolf')">
+                <div class="game-card-mini">
                     <span style="font-size: 22px;">🐺</span>
                     <h4>Space Wolf</h4>
-                    <p>Mystery & deduction</p>
+                    <p>Deduction</p>
                 </div>
-            </div>
-
-            <div class="section-header">
-                <h3>Live Voice Lounges</h3>
-            </div>
-
-            <div class="room-card" style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; cursor:pointer;" onclick="goToRoom('Sam\'s Elite VIP Lounge')">
-                <div>
-                    <h4 style="margin:0; font-size:14px; color:#111827;">👑 Sam's Elite VIP Lounge</h4>
-                    <p style="margin:3px 0 0 0; font-size:11px; color:#6b7280;">Host: Admin • 1/5 Seats Occupied</p>
-                </div>
-                <span style="background: #ec4899; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px;">Join</span>
             </div>
         </div>
 
-        <!-- Tab 2: Messages -->
+        <!-- MESSAGES TAB -->
         <div id="tab-messages" class="tab-view">
-            <h3 style="margin: 5px 0 15px 0; color:#111827;">💬 Messages</h3>
-            <div style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb;">
-                <h4 style="margin: 0; font-size: 13px; color:#111827;">System Notifications</h4>
-                <p style="margin: 3px 0 0 0; font-size: 11px; color: #6b7280;">Welcome to WePlay style VIP Voice Lounge!</p>
-            </div>
+            <h3>💬 System Messages</h3>
+            <p style="color:#9ca3af; font-size:12px;">Welcome to WePlay Voice Lounge & Ludo Platform!</p>
         </div>
 
-        <!-- Tab 3: Ranking -->
+        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-view">
-            <h3 style="margin: 5px 0 15px 0; color:#111827;">🏆 Top Gifters Ranking</h3>
-            <div style="background:#fff; border-radius:12px; padding:12px; border:1px solid #e5e7eb; display:flex; justify-content:space-between;">
-                <span style="font-weight: bold; color: #d97706;">1. 👑 KingRahul</span>
-                <span style="font-size: 12px; color: #ec4899; font-weight: bold;">💎 50,000</span>
-            </div>
+            <h3>🏆 Leaderboard</h3>
+            <p style="color:#facc15; font-size:13px;">1. 👑 Admin - 10,000 pts</p>
         </div>
 
-        <!-- Tab 4: Profile -->
-        <div id="tab-profile" class="tab-view" style="align-items: center; text-align: center;">
-            <div class="avatar-mini" style="width: 70px; height: 70px; font-size: 28px; margin-bottom: 10px;" id="profileAvatarBig">A</div>
-            <h3 style="margin: 0; font-size: 18px; color:#111827;" id="profileNameBig">Admin User</h3>
-            <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
+        <!-- PROFILE TAB -->
+        <div id="tab-profile" class="tab-view" style="text-align: center;">
+            <h3>👤 Profile</h3>
+            <p style="color:#9ca3af; font-size:12px;">User ID: #88921</p>
         </div>
 
         <!-- REAL 15x15 LUDO ARENA MODAL -->
         <div id="ludoArenaModal">
-            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                <button class="btn" style="background:#374151; padding: 4px 10px; font-size: 11px;" onclick="closeLudoArena()">← Exit Match</button>
-                <h3 style="margin:0; font-size: 14px; color:#f59e0b;">🎲 Real Ludo Arena</h3>
-                <div style="width: 50px;"></div>
+            <div class="ludo-header">
+                <button style="background:#334155; color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:11px;" onclick="closeLudoArena()">← Exit</button>
+                <h3 style="margin:0; font-size: 14px; color:#facc15;">🎲 Real Ludo Arena</h3>
+                <div style="width:40px;"></div>
             </div>
 
-            <!-- 4 Players Status Panel -->
             <div class="players-4-panel">
                 <div id="cardRed" class="player-card-box active-turn" style="color:#ef4444;">
                     <span>🔴 Red (You)</span>
@@ -216,7 +174,6 @@
                 </div>
             </div>
 
-            <!-- 15x15 Standard Ludo Board -->
             <div class="real-ludo-grid">
                 <!-- RED BASE -->
                 <div class="base-red">
@@ -293,56 +250,25 @@
                 </div>
             </div>
 
-            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Tap 'Roll Dice' when ready.</p>
-
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 2px;">
-                <span id="ludoDiceShow" style="font-size: 28px; background: rgba(255,255,255,0.1); padding: 2px 10px; border-radius: 6px;">🎲</span>
-                <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; padding: 8px 18px; font-size: 13px;" onclick="rollRealDice()">Roll Dice 🎲</button>
+            <div class="controls-area">
+                <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 0;">🔴 Red's turn! Click Roll Dice to play.</p>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span id="ludoDiceShow" style="font-size:28px; background:#1e293b; padding:2px 10px; border-radius:8px;">🎲</span>
+                    <button class="dice-btn" onclick="rollRealDice()">Roll Dice 🎲</button>
+                </div>
             </div>
         </div>
 
-        <!-- Room Screen Overlay -->
-        <div id="roomScreen">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                <button class="btn" style="padding: 5px 12px; font-size: 12px; background: #374151;" onclick="goBackHome()">← Back</button>
-                <h3 id="roomTitle" style="margin: 0; font-size: 14px;">🎙️ Voice Lounge</h3>
-                <div style="width: 50px;"></div>
-            </div>
-            
-            <div class="seat-grid">
-                <div class="seat"><div id="seat-1" class="seat-circle occupied">A</div><span id="seat-1-name" class="seat-name">Admin</span></div>
-                <div class="seat" onclick="claimSeat(2)"><div id="seat-2" class="seat-circle">+</div><span id="seat-2-name" class="seat-name">Seat 2</span></div>
-                <div class="seat" onclick="claimSeat(3)"><div id="seat-3" class="seat-circle">+</div><span id="seat-3-name" class="seat-name">Seat 3</span></div>
-                <div class="seat" onclick="claimSeat(4)"><div id="seat-4" class="seat-circle">+</div><span id="seat-4-name" class="seat-name">Seat 4</span></div>
-                <div class="seat" onclick="claimSeat(5)"><div id="seat-5" class="seat-circle">+</div><span id="seat-5-name" class="seat-name">Seat 5</span></div>
-            </div>
-
-            <div class="chat-box" id="chatBox">
-                <div class="chat-msg"><span style="color:#f472b6; font-weight:bold;">System:</span> Welcome to voice room! 🎉</div>
-            </div>
-
-            <div class="controls">
-                <input type="text" id="msgInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter') sendMsg()">
-                <button class="btn" onclick="sendMsg()">Send</button>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation Bar -->
+        <!-- BOTTOM NAV BAR -->
         <div class="bottom-nav">
-            <button class="nav-item active" onclick="switchTab('tab-home', this)"><span>🏠</span>Home</button>
-            <button class="nav-item" onclick="switchTab('tab-messages', this)"><span>💬</span>Messages</button>
-            <button class="nav-item" onclick="switchTab('tab-ranking', this)"><span>🏆</span>Ranking</button>
-            <button class="nav-item" onclick="switchTab('tab-profile', this)"><span>👤</span>Profile</button>
+            <button class="nav-item active" onclick="switchTab('tab-home')"><span>🏠</span>Home</button>
+            <button class="nav-item" onclick="switchTab('tab-messages')"><span>💬</span>Messages</button>
+            <button class="nav-item" onclick="switchTab('tab-ranking')"><span>🏆</span>Ranking</button>
+            <button class="nav-item" onclick="switchTab('tab-profile')"><span>👤</span>Profile</button>
         </div>
     </div>
 
     <script>
-        let currentUser = "User_" + Math.floor(Math.random() * 900 + 100);
-        document.getElementById('userNameDisplay').innerText = currentUser;
-        document.getElementById('userAvatar').innerText = currentUser.charAt(0).toUpperCase();
-        document.getElementById('profileNameBig').innerText = currentUser;
-        document.getElementById('profileAvatarBig').innerText = currentUser.charAt(0).toUpperCase();
-
         const playerList = ['red', 'green', 'yellow', 'blue'];
         const cardIds = ['cardRed', 'cardGreen', 'cardYellow', 'cardBlue'];
         const scoreIds = { red: 'scoreRed', green: 'scoreGreen', yellow: 'scoreYellow', blue: 'scoreBlue' };
@@ -351,11 +277,9 @@
         let playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
         let isRolling = false;
 
-        function switchTab(tabId, btnElement) {
+        function switchTab(tabId) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            if(btnElement) btnElement.classList.add('active');
         }
 
         function openLudoArena() {
@@ -366,7 +290,7 @@
             document.getElementById('ludoArenaModal').style.display = 'none';
         }
 
-        // Manual Click-Based Dice Roll Function
+        /* MANUAL CLICK DICE ROLL SYSTEM */
         function rollRealDice() {
             if (isRolling) return;
             isRolling = true;
@@ -386,62 +310,23 @@
         function executeRealMove(color) {
             playerScores[color] += lastRolledValue;
             document.getElementById(scoreIds[color]).innerText = playerScores[color] + " pts";
-            document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} moved ${lastRolledValue} steps! Total: ${playerScores[color]}`;
 
             if(playerScores[color] >= 50) {
-                alert(`👑 Congratulations! ${color.toUpperCase()} player won the Real Ludo Match! 🎉`);
+                alert(`👑 ${color.toUpperCase()} won the match! 🎉`);
                 playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
                 Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
             }
 
-            lastRolledValue = 0;
             cardIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
             turnIndex = (turnIndex + 1) % 4;
             document.getElementById(cardIds[turnIndex]).classList.add('active-turn');
 
             let nextColor = playerList[turnIndex];
+            document.getElementById('ludoStatusText').innerText = `🔴 ${nextColor.toUpperCase()}'s turn. Click 'Roll Dice'.`;
             isRolling = false;
-
-            if (nextColor === 'red') {
-                document.getElementById('ludoStatusText').innerText = `🔴 Your turn (Red)! Tap 'Roll Dice'.`;
-            } else {
-                document.getElementById('ludoStatusText').innerText = `🤖 ${nextColor.toUpperCase()}'s turn. Tap 'Roll Dice'.`;
-            }
-        }
-
-        function goToRoom(roomName) {
-            document.getElementById('roomTitle').innerText = `🎙️ ${roomName}`;
-            document.getElementById('roomScreen').style.display = 'flex';
-        }
-
-        function goBackHome() {
-            document.getElementById('roomScreen').style.display = 'none';
-        }
-
-        function sendMsg() {
-            let input = document.getElementById('msgInput');
-            let msg = input.value.trim();
-            if(!msg) return;
-
-            let chatBox = document.getElementById('chatBox');
-            let div = document.createElement('div');
-            div.className = 'chat-msg';
-            div.innerHTML = `<span style="color:#f472b6; font-weight:bold;">${currentUser}:</span> ${msg}`;
-            chatBox.appendChild(div);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            input.value = '';
-        }
-
-        function claimSeat(seatNum) {
-            let seat = document.getElementById(`seat-${seatNum}`);
-            let name = document.getElementById(`seat-${seatNum}-name`);
-            if(!seat.classList.contains('occupied')) {
-                seat.classList.add('occupied');
-                seat.innerText = currentUser.charAt(0);
-                name.innerText = currentUser;
-            }
         }
     </script>
 </body>
 </html>
-                                                                                                                                                                           
+                                                     </html>
+                                                     
