@@ -25,30 +25,32 @@
         .game-banner-large { background: linear-gradient(135deg, #059669, #10b981); border-radius: 16px; padding: 16px; color: #fff; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
 
         /* LUDO ARENA STYLES */
-        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 10px; align-items: center; justify-content: space-between; overflow-y: auto; }
-        .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 8px; }
+        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 8px; align-items: center; justify-content: space-between; overflow-y: auto; }
+        .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 2px 4px; }
         
-        .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; margin: 8px 0; }
-        .player-card-box { background: #1e293b; padding: 8px; border-radius: 10px; border: 2px solid #334155; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; }
+        /* 4 Players Status Panel with Individual Dice */
+        .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; margin: 4px 0; }
+        .player-card-box { background: #1e293b; padding: 6px 8px; border-radius: 10px; border: 2px solid #334155; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; }
         .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
+        .mini-dice { font-size: 18px; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 6px; cursor: pointer; }
 
-        .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 4px auto; box-shadow: 0 8px 25px rgba(0,0,0,0.8); }
+        .real-ludo-grid { width: 310px; height: 310px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 2px auto; box-shadow: 0 8px 25px rgba(0,0,0,0.8); }
 
-        .base-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; padding: 8px; }
-        .base-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; padding: 8px; }
-        .base-yellow { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; padding: 8px; }
-        .base-blue { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #3b82f6; border: 2px solid #000; padding: 8px; }
+        .base-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; padding: 6px; }
+        .base-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; padding: 6px; }
+        .base-yellow { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; padding: 6px; }
+        .base-blue { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #3b82f6; border: 2px solid #000; padding: 6px; }
 
-        .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 6px; padding: 6px; border: 2px solid #000; }
+        .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; border: 2px solid #000; }
         .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
 
-        .pawn { width: 16px; height: 16px; border-radius: 50%; border: 2px solid #000; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .pawn { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .pawn-red { background: #ef4444; }
         .pawn-green { background: #10b981; }
         .pawn-yellow { background: #f59e0b; }
         .pawn-blue { background: #3b82f6; }
 
-        .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; position: relative; }
+        .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; position: relative; }
         .c-red { background: #ef4444; color: #fff; }
         .c-green { background: #10b981; color: #fff; }
         .c-yellow { background: #f59e0b; color: #fff; }
@@ -61,8 +63,7 @@
         .tri-yellow { background: #f59e0b; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
         .tri-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
 
-        .controls-area { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; margin-top: 6px; }
-        .dice-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; padding: 10px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(245,158,11,0.4); }
+        .dice-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(245,158,11,0.4); }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 55px; background: #0f172a; border-top: 1px solid #334155; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
         .nav-item { background: none; border: none; color: #64748b; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
@@ -84,160 +85,92 @@
         <!-- MAIN HOME TAB -->
         <div id="tab-home" class="tab-view active">
             <div class="quick-icons-row">
-                <div class="icon-card" onclick="switchTab('tab-ranking')">
-                    <span>👑</span>
-                    <p>Ranking</p>
-                </div>
-                <div class="icon-card" onclick="alert('Fan Cards feature active!')">
-                    <span>🃏</span>
-                    <p>Fan Cards</p>
-                </div>
-                <div class="icon-card" onclick="switchTab('tab-messages')">
-                    <span>💬</span>
-                    <p>Tips</p>
-                </div>
-                <div class="icon-card" onclick="alert('Friends list')">
-                    <span>👥</span>
-                    <p>Friends</p>
-                </div>
+                <div class="icon-card" onclick="switchTab('tab-ranking')"><span>👑</span><p>Ranking</p></div>
+                <div class="icon-card" onclick="alert('Fan Cards active!')"><span>🃏</span><p>Fan Cards</p></div>
+                <div class="icon-card" onclick="switchTab('tab-messages')"><span>💬</span><p>Tips</p></div>
+                <div class="icon-card" onclick="alert('Friends list')"><span>👥</span><p>Friends</p></div>
             </div>
 
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 Classic Ludo King 15x15</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">100% Manual Click-to-Roll Dice System</p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Individual Dice for Each Player</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
         </div>
 
-        <!-- MESSAGES TAB -->
-        <div id="tab-messages" class="tab-view">
-            <h3>💬 Messages</h3>
-            <p style="color:#9ca3af; font-size:12px;">No new notifications.</p>
-        </div>
-
-        <!-- RANKING TAB -->
-        <div id="tab-ranking" class="tab-view">
-            <h3>🏆 Leaderboard</h3>
-            <p style="color:#facc15; font-size:13px;">1. Admin - 10,000 pts</p>
-        </div>
-
-        <!-- PROFILE TAB -->
-        <div id="tab-profile" class="tab-view" style="text-align: center;">
-            <h3>👤 Profile</h3>
-            <p style="color:#9ca3af; font-size:12px;">User ID: #88921</p>
-        </div>
+        <!-- OTHER TABS -->
+        <div id="tab-messages" class="tab-view"><h3>💬 Messages</h3><p style="color:#9ca3af; font-size:12px;">No new alerts.</p></div>
+        <div id="tab-ranking" class="tab-view"><h3>🏆 Leaderboard</h3><p style="color:#facc15; font-size:13px;">1. Admin - 10,000 pts</p></div>
+        <div id="tab-profile" class="tab-view" style="text-align: center;"><h3>👤 Profile</h3><p style="color:#9ca3af; font-size:12px;">User ID: #88921</p></div>
 
         <!-- REAL 15x15 LUDO ARENA MODAL -->
         <div id="ludoArenaModal">
             <div class="ludo-header">
-                <button style="background:#334155; color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:11px;" onclick="closeLudoArena()">← Exit</button>
+                <button style="background:#334155; color:#fff; border:none; padding:5px 10px; border-radius:10px; font-size:11px;" onclick="closeLudoArena()">← Exit</button>
                 <h3 style="margin:0; font-size: 14px; color:#facc15;">🎲 Real Ludo Arena</h3>
-                <div style="width:40px;"></div>
+                <div style="width:30px;"></div>
             </div>
 
+            <!-- 4 Players Status Panel with Individual Dice Boxes -->
             <div class="players-4-panel">
                 <div id="cardRed" class="player-card-box active-turn" style="color:#ef4444;">
-                    <span>🔴 Red (You)</span>
-                    <span id="scoreRed" style="font-weight:bold;">0 pt</span>
+                    <div>
+                        <span style="display:block; font-weight:bold;">🔴 Red (You)</span>
+                        <span id="scoreRed" style="font-size:10px;">0 pt</span>
+                    </div>
+                    <span id="diceRed" class="mini-dice">🎲</span>
                 </div>
                 <div id="cardGreen" class="player-card-box" style="color:#10b981;">
-                    <span>🟢 Green (Bot)</span>
-                    <span id="scoreGreen" style="font-weight:bold;">0 pt</span>
+                    <div>
+                        <span style="display:block; font-weight:bold;">🟢 Green (Bot)</span>
+                        <span id="scoreGreen" style="font-size:10px;">0 pt</span>
+                    </div>
+                    <span id="diceGreen" class="mini-dice">🎲</span>
                 </div>
                 <div id="cardYellow" class="player-card-box" style="color:#f59e0b;">
-                    <span>🟡 Yellow (Bot)</span>
-                    <span id="scoreYellow" style="font-weight:bold;">0 pt</span>
+                    <div>
+                        <span style="display:block; font-weight:bold;">🟡 Yellow (Bot)</span>
+                        <span id="scoreYellow" style="font-size:10px;">0 pt</span>
+                    </div>
+                    <span id="diceYellow" class="mini-dice">🎲</span>
                 </div>
                 <div id="cardBlue" class="player-card-box" style="color:#3b82f6;">
-                    <span>🔵 Blue (Bot)</span>
-                    <span id="scoreBlue" style="font-weight:bold;">0 pt</span>
+                    <div>
+                        <span style="display:block; font-weight:bold;">🔵 Blue (Bot)</span>
+                        <span id="scoreBlue" style="font-size:10px;">0 pt</span>
+                    </div>
+                    <span id="diceBlue" class="mini-dice">🎲</span>
                 </div>
             </div>
 
+            <!-- 15x15 Standard Ludo Board Grid -->
             <div class="real-ludo-grid">
-                <!-- RED BASE -->
-                <div class="base-red">
-                    <div class="inner-box">
-                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
-                    </div>
-                </div>
+                <div class="base-red"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div></div></div>
+                
+                <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-green">↓</div><div class="cell c-green"></div><div class="cell c-star">⭐</div><div class="cell"></div><div class="cell c-green"></div><div class="cell"></div><div class="cell"></div><div class="cell c-green"></div><div class="cell"></div><div class="cell"></div><div class="cell c-green"></div><div class="cell"></div><div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
 
-                <!-- TOP TRACK -->
-                <div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                <div class="cell c-green">↓</div><div class="cell c-green"></div><div class="cell c-star">⭐</div>
-                <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
+                <div class="base-green"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div></div></div>
 
-                <!-- GREEN BASE -->
-                <div class="base-green">
-                    <div class="inner-box">
-                        <div class="spot-circle"><div class="pawn pawn-green"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-green"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-green"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-green"></div></div>
-                    </div>
-                </div>
+                <div class="cell"></div><div class="cell c-red">⭐</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-red">→</div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
 
-                <!-- LEFT TRACK -->
-                <div class="cell"></div><div class="cell c-red">⭐</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                <div class="cell c-red">→</div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div>
-                <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-
-                <!-- CENTER HOME -->
                 <div class="center-home">
-                    <div class="tri-red"></div>
-                    <div class="tri-green"></div>
-                    <div class="tri-yellow"></div>
-                    <div class="tri-blue"></div>
+                    <div class="tri-red"></div><div class="tri-green"></div><div class="tri-yellow"></div><div class="tri-blue"></div>
                 </div>
 
-                <!-- RIGHT TRACK -->
-                <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                <div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow">←</div>
-                <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-yellow">⭐</div><div class="cell"></div>
+                <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow">←</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-yellow">⭐</div><div class="cell"></div>
 
-                <!-- BLUE BASE -->
-                <div class="base-blue">
-                    <div class="inner-box">
-                        <div class="spot-circle"><div class="pawn pawn-blue"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-blue"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-blue"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-blue"></div></div>
-                    </div>
-                </div>
+                <div class="base-blue"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div></div></div>
 
-                <!-- BOTTOM TRACK -->
-                <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                <div class="cell c-star">⭐</div><div class="cell c-blue"></div><div class="cell c-blue">↑</div>
-                <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+                <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div><div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div><div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div><div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div><div class="cell c-star">⭐</div><div class="cell c-blue"></div><div class="cell c-blue">↑</div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
 
-                <!-- YELLOW BASE -->
-                <div class="base-yellow">
-                    <div class="inner-box">
-                        <div class="spot-circle"><div class="pawn pawn-yellow"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-yellow"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-yellow"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-yellow"></div></div>
-                    </div>
-                </div>
+                <div class="base-yellow"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div></div></div>
             </div>
 
-            <div class="controls-area">
-                <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 0;">🔴 Red's turn! Click Roll Dice to play.</p>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <span id="ludoDiceShow" style="font-size:28px; background:#0f172a; padding:2px 10px; border-radius:8px;">🎲</span>
-                    <button class="dice-btn" onclick="rollRealDice()">Roll Dice 🎲</button>
-                </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%;">
+                <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 0;">🔴 Red's turn! Tap 'Roll Dice'.</p>
+                <button class="dice-btn" onclick="rollActivePlayerDice()">Roll Dice 🎲</button>
             </div>
         </div>
 
@@ -252,10 +185,11 @@
 
     <script>
         const playerList = ['red', 'green', 'yellow', 'blue'];
-        const cardIds = ['cardRed', 'cardGreen', 'cardYellow', 'cardBlue'];
+        const cardIds = { red: 'cardRed', green: 'cardGreen', yellow: 'cardYellow', blue: 'cardBlue' };
         const scoreIds = { red: 'scoreRed', green: 'scoreGreen', yellow: 'scoreYellow', blue: 'scoreBlue' };
+        const diceIds = { red: 'diceRed', green: 'diceGreen', yellow: 'diceYellow', blue: 'diceBlue' };
+        
         let turnIndex = 0;
-        let lastRolledValue = 0;
         let playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
         let isRolling = false;
 
@@ -264,51 +198,45 @@
             document.getElementById(tabId).classList.add('active');
         }
 
-        function openLudoArena() {
-            document.getElementById('ludoArenaModal').style.display = 'flex';
-        }
+        function openLudoArena() { document.getElementById('ludoArenaModal').style.display = 'flex'; }
+        function closeLudoArena() { document.getElementById('ludoArenaModal').style.display = 'none'; }
 
-        function closeLudoArena() {
-            document.getElementById('ludoArenaModal').style.display = 'none';
-        }
-
-        /* STRICTLY MANUAL ROLL FUNCTION (No Auto-Roll) */
-        function rollRealDice() {
+        /* INDIVIDUAL PLAYER DICE TURN SYSTEM */
+        function rollActivePlayerDice() {
             if (isRolling) return;
             isRolling = true;
 
             let activeColor = playerList[turnIndex];
-            lastRolledValue = Math.floor(Math.random() * 6) + 1;
+            let rolledValue = Math.floor(Math.random() * 6) + 1;
             let faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-            document.getElementById('ludoDiceShow').innerText = faces[lastRolledValue - 1];
 
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Moving pawn...`;
-            
+            // Update only the active player's individual dice box
+            document.getElementById(diceIds[activeColor]).innerText = faces[rolledValue - 1];
+            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${rolledValue}! Moving...`;
+
             setTimeout(() => {
-                executeRealMove(activeColor);
+                playerScores[activeColor] += rolledValue;
+                document.getElementById(scoreIds[activeColor]).innerText = playerScores[activeColor] + " pts";
+
+                if (playerScores[activeColor] >= 50) {
+                    alert(`👑 ${activeColor.toUpperCase()} won the match! 🎉`);
+                    playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
+                    Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
+                }
+
+                // Remove active turn highlight from all
+                Object.values(cardIds).forEach(id => document.getElementById(id).classList.remove('active-turn'));
+                Object.values(diceIds).forEach(id => document.getElementById(id).innerText = "🎲");
+
+                // Shift turn to next player
+                turnIndex = (turnIndex + 1) % 4;
+                let nextColor = playerList[turnIndex];
+
+                document.getElementById(cardIds[nextColor]).classList.add('active-turn');
+                document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()}'s turn! Click Roll Dice.`;
+                
+                isRolling = false;
             }, 700);
-        }
-
-        function executeRealMove(color) {
-            playerScores[color] += lastRolledValue;
-            document.getElementById(scoreIds[color]).innerText = playerScores[color] + " pts";
-
-            if(playerScores[color] >= 50) {
-                alert(`👑 ${color.toUpperCase()} won the match! 🎉`);
-                playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
-                Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
-            }
-
-            // Move turn to next player and WAIT for manual button click
-            cardIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
-            turnIndex = (turnIndex + 1) % 4;
-            document.getElementById(cardIds[turnIndex]).classList.add('active-turn');
-
-            let nextColor = playerList[turnIndex];
-            document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()}'s turn! Click 'Roll Dice'.`;
-            
-            // Re-enable button click for next turn
-            isRolling = false;
         }
     </script>
 </body>
