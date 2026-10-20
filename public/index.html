@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WePlay - Full Social Gaming & Voice Platform</title>
+    <title>WePlay - Ultimate Social Gaming & Voice Platform</title>
     <style>
-        /* WEPLAY MAIN THEMING & LAYOUT */
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background: #070c18; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        .app-container { width: 100%; max-width: 420px; background: #0d1527; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.8); overflow-y: auto; padding-bottom: 70px; }
+        .app-container { width: 100%; max-width: 420px; background: #0d1527; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 30px rgba(0,0,0,0.8); overflow-y: auto; padding-bottom: 75px; }
 
-        /* FLOATING BACKGROUND VOICE BAR (GLOBAL WEPLAY FEATURE) */
+        /* GLOBAL FLOATING VOICE BAR */
         .global-voice-bar { position: fixed; top: 52px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 410px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border: 1px solid #0284c7; border-radius: 30px; padding: 6px 14px; display: none; justify-content: space-between; align-items: center; z-index: 150; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); }
         .voice-bar-info { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: bold; color: #38bdf8; }
         .voice-bar-controls { display: flex; gap: 8px; }
@@ -27,101 +26,91 @@
         .user-name-title { font-weight: 700; font-size: 13px; color: #f8fafc; }
         .user-level-tag { font-size: 9px; color: #38bdf8; font-weight: 600; }
         .header-currency { display: flex; align-items: center; gap: 8px; }
-        .coin-pill { background: #1e2c4a; border: 1px solid #facc15; color: #facc15; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+        .coin-pill { background: #1e2c4a; border: 1px solid #facc15; color: #facc15; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; cursor: pointer; }
 
-        /* TAB NAVIGATION SYSTEM */
         .tab-view { display: none; flex-direction: column; padding: 12px; }
         .tab-view.active { display: flex; }
-
-        /* BANNERS & CARDS */
         .section-heading { font-size: 14px; font-weight: 800; color: #facc15; margin: 12px 0 8px 0; display: flex; align-items: center; justify-content: space-between; }
-        .game-banners-stack { display: flex; flex-direction: column; gap: 12px; }
-        .weplay-banner { border-radius: 16px; padding: 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 6px 16px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); }
-        .banner-voice-party { background: linear-gradient(135deg, #831843, #be185d); }
-        .banner-spy { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
-        .banner-ludo { background: linear-gradient(135deg, #059669, #10b981); }
-        .banner-werewolf { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-        .banner-karaoke { background: linear-gradient(135deg, #db2777, #f43f5e); }
-
-        .banner-info-box h3 { margin: 0; font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-        .banner-info-box p { margin: 4px 0 0 0; font-size: 11px; opacity: 0.9; }
-        .play-badge-btn { background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1px solid rgba(255,255,255,0.3); }
-
-        /* PROFILE SECTION SPECIFIC OPTIONS */
-        .profile-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #141e33; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: center; border: 1px solid #233252; }
-        .stat-item h4 { margin: 0; color: #facc15; font-size: 16px; }
-        .stat-item p { margin: 2px 0 0 0; font-size: 10px; color: #94a3b8; }
-        .profile-menu-list { display: flex; flex-direction: column; gap: 8px; }
-        .menu-row { background: #182238; padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #233252; cursor: pointer; font-size: 13px; font-weight: 600; }
-
-        /* BOTTOM NAV SHEET */
-        .bottom-nav-bar { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 60px; background: #111827; border-top: 1px solid #1f2937; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
-        .nav-item-btn { background: none; border: none; color: #6b7280; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; cursor: pointer; gap: 2px; }
-        .nav-item-btn span { font-size: 20px; }
-        .nav-item-btn.active { color: #f472b6; }
+        .quick-tiles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+        .quick-tile { background: #141e33; border: 1px solid #233252; padding: 10px; border-radius: 12px; text-align: center; cursor: pointer; font-size: 11px; font-weight: bold; color: #cbd5e1; }
+        .quick-tile span { display: block; font-size: 18px; margin-bottom: 4px; }
     </style>
 </head>
-    <style>
-        /* FULLSCREEN MODAL LAYOUTS */
-        .fullscreen-game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 200; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+<style>
+    .game-banners-stack { display: flex; flex-direction: column; gap: 10px; }
+    .weplay-banner { border-radius: 16px; padding: 14px 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 6px 16px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); }
+    .banner-voice-party { background: linear-gradient(135deg, #831843, #be185d); }
+    .banner-spy { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+    .banner-ludo { background: linear-gradient(135deg, #059669, #10b981); }
+    .banner-werewolf { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .banner-karaoke { background: linear-gradient(135deg, #db2777, #f43f5e); }
+    .banner-draw { background: linear-gradient(135deg, #c2410c, #ea580c); }
+    .banner-info-box h3 { margin: 0; font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+    .banner-info-box p { margin: 4px 0 0 0; font-size: 11px; opacity: 0.9; }
+    .play-badge-btn { background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; border: 1px solid rgba(255,255,255,0.3); }
 
-        /* VOICE ROOM DEDICATED LOUNGE STYLES */
-        #voicePartyModal { background: linear-gradient(180deg, #2e1065 0%, #0f172a 100%); }
-        .voice-room-header { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(0,0,0,0.3); }
-        .room-title-box h3 { margin: 0; font-size: 14px; color: #f472b6; }
-        .room-title-box p { margin: 2px 0 0 0; font-size: 10px; color: #cbd5e1; }
-        
-        .seats-8-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 10px; padding: 20px 10px; text-align: center; }
-        .v-seat { display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
-        .v-avatar-ring { width: 52px; height: 52px; border-radius: 50%; border: 2px solid #38bdf8; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 20px; position: relative; }
-        .v-avatar-ring.speaking { border-color: #f43f5e; animation: micPulse 1s infinite; }
-        @keyframes micPulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
-        .v-seat-num { position: absolute; top: -4px; left: -2px; background: #0284c7; color: #fff; font-size: 8px; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #fff; }
-        .v-seat-name { font-size: 10px; color: #e2e8f0; margin-top: 4px; max-width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .profile-stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: #141e33; padding: 12px; border-radius: 12px; margin: 12px 0; text-align: center; border: 1px solid #233252; }
+    .stat-item h4 { margin: 0; color: #facc15; font-size: 16px; }
+    .stat-item p { margin: 2px 0 0 0; font-size: 10px; color: #94a3b8; }
+    .profile-menu-list { display: flex; flex-direction: column; gap: 8px; }
+    .menu-row { background: #182238; padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #233252; cursor: pointer; font-size: 13px; font-weight: 600; }
 
-        .lounge-action-controls { background: #0f172a; padding: 12px; border-top: 1px solid #1e293b; display: flex; justify-content: space-around; align-items: center; }
-        .lounge-btn { background: #1e293b; border: 1px solid #334155; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .fullscreen-game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 200; flex-direction: column; justify-content: space-between; overflow-y: auto; }
+    #voicePartyModal { background: linear-gradient(180deg, #2e1065 0%, #0f172a 100%); }
+    .voice-room-header { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(0,0,0,0.3); }
+    .room-title-box h3 { margin: 0; font-size: 14px; color: #f472b6; }
+    .room-title-box p { margin: 2px 0 0 0; font-size: 10px; color: #cbd5e1; }
+    .seats-8-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px 10px; padding: 20px 10px; text-align: center; }
+    .v-seat { display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
+    .v-avatar-ring { width: 52px; height: 52px; border-radius: 50%; border: 2px solid #38bdf8; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 20px; position: relative; }
+    .v-avatar-ring.speaking { border-color: #f43f5e; animation: micPulse 1s infinite; }
+    @keyframes micPulse { 0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); } }
+    .v-seat-num { position: absolute; top: -4px; left: -2px; background: #0284c7; color: #fff; font-size: 8px; font-weight: bold; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid #fff; }
+    .v-seat-name { font-size: 10px; color: #e2e8f0; margin-top: 4px; max-width: 60px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .lounge-action-controls { background: #0f172a; padding: 12px; border-top: 1px solid #1e293b; display: flex; justify-content: space-around; align-items: center; }
+    .lounge-btn { background: #1e293b; border: 1px solid #334155; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-        /* 15x15 LUDO ARENA STYLES */
-        #ludoArenaModal { background: #090d16; padding: 6px; align-items: center; }
-        .ludo-top-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 6px; }
-        .players-card-deck { width: 330px; display: flex; flex-direction: column; gap: 4px; margin: 4px auto; }
-        .player-deck-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-        .player-dice-card { background: #141e33; padding: 6px 10px; border-radius: 10px; border: 2px solid #233252; display: flex; align-items: center; justify-content: space-between; width: 48%; opacity: 0.6; }
-        .player-dice-card.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.25); box-shadow: 0 0 12px rgba(245, 158, 11, 0.5); }
-        .card-dice-box { font-size: 20px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 6px; cursor: pointer; border: 1px solid #475569; }
-
-        .real-ludo-grid-15x15 { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.8); }
-        .base-yellow { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #f59e0b; border: 2px solid #000; padding: 6px; }
-        .base-blue { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #3b82f6; border: 2px solid #000; padding: 6px; }
-        .base-green { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #10b981; border: 2px solid #000; padding: 6px; }
-        .base-red { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #ef4444; border: 2px solid #000; padding: 6px; }
-
-        .inner-base-square { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; border: 2px solid #000; }
-        .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .pawn-piece { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000; cursor: pointer; }
-        .pawn-red { background: #ef4444; } .pawn-green { background: #10b981; } .pawn-yellow { background: #f59e0b; } .pawn-blue { background: #3b82f6; }
-
-        .grid-cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: bold; position: relative; }
-        .c-red { background: #ef4444; color: #fff; } .c-green { background: #10b981; color: #fff; } .c-yellow { background: #f59e0b; color: #fff; } .c-blue { background: #3b82f6; color: #fff; } .c-star { background: #fef08a; color: #854d0e; }
-        .center-home-triangles { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #fff; border: 2px solid #000; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
-        .tri-red { background: #ef4444; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
-        .tri-green { background: #10b981; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
-        .tri-yellow { background: #f59e0b; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
-        .tri-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 1; clip-path: polygon(0 0, 50% 100%, 100% 0); }
-
-        /* OTHER MODALS */
-        #spyGameModal { background: linear-gradient(180deg, #1d68d8 0%, #0b224e 100%); padding: 10px; }
-        #werewolfModal { background: #0c101d; padding: 14px; text-align: center; }
-        #karaokeModal { background: linear-gradient(180deg, #831843 0%, #4c0519 100%); padding: 14px; text-align: center; }
-        #drawModal { background: #111827; padding: 10px; align-items: center; }
-        .draw-canvas { background: #fff; border-radius: 10px; border: 3px solid #374151; cursor: crosshair; touch-action: none; }
-        .color-palette { display: flex; gap: 8px; margin: 8px 0; }
-        .color-dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
-    </style>
-    <body>
+    #ludoArenaModal { background: #090d16; padding: 6px; align-items: center; }
+    .ludo-top-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 6px; }
+    .players-card-deck { width: 330px; display: flex; flex-direction: column; gap: 4px; margin: 4px auto; }
+    .player-deck-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+    .player-dice-card { background: #141e33; padding: 6px 10px; border-radius: 10px; border: 2px solid #233252; display: flex; align-items: center; justify-content: space-between; width: 48%; opacity: 0.6; }
+    .player-dice-card.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.25); box-shadow: 0 0 12px rgba(245, 158, 11, 0.5); }
+    .card-dice-box { font-size: 20px; background: rgba(0,0,0,0.5); padding: 2px 8px; border-radius: 6px; cursor: pointer; border: 1px solid #475569; }
+    .real-ludo-grid-15x15 { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.8); }
+    .base-yellow { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #f59e0b; border: 2px solid #000; padding: 6px; }
+    .base-blue { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #3b82f6; border: 2px solid #000; padding: 6px; }
+    .base-green { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #10b981; border: 2px solid #000; padding: 6px; }
+    .base-red { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #ef4444; border: 2px solid #000; padding: 6px; }
+    .inner-base-square { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; border: 2px solid #000; }
+    .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .pawn-piece { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000; cursor: pointer; transition: transform 0.2s; }
+    .pawn-red { background: #ef4444; } .pawn-green { background: #10b981; } .pawn-yellow { background: #f59e0b; } .pawn-blue { background: #3b82f6; }
+    .grid-cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: bold; position: relative; }
+    .c-red { background: #ef4444; color: #fff; } .c-green { background: #10b981; color: #fff; } .c-yellow { background: #f59e0b; color: #fff; } .c-blue { background: #3b82f6; color: #fff; } .c-star { background: #fef08a; color: #854d0e; }
+    .center-home-triangles { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #fff; border: 2px solid #000; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
+    .tri-red { background: #ef4444; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+    .tri-green { background: #10b981; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
+    .tri-yellow { background: #f59e0b; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+    .tri-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 1; clip-path: polygon(0 0, 50% 100%, 100% 0); }
+    #spyGameModal { background: linear-gradient(180deg, #1d68d8 0%, #0b224e 100%); padding: 12px; }
+    .spy-chat-box { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 10px; height: 180px; overflow-y: auto; font-size: 11px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+    .chat-line-text { margin-bottom: 6px; }
+    .chat-line-text.judge { color: #facc15; font-weight: bold; }
+    #werewolfModal { background: #0c101d; padding: 14px; text-align: center; }
+    #karaokeModal { background: linear-gradient(180deg, #831843 0%, #4c0519 100%); padding: 14px; text-align: center; }
+    #drawModal { background: #111827; padding: 10px; align-items: center; }
+    .draw-canvas { background: #fff; border-radius: 10px; border: 3px solid #374151; cursor: crosshair; touch-action: none; }
+    .color-palette { display: flex; gap: 8px; margin: 8px 0; }
+    .color-dot { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
+    .bottom-nav-bar { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 60px; background: #111827; border-top: 1px solid #1f2937; display: flex; justify-content: space-around; align-items: center; z-index: 100; }
+    .nav-item-btn { background: none; border: none; color: #6b7280; display: flex; flex-direction: column; align-items: center; font-size: 10px; font-weight: bold; cursor: pointer; gap: 2px; }
+    .nav-item-btn span { font-size: 20px; }
+    .nav-item-btn.active { color: #f472b6; }
+</style>
+<body>
     <div class="app-container">
-        <!-- GLOBAL BACKGROUND VOICE BAR (RUNS PARALLEL WITH GAMES) -->
+        <!-- GLOBAL VOICE BAR -->
         <div class="global-voice-bar" id="globalVoiceBar">
             <div class="voice-bar-info">
                 <span>🎙️ VIP Party Room #1</span>
@@ -147,13 +136,18 @@
                 </div>
             </div>
             <div class="header-currency">
-                <div class="coin-pill">🪙 <span id="headerCoinVal">2,500</span></div>
+                <div class="coin-pill" onclick="openCoinWallet()">🪙 <span id="headerCoinVal">2,500</span></div>
             </div>
         </div>
 
-        <!-- TAB 1: HOME PLATFORM -->
+        <!-- TAB 1: HOME -->
         <div id="tab-home" class="tab-view active">
-            <!-- WEPLAY VOICE LOUNGE BANNER -->
+            <div class="quick-tiles-grid">
+                <div class="quick-tile" onclick="switchTab('tab-ranking')"><span>🏆</span>Leaderboard</div>
+                <div class="quick-tile" onclick="switchTab('tab-avatar')"><span>👗</span>Avatar Studio</div>
+                <div class="quick-tile" onclick="openSystemTips()"><span>💡</span>System Tips</div>
+            </div>
+
             <div class="section-heading"><span>🎙️ Voice Lounge Party</span></div>
             <div class="weplay-banner banner-voice-party" onclick="openGameModal('voicePartyModal')">
                 <div class="banner-info-box">
@@ -163,7 +157,6 @@
                 <div class="play-badge-btn">Join Lounge</div>
             </div>
 
-            <!-- GAME CENTER -->
             <div class="section-heading"><span>🎮 Party Games Arena</span></div>
             <div class="game-banners-stack">
                 <div class="weplay-banner banner-spy" onclick="openGameModal('spyGameModal')">
@@ -182,10 +175,14 @@
                     <div class="banner-info-box"><h3>🎤 Mic Grab Karaoke</h3><p>Sing & Grab Mic Competition</p></div>
                     <div class="play-badge-btn">Play</div>
                 </div>
+                <div class="weplay-banner banner-draw" onclick="openGameModal('drawModal')">
+                    <div class="banner-info-box"><h3>🎨 Draw & Guess</h3><p>Real-time Canvas Painting</p></div>
+                    <div class="play-badge-btn">Play</div>
+                </div>
             </div>
         </div>
 
-        <!-- TAB 2: AVATAR DRESS-UP -->
+        <!-- TAB 2: AVATAR -->
         <div id="tab-avatar" class="tab-view">
             <h3 style="margin: 0 0 10px 0; color: #facc15; text-align: center;">👗 Avatar Studio</h3>
             <div style="width: 110px; height: 110px; border-radius: 50%; border: 3px solid #f472b6; margin: 10px auto; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 50px;" id="studioAvatarDisplay">👤</div>
@@ -196,7 +193,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: PROFILE TAB (FULL WEPLAY OPTIONS) -->
+        <!-- TAB 3: PROFILE -->
         <div id="tab-profile" class="tab-view">
             <div style="text-align: center; margin-top: 10px;">
                 <div style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid #facc15; margin: 0 auto; background: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 32px;" id="profileAvatarBig">👤</div>
@@ -211,48 +208,61 @@
             </div>
 
             <div class="profile-menu-list">
-                <div class="menu-row" onclick="alert('Family Club Level 4')"><span>🏰 My Family / Club</span><span>›</span></div>
-                <div class="menu-row" onclick="alert('Relationship Nest Active')"><span>💍 Love Nest / CP</span><span>›</span></div>
-                <div class="menu-row" onclick="alert('VIP Frames Unlocked')"><span>🖼️ Avatar Frames</span><span>›</span></div>
-                <div class="menu-row" onclick="alert('Wallet Balance: 2500 Coins')"><span>🪙 My Coin Wallet</span><span>›</span></div>
+                <div class="menu-row" onclick="openFamilyClubModal()"><span>🏰 My Family / Club</span><span>›</span></div>
+                <div class="menu-row" onclick="openLoveNestModal()"><span>💍 Love Nest / CP</span><span>›</span></div>
+                <div class="menu-row" onclick="openAvatarFramesModal()"><span>🖼️ Avatar Frames</span><span>›</span></div>
+                <div class="menu-row" onclick="openCoinWallet()"><span>🪙 My Coin Wallet</span><span>›</span></div>
             </div>
         </div>
 
-        <!-- TAB 4 & 5: MESSAGES & RANKINGS -->
-        <div id="tab-messages" class="tab-view"><h3>💬 Messages</h3><p style="color:#94a3b8; font-size:12px;">No new notifications.</p></div>
-        <div id="tab-ranking" class="tab-view"><h3>🏆 Leaderboard</h3><p style="color:#facc15; font-size:12px;">1. Admin - 10,000 pts</p></div>
-
-        <!-- MODAL: DEDICATED WEPLAY VOICE ROOM -->
+        <!-- TAB 4 & 5: MESSAGES & RANKING -->
+        <div id="tab-messages" class="tab-view">
+            <h3>💬 Messages</h3>
+            <div style="background: #141e33; padding: 12px; border-radius: 12px; margin-top: 10px; border: 1px solid #233252;">
+                <h4 style="margin:0 0 4px 0; font-size: 13px; color: #facc15;">System Notification</h4>
+                <p style="margin:0; font-size: 11px; color: #94a3b8;">Welcome to WePlay! Enjoy live voice rooms and games.</p>
+            </div>
+        </div>
+        <div id="tab-ranking" class="tab-view">
+            <h3>🏆 Leaderboard</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                <div style="background: #141e33; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #233252;">
+                    <span>🥇 1. Admin (You)</span><span style="color: #facc15; font-weight: bold;">10,000 pts</span>
+                </div>
+                <div style="background: #141e33; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #233252;">
+                    <span>🥈 2. Sameer</span><span style="color: #94a3b8; font-weight: bold;">8,450 pts</span>
+                </div>
+            </div>
+        </div>
+                <!-- VOICE ROOM MODAL -->
         <div id="voicePartyModal" class="fullscreen-game-modal">
             <div class="voice-room-header">
                 <button style="background:rgba(255,255,255,0.2); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:11px; font-weight:bold; cursor:pointer;" onclick="minimizeVoiceRoom()">↙️ Minimize</button>
                 <div class="room-title-box"><h3 style="margin:0;">🎙️ VIP Voice Lounge #1</h3><p>Online: 8 Players</p></div>
                 <button style="background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:11px; font-weight:bold; cursor:pointer;" onclick="leaveVoiceRoom()">Leave</button>
             </div>
-
             <div class="seats-8-grid">
-                <div class="v-seat"><div class="v-avatar-ring speaking"><div class="v-seat-num">1</div>👤</div><div class="v-seat-name">Host (You)</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">2</div>👨</div><div class="v-seat-name">Sameer</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">3</div>👩</div><div class="v-seat-name">Priya</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">4</div>👱</div><div class="v-seat-name">Farhan</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">5</div>🧕</div><div class="v-seat-name">Sunidhi</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">6</div>🧔</div><div class="v-seat-name">Sukh</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">7</div>🔒</div><div class="v-seat-name">Empty</div></div>
-                <div class="v-seat"><div class="v-avatar-ring"><div class="v-seat-num">8</div>🔒</div><div class="v-seat-name">Empty</div></div>
+                <div class="v-seat" onclick="alert('Seat #1: Host (You)')"><div class="v-avatar-ring speaking"><div class="v-seat-num">1</div>👤</div><div class="v-seat-name">Host (You)</div></div>
+                <div class="v-seat" onclick="alert('Seat #2: Sameer')"><div class="v-avatar-ring"><div class="v-seat-num">2</div>👨</div><div class="v-seat-name">Sameer</div></div>
+                <div class="v-seat" onclick="alert('Seat #3: Priya')"><div class="v-avatar-ring"><div class="v-seat-num">3</div>👩</div><div class="v-seat-name">Priya</div></div>
+                <div class="v-seat" onclick="alert('Seat #4: Farhan')"><div class="v-avatar-ring"><div class="v-seat-num">4</div>👱</div><div class="v-seat-name">Farhan</div></div>
+                <div class="v-seat" onclick="alert('Seat #5: Sunidhi')"><div class="v-avatar-ring"><div class="v-seat-num">5</div>🧕</div><div class="v-seat-name">Sunidhi</div></div>
+                <div class="v-seat" onclick="alert('Seat #6: Sukh')"><div class="v-avatar-ring"><div class="v-seat-num">6</div>🧔</div><div class="v-seat-name">Sukh</div></div>
+                <div class="v-seat" onclick="alert('Seat #7: Empty')"><div class="v-avatar-ring"><div class="v-seat-num">7</div>🔒</div><div class="v-seat-name">Empty</div></div>
+                <div class="v-seat" onclick="alert('Seat #8: Empty')"><div class="v-avatar-ring"><div class="v-seat-num">8</div>🔒</div><div class="v-seat-name">Empty</div></div>
             </div>
-
             <div class="lounge-action-controls">
                 <button class="lounge-btn" id="loungeMicBtn" onclick="toggleLoungeMic()">🎙️ Mic On</button>
-                <button class="lounge-btn" onclick="alert('🎁 Gift Sent to Host!')">🎁 Send Gift</button>
-                <button class="lounge-btn" onclick="alert('🎵 Background Music Playing!')">🎵 BGM Music</button>
+                <button class="lounge-btn" onclick="sendVoiceGift()">🎁 Send Gift</button>
+                <button class="lounge-btn" onclick="toggleBgmMusic()">🎵 BGM Music</button>
             </div>
         </div>
 
-        <!-- OTHER GAME MODALS (15x15 LUDO, SPY, ETC.) -->
+        <!-- LUDO ARENA MODAL -->
         <div id="ludoArenaModal" class="fullscreen-game-modal">
             <div class="ludo-top-header">
-                <button style="background:#1e293b; color:#fff; border:none; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:bold;" onclick="closeGameModal('ludoArenaModal')">← Back</button>
-                <h3 style="margin:0; font-size: 14px; color:#facc15;">🎲 Real Ludo Arena</h3>
+                <button style="background:#1e293b; color:#fff; border:none; padding:6px 12px; border-radius:10px; font-size:11px; font-weight:bold; cursor:pointer;" onclick="closeGameModal('ludoArenaModal')">← Back</button>
+                <h3 style="margin:0; font-size: 14px; color:#facc15;">🎲 Real 15x15 Ludo Arena</h3>
                 <div></div>
             </div>
             <div class="players-card-deck">
@@ -291,9 +301,60 @@
             <p id="ludoStatusText" style="font-size: 11px; color: #94a3b8; margin: 4px 0;">🟡 Yellow's turn! Click its dice box.</p>
         </div>
 
-        <div id="spyGameModal" class="fullscreen-game-modal"><button style="background:#374151; color:#fff; border:none; padding:8px; border-radius:8px;" onclick="closeGameModal('spyGameModal')">← Back</button><h2 style="text-align:center;">🕵️ Who Is The Spy Arena</h2></div>
-        <div id="werewolfModal" class="fullscreen-game-modal"><button style="background:#374151; color:#fff; border:none; padding:8px; border-radius:8px;" onclick="closeGameModal('werewolfModal')">← Back</button><h2 style="text-align:center;">🐺 Space Werewolf</h2></div>
-        <div id="karaokeModal" class="fullscreen-game-modal"><button style="background:#374151; color:#fff; border:none; padding:8px; border-radius:8px;" onclick="closeGameModal('karaokeModal')">← Back</button><h2 style="text-align:center;">🎤 Karaoke Mic Grab</h2></div>
+        <!-- OTHER GAME MODALS (SPY, WEREWOLF, KARAOKE, DRAW) -->
+        <div id="spyGameModal" class="fullscreen-game-modal">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+                <button style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="closeGameModal('spyGameModal')">← Back</button>
+                <h3 style="margin:0; font-size: 14px; color: #facc15;">🕵️ Who Is The Spy</h3>
+                <span id="spyTimerText" style="font-size: 12px; font-weight: bold; color: #38bdf8;">25s</span>
+            </div>
+            <div class="spy-chat-box" id="spyChatLog">
+                <div class="chat-line-text judge">🧙 Nyayadheesh: Sabhi ko secret word mil gaya hai. Charcha shuru karein!</div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px;">
+                <button style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:8px; font-size:10px; cursor:pointer;" onclick="triggerSpyVote(2)">Vote 2</button>
+                <button style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:8px; font-size:10px; cursor:pointer;" onclick="triggerSpyVote(3)">Vote 3</button>
+                <button style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:8px; font-size:10px; cursor:pointer;" onclick="sendSpyReaction('🔥')">🔥</button>
+                <button style="background:#1e293b; color:#fff; border:1px solid #334155; padding:6px; border-radius:8px; font-size:10px; cursor:pointer;" onclick="sendSpyReaction('😂')">😂</button>
+            </div>
+        </div>
+
+        <div id="werewolfModal" class="fullscreen-game-modal" style="padding: 12px; display: none;">
+            <button style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer; align-self: flex-start;" onclick="closeGameModal('werewolfModal')">← Back</button>
+            <h2 style="text-align:center; color: #a855f7; margin: 10px 0;">🐺 Space Werewolf Emergency</h2>
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+                <button style="background:#3b82f6; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="alert('Aapne Sameer ko vote kiya!')">Vote Sameer</button>
+                <button style="background:#ef4444; color:#fff; border:none; padding:10px 16px; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="alert('Aapne Skip kiya!')">Skip Vote</button>
+            </div>
+        </div>
+
+        <div id="karaokeModal" class="fullscreen-game-modal" style="padding: 12px; display: none;">
+            <button style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer; align-self: flex-start;" onclick="closeGameModal('karaokeModal')">← Back</button>
+            <h2 style="text-align:center; color: #f43f5e; margin: 10px 0;">🎤 Mic Grab Karaoke</h2>
+            <div style="background:#1e293b; padding:20px; border-radius:12px; text-align:center; margin: 20px 0; border:1px solid #334155;">
+                <p style="font-size:14px; color:#cbd5e1; margin:0 0 8px 0;">Song: Tum Hi Ho</p>
+                <p style="font-size:16px; font-weight:bold; color:#facc15; margin:0;">🎶 Hum tere bin ab reh nahi sakte...</p>
+            </div>
+            <button style="background:#10b981; color:#fff; border:none; padding:12px; border-radius:20px; font-weight:bold; cursor:pointer;" onclick="alert('Aapne Mic Grab kar liya hai!')">Grab Mic 🎤</button>
+        </div>
+
+        <div id="drawModal" class="fullscreen-game-modal" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 0;">
+                <button style="background:#374151; color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:11px; cursor:pointer;" onclick="closeGameModal('drawModal')">← Back</button>
+                <h3 style="margin:0; font-size: 14px; color: #ea580c;">🎨 Draw & Guess</h3>
+                <button style="background:#ef4444; color:#fff; border:none; padding:6px 10px; border-radius:8px; font-size:10px; cursor:pointer;" onclick="clearCanvas()">Clear</button>
+            </div>
+            <div style="display: flex; justify-content: center; margin: 10px 0;">
+                <canvas id="paintCanvas" class="draw-canvas" width="300" height="300"></canvas>
+            </div>
+            <div class="color-palette" style="justify-content: center;">
+                <div class="color-dot" style="background:#000;" onclick="setDrawColor('#000')"></div>
+                <div class="color-dot" style="background:#ef4444;" onclick="setDrawColor('#ef4444')"></div>
+                <div class="color-dot" style="background:#10b981;" onclick="setDrawColor('#10b981')"></div>
+                <div class="color-dot" style="background:#3b82f6;" onclick="setDrawColor('#3b82f6')"></div>
+                <div class="color-dot" style="background:#f59e0b;" onclick="setDrawColor('#f59e0b')"></div>
+            </div>
+        </div>
 
         <!-- BOTTOM NAV BAR -->
         <div class="bottom-nav-bar">
@@ -305,19 +366,17 @@
         </div>
     </div>
         <script>
-        /* === WEPLAY TAB SWITCHING === */
         function switchTab(tabId) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item-btn').forEach(el => el.classList.remove('active'));
-            
             document.getElementById(tabId).classList.add('active');
             let navBtn = document.getElementById('nav-' + tabId);
             if (navBtn) navBtn.classList.add('active');
         }
 
-        /* === WEPLAY MODALS & FLOATING VOICE BAR SYSTEM === */
         let isVoiceConnected = false;
         let isMicOn = true;
+        let bgmPlaying = false;
 
         function openGameModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
@@ -325,6 +384,7 @@
                 isVoiceConnected = true;
                 document.getElementById('globalVoiceBar').style.display = 'none';
             }
+            if (modalId === 'drawModal') initPaintCanvas();
         }
 
         function closeGameModal(modalId) {
@@ -342,6 +402,7 @@
             isVoiceConnected = false;
             document.getElementById('voicePartyModal').style.display = 'none';
             document.getElementById('globalVoiceBar').style.display = 'none';
+            alert('Aapne voice room chhod diya hai.');
         }
 
         function toggleLoungeMic() {
@@ -351,26 +412,60 @@
             if (isMicOn) {
                 btn.innerText = "🎙️ Mic On";
                 btn.style.background = "#1e293b";
-                bgBtn.innerText = "🎙️";
+                if(bgBtn) bgBtn.innerText = "🎙️";
             } else {
                 btn.innerText = "🔇 Muted";
                 btn.style.background = "#ef4444";
-                bgBtn.innerText = "🔇";
+                if(bgBtn) bgBtn.innerText = "🔇";
             }
         }
 
-        function toggleBgMic() {
-            toggleLoungeMic();
+        function toggleBgMic() { toggleLoungeMic(); }
+
+        function toggleBgmMusic() {
+            bgmPlaying = !bgmPlaying;
+            alert(bgmPlaying ? '🎵 Background Music shuru ho gayi hai!' : '🔇 Background Music band ho gayi hai.');
+        }
+
+        function sendVoiceGift() {
+            let coinEl = document.getElementById('headerCoinVal');
+            let currentCoins = parseInt(coinEl.innerText.replace(',', '')) - 50;
+            if (currentCoins < 0) {
+                alert('Aapke paas sufficient coins nahi hain!');
+                return;
+            }
+            coinEl.innerText = currentCoins.toLocaleString();
+            alert('🎁 Shandar Gift bhej diya gaya hai! (-50 Coins)');
         }
 
         function setAvatarStyle(name, icon) {
             document.getElementById('headerAvatarIcon').innerText = icon;
             document.getElementById('studioAvatarDisplay').innerText = icon;
             document.getElementById('profileAvatarBig').innerText = icon;
-            alert(`Equipped ${name}!`);
+            alert(`Aapne ${name} outfit pehn liya hai!`);
         }
 
-        /* === 15x15 LUDO ARENA LOGIC === */
+        function openCoinWallet() {
+            let coinVal = document.getElementById('headerCoinVal').innerText;
+            alert(`🪙 My Coin Wallet Balance: ${coinVal} Coins`);
+        }
+
+        function openFamilyClubModal() {
+            alert('🏰 Family Club: Elite Gamers Club\n- Level: 4 Active\n- Rank: #12 Global');
+        }
+
+        function openLoveNestModal() {
+            alert('💍 Love Nest / CP Status:\n- Partner: Priya\n- Intimacy Level: 12');
+        }
+
+        function openAvatarFramesModal() {
+            alert('🖼️ Avatar Frames:\n- Equipped: Golden Glow VIP Frame');
+        }
+
+        function openSystemTips() {
+            alert('💡 WePlay Help: Keep mic muted when not speaking.');
+        }
+
         const ludoPlayers = ['yellow', 'blue', 'green', 'red'];
         const ludoCards = { yellow: 'cardYellow', blue: 'cardBlue', green: 'cardGreen', red: 'cardRed' };
         const ludoScores = { yellow: 'scoreYellow', blue: 'scoreBlue', green: 'scoreGreen', red: 'scoreRed' };
@@ -385,7 +480,7 @@
             let activeColor = ludoPlayers[ludoTurnIdx];
 
             if (color !== activeColor) {
-                alert(`Turn is for ${activeColor.toUpperCase()}! Click correct dice.`);
+                alert(`Abhi turn ${activeColor.toUpperCase()} ki hai!`);
                 return;
             }
 
@@ -394,7 +489,7 @@
             let diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
 
             document.getElementById(ludoDices[activeColor]).innerText = diceFaces[rolledVal - 1];
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${rolledVal}!`;
+            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} ne ${rolledVal} roll kiya!`;
 
             setTimeout(() => {
                 ludoPoints[activeColor] += rolledVal;
@@ -407,9 +502,84 @@
                 let nextColor = ludoPlayers[ludoTurnIdx];
 
                 document.getElementById(ludoCards[nextColor]).classList.add('active-turn');
-                document.getElementById('ludoStatusText').innerText = `🎲 Turn for ${nextColor.toUpperCase()}!`;
+                document.getElementById('ludoStatusText').innerText = `🎲 Ab ${nextColor.toUpperCase()} ki turn hai!`;
                 isLudoRolling = false;
-            }, 700);
+            }, 800);
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('pawn-piece')) {
+                e.target.style.transform = "translate(15px, -15px) scale(1.2)";
+                setTimeout(() => { e.target.style.transform = "none"; }, 400);
+                alert("🎲 Goti (Pawn) move ho gayi hai!");
+            }
+        });
+
+        let spyTimer = 25;
+        setInterval(() => {
+            spyTimer--;
+            if (spyTimer <= 0) {
+                spyTimer = 25;
+                let chatBox = document.getElementById('spyChatLog');
+                if(chatBox) {
+                    chatBox.innerHTML += `<div class="chat-line-text judge">🧙 Nyayadheesh: Naya round shuru ho gaya hai!</div>`;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            }
+            let timerEl = document.getElementById('spyTimerText');
+            if (timerEl) timerEl.innerText = spyTimer + 's';
+        }, 1000);
+
+        function triggerSpyVote(seatNum) {
+            let chatBox = document.getElementById('spyChatLog');
+            if(chatBox) {
+                chatBox.innerHTML += `<div class="chat-line-text">[Aapne] Seat [${seatNum}] ko vote diya hai!</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function sendSpyReaction(emojiName) {
+            let chatBox = document.getElementById('spyChatLog');
+            if(chatBox) {
+                chatBox.innerHTML += `<div class="chat-line-text">[Aapne] Reaction bheja: ${emojiName}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        let canvas, ctx, painting = false, currentColor = "#000";
+
+        function initPaintCanvas() {
+            canvas = document.getElementById('paintCanvas');
+            if(!canvas) return;
+            ctx = canvas.getContext('2d');
+            canvas.onmousedown = startDraw;
+            canvas.onmouseup = stopDraw;
+            canvas.onmousemove = drawLine;
+            canvas.ontouchstart = startDraw;
+            canvas.ontouchend = stopDraw;
+            canvas.ontouchmove = drawLine;
+        }
+
+        function setDrawColor(col) { currentColor = col; }
+        function clearCanvas() { if (ctx && canvas) ctx.clearRect(0, 0, canvas.width, canvas.height); }
+        function startDraw(e) { painting = true; drawLine(e); }
+        function stopDraw() { painting = false; if(ctx) ctx.beginPath(); }
+
+        function drawLine(e) {
+            if (!painting || !ctx) return;
+            e.preventDefault();
+            let rect = canvas.getBoundingClientRect();
+            let clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            let clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            let x = clientX - rect.left;
+            let y = clientY - rect.top;
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
         }
     </script>
 </body>
