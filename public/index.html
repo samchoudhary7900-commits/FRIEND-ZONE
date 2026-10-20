@@ -52,3 +52,188 @@
         .emoji-item p { margin: 0; font-size: 9px; color: #9ca3af; }
     </style>
 </head>
+<body>
+    <div class="app-container">
+        <!-- TOP HEADER AREA -->
+        <div class="top-bar">
+            <div class="timer-pill">⏰ <span id="gameTimer">16s</span></div>
+            <div class="category-card">
+                <h4 id="catTitle">Category: Food</h4>
+                <p id="myWordText">My word: chilli chicken</p>
+            </div>
+        </div>
+
+        <!-- SPEAKER STATUS -->
+        <div class="speaker-status" id="speakerStatusText">
+            Player 5 is speaking
+        </div>
+
+        <!-- 6 VOICE SEATS GRID (Exact WePlay Screenshot Layout) -->
+        <div class="seats-container">
+            <!-- Seat 1 -->
+            <div class="seat-item" onclick="triggerVote(1)">
+                <div class="avatar-wrapper" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100');">
+                    <div class="seat-num">1</div>
+                </div>
+                <div class="player-name">farhan ...</div>
+            </div>
+
+            <!-- Seat 4 -->
+            <div class="seat-item" onclick="triggerVote(4)">
+                <div class="avatar-wrapper" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100');">
+                    <div class="seat-num">4</div>
+                </div>
+                <div class="player-name">priya</div>
+            </div>
+
+            <!-- Seat 2 -->
+            <div class="seat-item" onclick="triggerVote(2)">
+                <div class="avatar-wrapper" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100');">
+                    <div class="seat-num">2</div>
+                </div>
+                <div class="player-name">Sameer ...</div>
+            </div>
+
+            <!-- Seat 5 (Speaking) -->
+            <div class="seat-item" onclick="triggerVote(5)">
+                <div class="speaking-icon">🎙️</div>
+                <div class="avatar-wrapper speaking" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100');">
+                    <div class="seat-num">5</div>
+                </div>
+                <div class="player-name">Sunidhi...</div>
+            </div>
+
+            <!-- Seat 3 -->
+            <div class="seat-item" onclick="triggerVote(3)">
+                <div class="avatar-wrapper" style="background-image: url('https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100');">
+                    <div class="seat-num">3</div>
+                    <div class="role-badge">Villager</div>
+                </div>
+                <div class="player-name">Sukh</div>
+            </div>
+
+            <!-- Seat 6 -->
+            <div class="seat-item" onclick="triggerVote(6)">
+                <div class="avatar-wrapper" style="background-image: url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100');">
+                    <div class="seat-num">6</div>
+                </div>
+                <div class="player-name">『Cat P...</div>
+            </div>
+        </div>
+
+        <!-- GIFTS CENTER ROW -->
+        <div class="gifts-center-row">
+            <div class="gift-bubble">
+                <span>🥚</span>
+                <div class="gift-count">10</div>
+            </div>
+            <div class="gift-bubble">
+                <span>🌸</span>
+                <div class="gift-count">5</div>
+            </div>
+        </div>
+
+        <!-- SYSTEM CHAT & VOTE LOGS -->
+        <div class="system-chat-box" id="systemChatBox">
+            <div class="chat-line">[1] voted for [3]</div>
+            <div class="chat-line">[3] Voted for [6]</div>
+            <div class="chat-line judge">🧙 Nyayadheesh: No.1 is out. He/She is the spy.</div>
+            <div class="chat-line judge">🧙 Nyayadheesh: Game over. The villagers won!</div>
+        </div>
+
+        <!-- BOTTOM EMOJI & ACTION SHEET KEYBOARD -->
+        <div class="bottom-action-sheet">
+            <div class="emoji-item" onclick="sendReaction('🎲 Dice')">
+                <span>🎲</span>
+                <p>Dice</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('👋 Wave')">
+                <span>👋</span>
+                <p>Wave</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('🙌 Thanks')">
+                <span>🙌</span>
+                <p>Thanks</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('😂 Tears')">
+                <span>😂</span>
+                <p>Tears of Joy</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('🎉 Cheer')">
+                <span>🎉</span>
+                <p>Cheer Up</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('😘 Kiss')">
+                <span>😘</span>
+                <p>Kiss</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('🎧 DJ')">
+                <span>🎧</span>
+                <p>DJ</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('🙇 Bow')">
+                <span>🙇</span>
+                <p>Bow</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('🤔 Confused')">
+                <span>🤔</span>
+                <p>Confused</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('👅 Tongue')">
+                <span>👅</span>
+                <p>Tongue</p>
+            </div>
+            <div class="emoji-item" onclick="sendReaction('😱 Shocked')">
+                <span>😱</span>
+                <p>Shocked</p>
+            </div>
+            <div class="emoji-item" onclick="startNewRound()">
+                <span>🔄</span>
+                <p>New Game</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = 16;
+        let timerInterval;
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft <= 0) timeLeft = 20;
+                document.getElementById('gameTimer').innerText = timeLeft + 's';
+            }, 1000);
+        }
+        startTimer();
+
+        function triggerVote(seatNum) {
+            let chatBox = document.getElementById('systemChatBox');
+            let div = document.createElement('div');
+            div.className = 'chat-line';
+            div.innerText = `[You] voted for [${seatNum}]`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendReaction(name) {
+            let chatBox = document.getElementById('systemChatBox');
+            let div = document.createElement('div');
+            div.className = 'chat-line';
+            div.innerText = `[You] sent reaction: ${name}`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function startNewRound() {
+            const foods = ["chilli chicken", "butter paneer", "biryani", "pizza", "burger"];
+            let randomWord = foods[Math.floor(Math.random() * foods.length)];
+            document.getElementById('myWordText').innerText = "My word: " + randomWord;
+            
+            let chatBox = document.getElementById('systemChatBox');
+            chatBox.innerHTML = `<div class="chat-line judge">🧙 Nyayadheesh: A new game round has started!</div>`;
+        }
+    </script>
+</body>
+</html>
