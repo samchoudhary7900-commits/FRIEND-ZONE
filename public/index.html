@@ -73,7 +73,6 @@
     <div class="container">
         <!-- Tab 1: WePlay Home Screen -->
         <div id="tab-home" class="tab-view active">
-            
             <div class="top-header">
                 <div class="user-profile-mini">
                     <div class="avatar-mini" id="userAvatar">A</div>
@@ -106,7 +105,7 @@
                 <span style="font-size: 12px; color: #6b7280; cursor: pointer;" onclick="goToRoom('Global Game Lounge')">Game Rooms →</span>
             </div>
 
-            <!-- Full Screen 4-Player Ludo Launching Banner -->
+            <!-- Banner -->
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 4-Player Ludo Master</h3>
@@ -184,7 +183,6 @@
                 <div style="width: 50px;"></div>
             </div>
 
-            <!-- 4 Players Status Panel -->
             <div class="players-4-panel">
                 <div id="cardRed" class="player-card-box active-turn" style="color:#ef4444;">
                     <span>🔴 Red (You)</span>
@@ -204,23 +202,22 @@
                 </div>
             </div>
 
-            <!-- Real Ludo Grid Board -->
             <div class="real-ludo-board">
                 <div class="ludo-home-red">
                     <div class="inner-base">
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="onPawnClick('red')"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
+                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
                     </div>
                 </div>
 
                 <div class="ludo-home-green">
                     <div class="inner-base">
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;" onclick="onPawnClick('green')"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
+                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
                     </div>
                 </div>
 
@@ -230,19 +227,19 @@
 
                 <div class="ludo-home-yellow">
                     <div class="inner-base">
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;" onclick="onPawnClick('yellow')"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
+                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
                     </div>
                 </div>
 
                 <div class="ludo-home-blue">
                     <div class="inner-base">
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;" onclick="onPawnClick('blue')"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
+                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
                     </div>
                 </div>
             </div>
@@ -297,13 +294,13 @@
         document.getElementById('profileNameBig').innerText = currentUser;
         document.getElementById('profileAvatarBig').innerText = currentUser.charAt(0).toUpperCase();
 
-        // 4 Player Match Variables
         const playerList = ['red', 'green', 'yellow', 'blue'];
         const cardIds = ['cardRed', 'cardGreen', 'cardYellow', 'cardBlue'];
         const scoreIds = { red: 'scoreRed', green: 'scoreGreen', yellow: 'scoreYellow', blue: 'scoreBlue' };
         let turnIndex = 0;
         let lastRolledValue = 0;
         let playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
+        let isRolling = false;
 
         function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
@@ -321,34 +318,25 @@
         }
 
         function roll4PlayerDice() {
+            if (isRolling) return;
+            isRolling = true;
+
             let activeColor = playerList[turnIndex];
             lastRolledValue = Math.floor(Math.random() * 6) + 1;
             let faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
             document.getElementById('ludoDiceShow').innerText = faces[lastRolledValue - 1];
 
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Tap your pawn to move.`;
+            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Moving forward...`;
             
-            if(activeColor !== 'red') {
-                // Bot automatic move after 1 second
-                setTimeout(() => {
-                    executeMove(activeColor);
-                }, 800);
-            }
-        }
-
-        function onPawnClick(color) {
-            let activeColor = playerList[turnIndex];
-            if(activeColor === color && lastRolledValue > 0) {
-                executeMove(color);
-            } else {
-                document.getElementById('ludoStatusText').innerText = `Not your turn or roll dice first!`;
-            }
+            setTimeout(() => {
+                executeMove(activeColor);
+            }, 700);
         }
 
         function executeMove(color) {
             playerScores[color] += lastRolledValue;
             document.getElementById(scoreIds[color]).innerText = playerScores[color] + " pts";
-            document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} advanced by ${lastRolledValue} steps!`;
+            document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} moved ${lastRolledValue} steps! Total: ${playerScores[color]}`;
 
             if(playerScores[color] >= 50) {
                 alert(`👑 Amazing! ${color.toUpperCase()} player won the 4-Player Ludo Match! 🎉`);
@@ -363,6 +351,7 @@
 
             let nextColor = playerList[turnIndex];
             document.getElementById('ludoStatusText').innerText = `${nextColor.toUpperCase()}'s turn! Roll the dice.`;
+            isRolling = false;
 
             if(nextColor !== 'red') {
                 setTimeout(() => {
