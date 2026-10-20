@@ -3,263 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Voice Lounge - Real Ludo King</title>
+    <title>Who Is The Spy - Party Game</title>
     <style>
-        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
-        body { background: #0f172a; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        .app-container { width: 100%; max-width: 420px; background: #1e293b; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; }
+        body { background: #0f172a; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
+        .app-container { width: 100%; max-width: 420px; background: #1e293b; min-height: 100vh; display: flex; flex-direction: column; padding: 16px; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         
-        .tab-view { display: none; flex-direction: column; padding: 12px; padding-bottom: 70px; }
-        .tab-view.active { display: flex; }
-
-        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #0f172a; border-bottom: 1px solid #334155; }
-        .user-profile-mini { display: flex; align-items: center; gap: 10px; }
-        .avatar-mini { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #f472b6; }
-        .coin-pill { background: #334155; border: 1px solid #facc15; color: #facc15; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-
-        .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; text-align: center; }
-        .icon-card { background: #334155; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1px solid #475569; }
-        .icon-card span { font-size: 22px; display: block; margin-bottom: 2px; }
-        .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #9ca3af; }
-
-        .game-banner-large { background: linear-gradient(135deg, #059669, #10b981); border-radius: 16px; padding: 16px; color: #fff; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
-
-        /* EXACT IMAGE LAYOUT LUDO ARENA STYLES */
-        #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 6px; align-items: center; justify-content: space-between; overflow-y: auto; }
-        .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 2px 4px; }
+        h2 { text-align: center; color: #facc15; margin-bottom: 15px; }
+        .card { background: #334155; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #475569; }
+        .btn { background: #10b981; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 8px; }
+        .btn-secondary { background: #3b82f6; }
+        .btn-danger { background: #ef4444; }
         
-        .players-board-layout { width: 330px; display: flex; flex-direction: column; gap: 4px; margin: 4px auto; }
-        .player-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-        
-        .player-box-card { background: #1e293b; padding: 6px 10px; border-radius: 10px; border: 2px solid #334155; display: flex; align-items: center; justify-content: space-between; width: 48%; opacity: 0.6; }
-        .player-box-card.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
-        .card-dice { font-size: 20px; background: rgba(0,0,0,0.4); padding: 2px 8px; border-radius: 6px; cursor: pointer; border: 1px solid #475569; }
-
-        .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; box-shadow: 0 6px 20px rgba(0,0,0,0.8); }
-
-        .base-yellow { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #f59e0b; border: 2px solid #000; padding: 6px; }
-        .base-blue { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #3b82f6; border: 2px solid #000; padding: 6px; }
-        .base-green { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #10b981; border: 2px solid #000; padding: 6px; }
-        .base-red { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #ef4444; border: 2px solid #000; padding: 6px; }
-
-        .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; border: 2px solid #000; }
-        .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-
-        .pawn { width: 14px; height: 14px; border-radius: 50%; border: 2px solid #000; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .pawn-red { background: #ef4444; }
-        .pawn-green { background: #10b981; }
-        .pawn-yellow { background: #f59e0b; }
-        .pawn-blue { background: #3b82f6; }
-
-        .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; position: relative; }
-        .c-red { background: #ef4444; color: #fff; }
-        .c-green { background: #10b981; color: #fff; }
-        .c-yellow { background: #f59e0b; color: #fff; }
-        .c-blue { background: #3b82f6; color: #fff; }
-        .c-star { background: #fef08a; color: #854d0e; }
-
-        .center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #fff; border: 2px solid #000; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
-        .tri-red { background: #ef4444; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
-        .tri-green { background: #10b981; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
-        .tri-yellow { background: #f59e0b; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
-        .tri-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 1; clip-path: polygon(0 0, 50% 100%, 100% 0); }
-
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 55px; background: #0f172a; border-top: 1px solid #334155; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
-        .nav-item { background: none; border: none; color: #64748b; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
-        .nav-item span { font-size: 18px; }
-        .nav-item.active { color: #ec4899; font-weight: bold; }
+        .word-reveal-box { background: #0f172a; padding: 20px; border-radius: 10px; text-align: center; margin: 15px 0; border: 2px dashed #facc15; }
+        .player-chip { background: #475569; padding: 8px 12px; border-radius: 20px; display: inline-block; margin: 4px; font-size: 12px; cursor: pointer; }
+        .player-chip.selected { background: #ef4444; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- TOP HEADER -->
-        <div class="top-header">
-            <div class="user-profile-mini">
-                <div class="avatar-mini" id="userAvatar">A</div>
-                <span id="userNameDisplay" style="font-weight: bold; font-size: 13px;">Admin</span>
-            </div>
-            <div class="coin-pill">🪙 <span id="userCoins">2,500</span></div>
+        <h2>🕵️ Who Is The Spy?</h2>
+
+        <!-- SETUP SCREEN -->
+        <div id="screen-setup" class="card">
+            <h3>Game Setup</h3>
+            <label style="font-size: 12px; color: #9ca3af;">Total Players (3 to 8):</label>
+            <input type="number" id="numPlayers" value="4" min="3" max="8" style="width: 100%; padding: 8px; margin: 6px 0 12px 0; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px;">
+            
+            <label style="font-size: 12px; color: #9ca3af;">Number of Spies:</label>
+            <input type="number" id="numSpies" value="1" min="1" max="2" style="width: 100%; padding: 8px; margin: 6px 0 12px 0; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px;">
+            
+            <button class="btn" onclick="startGame()">Start Game 🚀</button>
         </div>
 
-        <!-- MAIN HOME TAB -->
-        <div id="tab-home" class="tab-view active">
-            <div class="quick-icons-row">
-                <div class="icon-card" onclick="switchTab('tab-ranking')"><span>👑</span><p>Ranking</p></div>
-                <div class="icon-card" onclick="alert('Fan Cards active!')"><span>🃏</span><p>Fan Cards</p></div>
-                <div class="icon-card" onclick="switchTab('tab-messages')"><span>💬</span><p>Tips</p></div>
-                <div class="icon-card" onclick="alert('Friends list')"><span>👥</span><p>Friends</p></div>
+        <!-- REVEAL SCREEN -->
+        <div id="screen-reveal" class="card" style="display: none; text-align: center;">
+            <h3>Pass Phone to Player <span id="currentRevealPlayer">1</span></h3>
+            <p style="font-size: 12px; color: #9ca3af;">Tap below to secretly check your word</p>
+            
+            <div class="word-reveal-box" id="secretBox" onclick="toggleWordVisibility()">
+                <span id="secretText" style="font-size: 18px; font-weight: bold; color: #facc15;">🔒 Tap to Reveal</span>
             </div>
-
-            <div class="game-banner-large" onclick="openLudoArena()">
-                <div>
-                    <h3 style="margin: 0; font-size: 16px;">🎲 Classic Ludo King 15x15</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Exact Screenshot Layout & Individual Dice</p>
-                </div>
-                <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
-            </div>
+            
+            <button class="btn btn-secondary" id="nextPlayerBtn" onclick="nextPlayerReveal()" style="display:none;">Next Player / Start Discussion</button>
         </div>
 
-        <div id="tab-messages" class="tab-view"><h3>💬 Messages</h3><p style="color:#9ca3af; font-size:12px;">No new alerts.</p></div>
-        <div id="tab-ranking" class="tab-view"><h3>🏆 Leaderboard</h3><p style="color:#facc15; font-size:13px;">1. Admin - 10,000 pts</p></div>
-        <div id="tab-profile" class="tab-view" style="text-align: center;"><h3>👤 Profile</h3><p style="color:#9ca3af; font-size:12px;">User ID: #88921</p></div>
-
-        <!-- EXACT SCREENSHOT MATCHING LUDO ARENA MODAL -->
-        <div id="ludoArenaModal">
-            <div class="ludo-header">
-                <button style="background:#334155; color:#fff; border:none; padding:5px 10px; border-radius:10px; font-size:11px;" onclick="closeLudoArena()">← Exit</button>
-                <h3 style="margin:0; font-size: 14px; color:#facc15;">🎲 Real Ludo Arena</h3>
-                <div style="width:30px;"></div>
-            </div>
-
-            <div class="players-board-layout">
-                <!-- Top Row: Computer 3 (Yellow) & Computer 4 (Blue) with Dices -->
-                <div class="player-row">
-                    <div id="cardYellow" class="player-box-card active-turn" style="color:#f59e0b;">
-                        <div>
-                            <span style="display:block; font-weight:bold; font-size:11px;">Computer 3</span>
-                            <span id="scoreYellow" style="font-size:9px;">0 pt</span>
-                        </div>
-                        <span id="diceYellow" class="card-dice" onclick="rollSpecificDice('yellow')">🎲</span>
-                    </div>
-                    <div id="cardBlue" class="player-box-card" style="color:#3b82f6;">
-                        <div>
-                            <span style="display:block; font-weight:bold; font-size:11px;">Computer 4</span>
-                            <span id="scoreBlue" style="font-size:9px;">0 pt</span>
-                        </div>
-                        <span id="diceBlue" class="card-dice" onclick="rollSpecificDice('blue')">🎲</span>
-                    </div>
-                </div>
-
-                <!-- 15x15 Standard Ludo Board Grid -->
-                <div class="real-ludo-grid">
-                    <div class="base-yellow"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div><div class="spot-circle"><div class="pawn pawn-yellow"></div></div></div></div>
-                    
-                    <div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                    <div class="cell c-blue">↓</div><div class="cell c-blue"></div><div class="cell c-star">⭐</div>
-                    <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
-
-                    <div class="base-blue"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div><div class="spot-circle"><div class="pawn pawn-blue"></div></div></div></div>
-
-                    <div class="cell"></div><div class="cell c-yellow">⭐</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                    <div class="cell c-yellow">→</div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div>
-                    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-
-                    <div class="center-home">
-                        <div class="tri-yellow"></div><div class="tri-blue"></div><div class="tri-green"></div><div class="tri-red"></div>
-                    </div>
-
-                    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
-                    <div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red">←</div>
-                    <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-red">⭐</div><div class="cell"></div>
-
-                    <div class="base-green"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div><div class="spot-circle"><div class="pawn pawn-green"></div></div></div></div>
-
-                    <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                    <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
-                    <div class="cell c-star">⭐</div><div class="cell c-green"></div><div class="cell c-green">↑</div>
-                    <div class="cell"></div><div class="cell"></div><div class="cell"></div>
-
-                    <div class="base-red"><div class="inner-box"><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div><div class="spot-circle"><div class="pawn pawn-red"></div></div></div></div>
-                </div>
-
-                <!-- Bottom Row: Computer 2 (Green) & You (Red) with Dices -->
-                <div class="player-row">
-                    <div id="cardGreen" class="player-box-card" style="color:#10b981;">
-                        <div>
-                            <span style="display:block; font-weight:bold; font-size:11px;">Computer 2</span>
-                            <span id="scoreGreen" style="font-size:9px;">0 pt</span>
-                        </div>
-                        <span id="diceGreen" class="card-dice" onclick="rollSpecificDice('green')">🎲</span>
-                    </div>
-                    <div id="cardRed" class="player-box-card" style="color:#ef4444;">
-                        <div>
-                            <span style="display:block; font-weight:bold; font-size:11px;">You (Red)</span>
-                            <span id="scoreRed" style="font-size:9px;">0 pt</span>
-                        </div>
-                        <span id="diceRed" class="card-dice" onclick="rollSpecificDice('red')">🎲</span>
-                    </div>
-                </div>
-            </div>
-
-            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🟡 Yellow's turn! Click its dice to roll.</p>
+        <!-- DISCUSSION & VOTING SCREEN -->
+        <div id="screen-game" class="card" style="display: none;">
+            <h3>🗣️ Discussion & Voting</h3>
+            <p style="font-size: 12px; color: #9ca3af;">Give clues one by one without saying your exact word. Then vote out the suspected Spy!</p>
+            
+            <div id="votingList" style="margin: 15px 0;"></div>
+            
+            <button class="btn btn-danger" onclick="submitVote()">Submit Vote 🗳️</button>
         </div>
 
-        <!-- BOTTOM NAVIGATION -->
-        <div class="bottom-nav">
-            <button class="nav-item active" onclick="switchTab('tab-home')"><span>🏠</span>Home</button>
-            <button class="nav-item" onclick="switchTab('tab-messages')"><span>💬</span>Messages</button>
-            <button class="nav-item" onclick="switchTab('tab-ranking')"><span>🏆</span>Ranking</button>
-            <button class="nav-item" onclick="switchTab('tab-profile')"><span>👤</span>Profile</button>
+        <!-- RESULT SCREEN -->
+        <div id="screen-result" class="card" style="display: none; text-align: center;">
+            <h3>🏆 Game Result</h3>
+            <p id="resultText" style="font-size: 14px; margin: 15px 0;"></p>
+            <button class="btn" onclick="resetGame()">Play Again 🔄</button>
         </div>
     </div>
 
     <script>
-        const playerList = ['yellow', 'blue', 'green', 'red'];
-        const cardIds = { yellow: 'cardYellow', blue: 'cardBlue', green: 'cardGreen', red: 'cardRed' };
-        const scoreIds = { yellow: 'scoreYellow', blue: 'scoreBlue', green: 'scoreGreen', red: 'scoreRed' };
-        const diceIds = { yellow: 'diceYellow', blue: 'diceBlue', green: 'diceGreen', red: 'diceRed' };
-        
-        let turnIndex = 0;
-        let playerScores = { yellow: 0, blue: 0, green: 0, red: 0 };
-        let isRolling = false;
+        const wordPairs = [
+            { civilian: "Apple 🍎", spy: "Mango 🥭" },
+            { civilian: "Coffee ☕", spy: "Tea 🍵" },
+            { civilian: "Cricket 🏏", spy: "Football ⚽" },
+            { civilian: "Car 🚗", spy: "Bus 🚌" }
+        ];
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-        }
+        let totalPlayers = 4;
+        let spiesCount = 1;
+        let playersData = [];
+        let currentPlayerIndex = 0;
+        let selectedVoteTarget = null;
+        let chosenPair = {};
 
-        function openLudoArena() { 
-            document.getElementById('ludoArenaModal').style.display = 'flex'; 
-        }
-        
-        function closeLudoArena() { 
-            document.getElementById('ludoArenaModal').style.display = 'none'; 
-        }
-
-        function rollSpecificDice(color) {
-            if (isRolling) return;
-            let activeColor = playerList[turnIndex];
-
-            if (color !== activeColor) {
-                alert(`Abhi turn ${activeColor.toUpperCase()} ki hai! Inka dice click karein.`);
+        function startGame() {
+            totalPlayers = parseInt(document.getElementById('numPlayers').value);
+            spiesCount = parseInt(document.getElementById('numSpies').value);
+            
+            if (spiesCount >= totalPlayers) {
+                alert("Spies must be less than total players!");
                 return;
             }
 
-            isRolling = true;
-            let rolledValue = Math.floor(Math.random() * 6) + 1;
-            let faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
-
-            document.getElementById(diceIds[activeColor]).innerText = faces[rolledValue - 1];
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${rolledValue}! Moving pawns...`;
-
-            setTimeout(() => {
-                playerScores[activeColor] += rolledValue;
-                document.getElementById(scoreIds[activeColor]).innerText = playerScores[activeColor] + " pts";
-
-                if (playerScores[activeColor] >= 50) {
-                    alert(`👑 ${activeColor.toUpperCase()} won the match! 🎉`);
-                    playerScores = { yellow: 0, blue: 0, green: 0, red: 0 };
-                    Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
+            // Pick random word pair
+            chosenPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
+            
+            // Assign roles
+            let roles = Array(totalPlayers).fill('civilian');
+            let assignedSpies = 0;
+            while(assignedSpies < spiesCount) {
+                let idx = Math.floor(Math.random() * totalPlayers);
+                if(roles[idx] === 'civilian') {
+                    roles[idx] = 'spy';
+                    assignedSpies++;
                 }
+            }
 
-                Object.values(cardIds).forEach(id => document.getElementById(id).classList.remove('active-turn'));
-                Object.values(diceIds).forEach(id => document.getElementById(id).innerText = "🎲");
+            playersData = roles.map((role, i) => ({
+                id: i + 1,
+                role: role,
+                word: role === 'spy' ? chosenPair.spy : chosenPair.civilian
+            }));
 
-                turnIndex = (turnIndex + 1) % 4;
-                let nextColor = playerList[turnIndex];
+            currentPlayerIndex = 0;
+            document.getElementById('screen-setup').style.display = 'none';
+            document.getElementById('screen-reveal').style.display = 'block';
+            updateRevealScreen();
+        }
 
-                document.getElementById(cardIds[nextColor]).classList.add('active-turn');
-                document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()}'s turn! Click its dice.`;
-                isRolling = false;
-            }, 700);
+        function updateRevealScreen() {
+            document.getElementById('currentRevealPlayer').innerText = currentPlayerIndex + 1;
+            document.getElementById('secretText').innerText = "🔒 Tap to Reveal";
+            document.getElementById('nextPlayerBtn').style.display = 'none';
+        }
+
+        let isRevealed = false;
+        function toggleWordVisibility() {
+            let textEl = document.getElementById('secretText');
+            if (!isRevealed) {
+                textEl.innerText = playersData[currentPlayerIndex].word;
+                isRevealed = true;
+                document.getElementById('nextPlayerBtn').style.display = 'block';
+            } else {
+                textEl.innerText = "🔒 Tap to Reveal";
+                isRevealed = false;
+            }
+        }
+
+        function nextPlayerReveal() {
+            isRevealed = false;
+            currentPlayerIndex++;
+            if (currentPlayerIndex < totalPlayers) {
+                updateRevealScreen();
+            } else {
+                // Move to Voting Screen
+                document.getElementById('screen-reveal').style.display = 'none';
+                document.getElementById('screen-game').style.display = 'block';
+                renderVotingList();
+            }
+        }
+
+        function renderVotingList() {
+            let container = document.getElementById('votingList');
+            container.innerHTML = '<p style="font-size:12px;">Select player to vote out:</p>';
+            playersData.forEach(p => {
+                container.innerHTML += `<div class="player-chip" id="p-chip-${p.id}" onclick="selectPlayer(${p.id})">Player ${p.id}</div>`;
+            });
+        }
+
+        function selectPlayer(id) {
+            selectedVoteTarget = id;
+            document.querySelectorAll('.player-chip').forEach(el => el.classList.remove('selected'));
+            document.getElementById(`p-chip-${id}`).classList.add('selected');
+        }
+
+        function submitVote() {
+            if (!selectedVoteTarget) {
+                alert("Please select a player to vote!");
+                return;
+            }
+
+            let votedPlayer = playersData.find(p => p.id === selectedVoteTarget);
+            let resultMessage = "";
+
+            if (votedPlayer.role === 'spy') {
+                resultMessage = `🎉 Civilians Win! Player ${votedPlayer.id} was indeed the Spy (${chosenPair.spy})!`;
+            } else {
+                let actualSpies = playersData.filter(p => p.role === 'spy').map(p => `Player ${p.id}`).join(', ');
+                resultMessage = `😢 Spy Wins! Player ${votedPlayer.id} was an innocent civilian. The actual Spy was ${actualSpies}!`;
+            }
+
+            document.getElementById('screen-game').style.display = 'none';
+            document.getElementById('screen-result').style.display = 'block';
+            document.getElementById('resultText').innerText = resultMessage;
+        }
+
+        function resetGame() {
+            document.getElementById('screen-result').style.display = 'none';
+            document.getElementById('screen-setup').style.display = 'block';
         }
     </script>
 </body>
 </html>
-                                                                                                          </html>
-                                                                                                          
