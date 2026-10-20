@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Voice Lounge - 4 Player Ludo</title>
+    <title>VIP Voice Lounge - Classic Ludo</title>
     <style>
         * { box-sizing: border-box; }
         body { background: #f3e8ff; color: #1f2937; font-family: sans-serif; display: flex; justify-content: center; padding: 10px; margin: 0; }
@@ -31,22 +31,30 @@
         .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #111827; }
         .game-card-mini p { margin: 0; font-size: 10px; color: #6b7280; }
 
-        /* 4 Player Ludo Arena Styles */
+        /* Classic Ludo Board Styles matching reference image */
         #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; z-index: 100; flex-direction: column; padding: 10px; align-items: center; justify-content: space-between; overflow-y: auto; }
         
-        .real-ludo-board { width: 310px; height: 310px; background: #fff; border: 4px solid #111827; border-radius: 8px; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .classic-ludo-container { width: 320px; height: 320px; background: #000; border: 3px solid #000; display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
         
-        .ludo-home-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
-        .ludo-home-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
-        .ludo-home-yellow { grid-column: 1 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
-        .ludo-home-blue { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #3b82f6; border: 2px solid #000; display: flex; align-items: center; justify-content: center; padding: 10px; }
+        .ludo-quadrant { display: flex; align-items: center; justify-content: center; position: relative; padding: 8px; }
+        .quad-red { background: #ef4444; }
+        .quad-green { background: #10b981; }
+        .quad-yellow { background: #f59e0b; }
+        .quad-blue { background: #3b82f6; }
 
-        .inner-base { width: 75%; height: 75%; background: #fff; border-radius: 6px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 6px; padding: 8px; }
-        .base-spot { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .spot-red { background: #ef4444; } .spot-green { background: #10b981; } .spot-yellow { background: #f59e0b; } .spot-blue { background: #3b82f6; }
+        .ludo-white-base { width: 80%; height: 80%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 10px; padding: 12px; }
+        .ludo-circle-spot { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); }
+        .spot-red { background: #ef4444; }
+        .spot-green { background: #10b981; }
+        .spot-yellow { background: #f59e0b; }
+        .spot-blue { background: #3b82f6; }
 
-        .ludo-center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #111827; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #f59e0b; text-align: center; }
-        .pawn { width: 14px; height: 14px; border-radius: 50%; border: 1px solid #000; display: inline-block; cursor: pointer; }
+        /* Center home with 4 triangular sections */
+        .ludo-center-cross { background: #fff; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
+        .center-triangle-red { background: #ef4444; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+        .center-triangle-green { background: #10b981; grid-column: 1 / span 3; grid-row: 1; clip-path: polygon(0 0, 50% 100%, 100% 0); }
+        .center-triangle-yellow { background: #f59e0b; grid-column: 3; grid-row: 1 / span 3; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+        .center-triangle-blue { background: #3b82f6; grid-column: 1 / span 3; grid-row: 3; clip-path: polygon(0 100%, 50% 0, 100% 100%); }
 
         .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%; font-size: 11px; background: rgba(255,255,255,0.06); padding: 8px; border-radius: 8px; }
         .player-card-box { background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; border: 1px solid transparent; }
@@ -108,8 +116,8 @@
             <!-- Banner -->
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
-                    <h3 style="margin: 0; font-size: 16px;">🎲 4-Player Ludo Master</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Play live with Red, Green, Yellow & Blue bots</p>
+                    <h3 style="margin: 0; font-size: 16px;">🎲 Classic Ludo King</h3>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Standard 4-player board match</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
@@ -175,11 +183,11 @@
             <p style="color: #6b7280; font-size: 12px; margin: 5px 0 20px 0;">VIP Level 1 • ID: #78942</p>
         </div>
 
-        <!-- 4-PLAYER LUDO ARENA MODAL -->
+        <!-- CLASSIC 4-PLAYER LUDO ARENA MODAL -->
         <div id="ludoArenaModal">
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                 <button class="btn" style="background:#374151; padding: 4px 10px; font-size: 11px;" onclick="closeLudoArena()">← Exit Match</button>
-                <h3 style="margin:0; font-size: 14px; color:#f59e0b;">🎲 4-Player Ludo Master</h3>
+                <h3 style="margin:0; font-size: 14px; color:#f59e0b;">🎲 Classic Ludo King</h3>
                 <div style="width: 50px;"></div>
             </div>
 
@@ -202,53 +210,74 @@
                 </div>
             </div>
 
-            <div class="real-ludo-board">
-                <div class="ludo-home-red">
-                    <div class="inner-base">
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
-                        <div class="base-spot spot-red"><div class="pawn" style="background:#ef4444;" onclick="roll4PlayerDice()"></div></div>
+            <!-- Standard Classic Ludo Board Layout -->
+            <div class="classic-ludo-container">
+                <!-- Top-Left: Red Base -->
+                <div class="ludo-quadrant quad-red">
+                    <div class="ludo-white-base">
+                        <div class="ludo-circle-spot spot-red"></div>
+                        <div class="ludo-circle-spot spot-red"></div>
+                        <div class="ludo-circle-spot spot-red"></div>
+                        <div class="ludo-circle-spot spot-red"></div>
                     </div>
                 </div>
 
-                <div class="ludo-home-green">
-                    <div class="inner-base">
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
-                        <div class="base-spot spot-green"><div class="pawn" style="background:#10b981;"></div></div>
+                <!-- Top-Middle Track Placeholder -->
+                <div style="background:#fff; border: 1px solid #000;"></div>
+
+                <!-- Top-Right: Green Base -->
+                <div class="ludo-quadrant quad-green">
+                    <div class="ludo-white-base">
+                        <div class="ludo-circle-spot spot-green"></div>
+                        <div class="ludo-circle-spot spot-green"></div>
+                        <div class="ludo-circle-spot spot-green"></div>
+                        <div class="ludo-circle-spot spot-green"></div>
                     </div>
                 </div>
 
-                <div class="ludo-center-home">
-                    <span>👑<br>HOME</span>
+                <!-- Middle-Left Track Placeholder -->
+                <div style="background:#fff; border: 1px solid #000;"></div>
+
+                <!-- Center Home with 4 Triangles -->
+                <div class="ludo-center-cross">
+                    <div class="center-triangle-red"></div>
+                    <div class="center-triangle-green"></div>
+                    <div class="center-triangle-yellow"></div>
+                    <div class="center-triangle-blue"></div>
                 </div>
 
-                <div class="ludo-home-yellow">
-                    <div class="inner-base">
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
-                        <div class="base-spot spot-yellow"><div class="pawn" style="background:#f59e0b;"></div></div>
+                <!-- Middle-Right Track Placeholder -->
+                <div style="background:#fff; border: 1px solid #000;"></div>
+
+                <!-- Bottom-Left: Yellow Base -->
+                <div class="ludo-quadrant quad-yellow">
+                    <div class="ludo-white-base">
+                        <div class="ludo-circle-spot spot-yellow"></div>
+                        <div class="ludo-circle-spot spot-yellow"></div>
+                        <div class="ludo-circle-spot spot-yellow"></div>
+                        <div class="ludo-circle-spot spot-yellow"></div>
                     </div>
                 </div>
 
-                <div class="ludo-home-blue">
-                    <div class="inner-base">
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
-                        <div class="base-spot spot-blue"><div class="pawn" style="background:#3b82f6;"></div></div>
+                <!-- Bottom-Middle Track Placeholder -->
+                <div style="background:#fff; border: 1px solid #000;"></div>
+
+                <!-- Bottom-Right: Blue Base -->
+                <div class="ludo-quadrant quad-blue">
+                    <div class="ludo-white-base">
+                        <div class="ludo-circle-spot spot-blue"></div>
+                        <div class="ludo-circle-spot spot-blue"></div>
+                        <div class="ludo-circle-spot spot-blue"></div>
+                        <div class="ludo-circle-spot spot-blue"></div>
                     </div>
                 </div>
             </div>
 
-            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Roll dice to advance.</p>
+            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Roll dice to play.</p>
 
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 2px;">
                 <span id="ludoDiceShow" style="font-size: 28px; background: rgba(255,255,255,0.1); padding: 2px 10px; border-radius: 6px;">🎲</span>
-                <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; padding: 8px 18px; font-size: 13px;" onclick="roll4PlayerDice()">Roll Dice 🎲</button>
+                <button id="rollDiceBtn" class="btn" style="background: #f59e0b; color: #111827; padding: 8px 18px; font-size: 13px;" onclick="rollClassicDice()">Roll Dice 🎲</button>
             </div>
         </div>
 
@@ -317,7 +346,7 @@
             document.getElementById('ludoArenaModal').style.display = 'none';
         }
 
-        function roll4PlayerDice() {
+        function rollClassicDice() {
             if (isRolling) return;
             isRolling = true;
 
@@ -326,20 +355,20 @@
             let faces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
             document.getElementById('ludoDiceShow').innerText = faces[lastRolledValue - 1];
 
-            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Moving forward...`;
+            document.getElementById('ludoStatusText').innerText = `${activeColor.toUpperCase()} rolled ${lastRolledValue}! Advancing...`;
             
             setTimeout(() => {
-                executeMove(activeColor);
+                executeClassicMove(activeColor);
             }, 700);
         }
 
-        function executeMove(color) {
+        function executeClassicMove(color) {
             playerScores[color] += lastRolledValue;
             document.getElementById(scoreIds[color]).innerText = playerScores[color] + " pts";
             document.getElementById('ludoStatusText').innerText = `${color.toUpperCase()} moved ${lastRolledValue} steps! Total: ${playerScores[color]}`;
 
             if(playerScores[color] >= 50) {
-                alert(`👑 Amazing! ${color.toUpperCase()} player won the 4-Player Ludo Match! 🎉`);
+                alert(`👑 Amazing! ${color.toUpperCase()} player won the Classic Ludo Match! 🎉`);
                 playerScores = { red: 0, green: 0, yellow: 0, blue: 0 };
                 Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
             }
@@ -356,7 +385,7 @@
             if(nextColor !== 'red') {
                 setTimeout(() => {
                     if(document.getElementById('ludoArenaModal').style.display === 'flex') {
-                        roll4PlayerDice();
+                        rollClassicDice();
                     }
                 }, 1000);
             }
