@@ -6,36 +6,31 @@
     <title>VIP Voice Lounge - Real Ludo King</title>
     <style>
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
-        body { background: #121826; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
-        .app-container { width: 100%; max-width: 420px; background: #1a2234; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        body { background: #0f172a; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .app-container { width: 100%; max-width: 420px; background: #1e293b; min-height: 100vh; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         
         .tab-view { display: none; flex-direction: column; padding: 12px; padding-bottom: 70px; }
         .tab-view.active { display: flex; }
 
-        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #232d42; border-bottom: 1px solid #2d3952; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #0f172a; border-bottom: 1px solid #334155; }
         .user-profile-mini { display: flex; align-items: center; gap: 10px; }
         .avatar-mini { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #f472b6; }
-        .coin-pill { background: #2d3952; border: 1px solid #facc15; color: #facc15; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .coin-pill { background: #334155; border: 1px solid #facc15; color: #facc15; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
         .quick-icons-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0; text-align: center; }
-        .icon-card { background: #232d42; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1px solid #2d3952; }
+        .icon-card { background: #334155; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1px solid #475569; }
         .icon-card span { font-size: 22px; display: block; margin-bottom: 2px; }
         .icon-card p { margin: 0; font-size: 10px; font-weight: bold; color: #9ca3af; }
 
         .game-banner-large { background: linear-gradient(135deg, #059669, #10b981); border-radius: 16px; padding: 16px; color: #fff; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
-        
-        .games-grid-weplay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .game-card-mini { background: #232d42; border-radius: 12px; padding: 12px; text-align: left; border: 1px solid #2d3952; cursor: pointer; }
-        .game-card-mini h4 { margin: 0 0 2px 0; font-size: 13px; color: #fff; }
-        .game-card-mini p { margin: 0; font-size: 10px; color: #9ca3af; }
 
         /* LUDO ARENA STYLES */
         #ludoArenaModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; color: #fff; z-index: 100; flex-direction: column; padding: 10px; align-items: center; justify-content: space-between; overflow-y: auto; }
         .ludo-header { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 4px 8px; }
         
         .players-4-panel { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; margin: 8px 0; }
-        .player-card-box { background: #1e293b; padding: 8px; border-radius: 10px; border: 2px solid transparent; display: flex; justify-content: space-between; align-items: center; opacity: 0.6; }
-        .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.15); box-shadow: 0 0 10px rgba(245, 158, 11, 0.3); }
+        .player-card-box { background: #1e293b; padding: 8px; border-radius: 10px; border: 2px solid #334155; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; }
+        .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245, 158, 11, 0.2); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4); }
 
         .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 4px auto; box-shadow: 0 8px 25px rgba(0,0,0,0.8); }
 
@@ -69,7 +64,7 @@
         .controls-area { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; margin-top: 6px; }
         .dice-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; border: none; padding: 10px 24px; border-radius: 25px; font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 12px rgba(245,158,11,0.4); }
 
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 55px; background: #1e293b; border-top: 1px solid #334155; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto; height: 55px; background: #0f172a; border-top: 1px solid #334155; display: flex; justify-content: space-around; align-items: center; z-index: 40; }
         .nav-item { background: none; border: none; color: #64748b; display: flex; flex-direction: column; align-items: center; font-size: 10px; cursor: pointer; }
         .nav-item span { font-size: 18px; }
         .nav-item.active { color: #ec4899; font-weight: bold; }
@@ -77,7 +72,7 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- TOP USER BAR -->
+        <!-- TOP HEADER -->
         <div class="top-header">
             <div class="user-profile-mini">
                 <div class="avatar-mini" id="userAvatar">A</div>
@@ -86,7 +81,7 @@
             <div class="coin-pill">🪙 <span id="userCoins">2,500</span></div>
         </div>
 
-        <!-- HOME TAB -->
+        <!-- MAIN HOME TAB -->
         <div id="tab-home" class="tab-view active">
             <div class="quick-icons-row">
                 <div class="icon-card" onclick="switchTab('tab-ranking')">
@@ -110,35 +105,22 @@
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 Classic Ludo King 15x15</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Manual Click Roll & Individual Pawns</p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">100% Manual Click-to-Roll Dice System</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
-            </div>
-
-            <div class="games-grid-weplay">
-                <div class="game-card-mini">
-                    <span style="font-size: 22px;">🍔</span>
-                    <h4>Food Rush</h4>
-                    <p>Party Game</p>
-                </div>
-                <div class="game-card-mini">
-                    <span style="font-size: 22px;">🐺</span>
-                    <h4>Space Wolf</h4>
-                    <p>Deduction</p>
-                </div>
             </div>
         </div>
 
         <!-- MESSAGES TAB -->
         <div id="tab-messages" class="tab-view">
-            <h3>💬 System Messages</h3>
-            <p style="color:#9ca3af; font-size:12px;">Welcome to WePlay Voice Lounge & Ludo Platform!</p>
+            <h3>💬 Messages</h3>
+            <p style="color:#9ca3af; font-size:12px;">No new notifications.</p>
         </div>
 
         <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-view">
             <h3>🏆 Leaderboard</h3>
-            <p style="color:#facc15; font-size:13px;">1. 👑 Admin - 10,000 pts</p>
+            <p style="color:#facc15; font-size:13px;">1. Admin - 10,000 pts</p>
         </div>
 
         <!-- PROFILE TAB -->
@@ -253,13 +235,13 @@
             <div class="controls-area">
                 <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 0;">🔴 Red's turn! Click Roll Dice to play.</p>
                 <div style="display:flex; align-items:center; gap:10px;">
-                    <span id="ludoDiceShow" style="font-size:28px; background:#1e293b; padding:2px 10px; border-radius:8px;">🎲</span>
+                    <span id="ludoDiceShow" style="font-size:28px; background:#0f172a; padding:2px 10px; border-radius:8px;">🎲</span>
                     <button class="dice-btn" onclick="rollRealDice()">Roll Dice 🎲</button>
                 </div>
             </div>
         </div>
 
-        <!-- BOTTOM NAV BAR -->
+        <!-- BOTTOM NAVIGATION -->
         <div class="bottom-nav">
             <button class="nav-item active" onclick="switchTab('tab-home')"><span>🏠</span>Home</button>
             <button class="nav-item" onclick="switchTab('tab-messages')"><span>💬</span>Messages</button>
@@ -290,7 +272,7 @@
             document.getElementById('ludoArenaModal').style.display = 'none';
         }
 
-        /* MANUAL CLICK DICE ROLL SYSTEM */
+        /* STRICTLY MANUAL ROLL FUNCTION (No Auto-Roll) */
         function rollRealDice() {
             if (isRolling) return;
             isRolling = true;
@@ -317,16 +299,17 @@
                 Object.values(scoreIds).forEach(id => document.getElementById(id).innerText = "0 pt");
             }
 
+            // Move turn to next player and WAIT for manual button click
             cardIds.forEach(id => document.getElementById(id).classList.remove('active-turn'));
             turnIndex = (turnIndex + 1) % 4;
             document.getElementById(cardIds[turnIndex]).classList.add('active-turn');
 
             let nextColor = playerList[turnIndex];
-            document.getElementById('ludoStatusText').innerText = `🔴 ${nextColor.toUpperCase()}'s turn. Click 'Roll Dice'.`;
+            document.getElementById('ludoStatusText').innerText = `🎲 ${nextColor.toUpperCase()}'s turn! Click 'Roll Dice'.`;
+            
+            // Re-enable button click for next turn
             isRolling = false;
         }
     </script>
 </body>
 </html>
-                                                     </html>
-                                                     
