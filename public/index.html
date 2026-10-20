@@ -3,190 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Who Is The Spy - Party Game</title>
+    <title>Who Is The Spy - WePlay Style</title>
     <style>
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; }
-        body { background: #0f172a; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; }
-        .app-container { width: 100%; max-width: 420px; background: #1e293b; min-height: 100vh; display: flex; flex-direction: column; padding: 16px; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        
-        h2 { text-align: center; color: #facc15; margin-bottom: 15px; }
-        .card { background: #334155; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #475569; }
-        .btn { background: #10b981; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 8px; }
-        .btn-secondary { background: #3b82f6; }
-        .btn-danger { background: #ef4444; }
-        
-        .word-reveal-box { background: #0f172a; padding: 20px; border-radius: 10px; text-align: center; margin: 15px 0; border: 2px dashed #facc15; }
-        .player-chip { background: #475569; padding: 8px 12px; border-radius: 20px; display: inline-block; margin: 4px; font-size: 12px; cursor: pointer; }
-        .player-chip.selected { background: #ef4444; font-weight: bold; }
+        body { background: #0c192c; color: #fff; margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .app-container { width: 100%; max-width: 420px; background: linear-gradient(180deg, #1d68d8 0%, #123e88 50%, #0b224e 100%); min-height: 100vh; display: flex; flex-direction: column; position: relative; justify-content: space-between; overflow: hidden; }
+
+        /* Top Header & Banner */
+        .top-bar { display: flex; justify-content: space-between; align-items: flex-start; padding: 12px 14px; position: relative; }
+        .timer-pill { background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); border-radius: 20px; padding: 6px 12px; font-size: 13px; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+        .category-card { background: rgba(255,255,255,0.18); backdrop-filter: blur(10px); border-radius: 12px; padding: 8px 20px; text-align: center; border: 1px solid rgba(255,255,255,0.25); box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: absolute; left: 50%; transform: translateX(-50%); top: 10px; width: 60%; }
+        .category-card h4 { margin: 0; font-size: 12px; color: #a5f3fc; }
+        .category-card p { margin: 2px 0 0 0; font-size: 14px; font-weight: bold; color: #fff; }
+
+        /* Main Game Arena / Center Status */
+        .speaker-status { text-align: center; margin-top: 25px; font-size: 16px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.5px; }
+
+        /* Seats Grid (Left & Right 6 Seats Layout) */
+        .seats-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 100px; padding: 10px 20px; margin-top: 10px; position: relative; }
+        .seat-item { display: flex; flex-direction: column; align-items: center; position: relative; }
+        .seat-item:nth-child(even) { align-items: center; }
+
+        .avatar-wrapper { width: 56px; height: 56px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.6); position: relative; display: flex; align-items: center; justify-content: center; background: #1e293b; background-size: cover; background-position: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .avatar-wrapper.speaking { border-color: #38bdf8; animation: pulseMic 1.2s infinite; }
+        @keyframes pulseMic { 0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(56, 189, 248, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); } }
+
+        .seat-num { position: absolute; top: -2px; left: -2px; background: #0284c7; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid #fff; }
+        .role-badge { position: absolute; top: -6px; right: -10px; background: #06b6d4; color: #fff; font-size: 8px; padding: 1px 6px; border-radius: 8px; border: 1px solid #fff; }
+        .speaking-icon { position: absolute; left: -35px; top: 10px; background: rgba(0,0,0,0.5); padding: 6px; border-radius: 50%; font-size: 16px; }
+
+        .player-name { font-size: 12px; margin-top: 4px; color: #e2e8f0; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.8); max-width: 70px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* Center Gifts Display */
+        .gifts-center-row { display: flex; justify-content: center; gap: 20px; margin: 10px 0; }
+        .gift-bubble { background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border-radius: 50%; width: 44px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.3); position: relative; }
+        .gift-bubble span { font-size: 18px; }
+        .gift-count { position: absolute; bottom: -8px; background: #fef08a; color: #854d0e; font-size: 9px; font-weight: bold; padding: 1px 6px; border-radius: 10px; }
+
+        /* System Messages Chat Box */
+        .system-chat-box { background: rgba(11, 27, 58, 0.7); backdrop-filter: blur(10px); border-radius: 12px 12px 0 0; padding: 10px; margin: 0 10px; border: 1px solid rgba(255,255,255,0.1); max-height: 110px; overflow-y: auto; font-size: 11px; display: flex; flex-direction: column; gap: 4px; }
+        .chat-line { color: #93c5fd; }
+        .chat-line.judge { color: #facc15; font-weight: bold; }
+
+        /* Bottom Emoji & Reaction Keyboard Sheet */
+        .bottom-action-sheet { background: #121826; border-top: 1px solid #1e293b; padding: 10px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; text-align: center; border-radius: 16px 16px 0 0; }
+        .emoji-item { display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; }
+        .emoji-item span { font-size: 24px; display: block; margin-bottom: 2px; }
+        .emoji-item p { margin: 0; font-size: 9px; color: #9ca3af; }
     </style>
 </head>
-<body>
-    <div class="app-container">
-        <h2>🕵️ Who Is The Spy?</h2>
-
-        <!-- SETUP SCREEN -->
-        <div id="screen-setup" class="card">
-            <h3>Game Setup</h3>
-            <label style="font-size: 12px; color: #9ca3af;">Total Players (3 to 8):</label>
-            <input type="number" id="numPlayers" value="4" min="3" max="8" style="width: 100%; padding: 8px; margin: 6px 0 12px 0; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px;">
-            
-            <label style="font-size: 12px; color: #9ca3af;">Number of Spies:</label>
-            <input type="number" id="numSpies" value="1" min="1" max="2" style="width: 100%; padding: 8px; margin: 6px 0 12px 0; background: #1e293b; border: 1px solid #475569; color: #fff; border-radius: 6px;">
-            
-            <button class="btn" onclick="startGame()">Start Game 🚀</button>
-        </div>
-
-        <!-- REVEAL SCREEN -->
-        <div id="screen-reveal" class="card" style="display: none; text-align: center;">
-            <h3>Pass Phone to Player <span id="currentRevealPlayer">1</span></h3>
-            <p style="font-size: 12px; color: #9ca3af;">Tap below to secretly check your word</p>
-            
-            <div class="word-reveal-box" id="secretBox" onclick="toggleWordVisibility()">
-                <span id="secretText" style="font-size: 18px; font-weight: bold; color: #facc15;">🔒 Tap to Reveal</span>
-            </div>
-            
-            <button class="btn btn-secondary" id="nextPlayerBtn" onclick="nextPlayerReveal()" style="display:none;">Next Player / Start Discussion</button>
-        </div>
-
-        <!-- DISCUSSION & VOTING SCREEN -->
-        <div id="screen-game" class="card" style="display: none;">
-            <h3>🗣️ Discussion & Voting</h3>
-            <p style="font-size: 12px; color: #9ca3af;">Give clues one by one without saying your exact word. Then vote out the suspected Spy!</p>
-            
-            <div id="votingList" style="margin: 15px 0;"></div>
-            
-            <button class="btn btn-danger" onclick="submitVote()">Submit Vote 🗳️</button>
-        </div>
-
-        <!-- RESULT SCREEN -->
-        <div id="screen-result" class="card" style="display: none; text-align: center;">
-            <h3>🏆 Game Result</h3>
-            <p id="resultText" style="font-size: 14px; margin: 15px 0;"></p>
-            <button class="btn" onclick="resetGame()">Play Again 🔄</button>
-        </div>
-    </div>
-
-    <script>
-        const wordPairs = [
-            { civilian: "Apple 🍎", spy: "Mango 🥭" },
-            { civilian: "Coffee ☕", spy: "Tea 🍵" },
-            { civilian: "Cricket 🏏", spy: "Football ⚽" },
-            { civilian: "Car 🚗", spy: "Bus 🚌" }
-        ];
-
-        let totalPlayers = 4;
-        let spiesCount = 1;
-        let playersData = [];
-        let currentPlayerIndex = 0;
-        let selectedVoteTarget = null;
-        let chosenPair = {};
-
-        function startGame() {
-            totalPlayers = parseInt(document.getElementById('numPlayers').value);
-            spiesCount = parseInt(document.getElementById('numSpies').value);
-            
-            if (spiesCount >= totalPlayers) {
-                alert("Spies must be less than total players!");
-                return;
-            }
-
-            // Pick random word pair
-            chosenPair = wordPairs[Math.floor(Math.random() * wordPairs.length)];
-            
-            // Assign roles
-            let roles = Array(totalPlayers).fill('civilian');
-            let assignedSpies = 0;
-            while(assignedSpies < spiesCount) {
-                let idx = Math.floor(Math.random() * totalPlayers);
-                if(roles[idx] === 'civilian') {
-                    roles[idx] = 'spy';
-                    assignedSpies++;
-                }
-            }
-
-            playersData = roles.map((role, i) => ({
-                id: i + 1,
-                role: role,
-                word: role === 'spy' ? chosenPair.spy : chosenPair.civilian
-            }));
-
-            currentPlayerIndex = 0;
-            document.getElementById('screen-setup').style.display = 'none';
-            document.getElementById('screen-reveal').style.display = 'block';
-            updateRevealScreen();
-        }
-
-        function updateRevealScreen() {
-            document.getElementById('currentRevealPlayer').innerText = currentPlayerIndex + 1;
-            document.getElementById('secretText').innerText = "🔒 Tap to Reveal";
-            document.getElementById('nextPlayerBtn').style.display = 'none';
-        }
-
-        let isRevealed = false;
-        function toggleWordVisibility() {
-            let textEl = document.getElementById('secretText');
-            if (!isRevealed) {
-                textEl.innerText = playersData[currentPlayerIndex].word;
-                isRevealed = true;
-                document.getElementById('nextPlayerBtn').style.display = 'block';
-            } else {
-                textEl.innerText = "🔒 Tap to Reveal";
-                isRevealed = false;
-            }
-        }
-
-        function nextPlayerReveal() {
-            isRevealed = false;
-            currentPlayerIndex++;
-            if (currentPlayerIndex < totalPlayers) {
-                updateRevealScreen();
-            } else {
-                // Move to Voting Screen
-                document.getElementById('screen-reveal').style.display = 'none';
-                document.getElementById('screen-game').style.display = 'block';
-                renderVotingList();
-            }
-        }
-
-        function renderVotingList() {
-            let container = document.getElementById('votingList');
-            container.innerHTML = '<p style="font-size:12px;">Select player to vote out:</p>';
-            playersData.forEach(p => {
-                container.innerHTML += `<div class="player-chip" id="p-chip-${p.id}" onclick="selectPlayer(${p.id})">Player ${p.id}</div>`;
-            });
-        }
-
-        function selectPlayer(id) {
-            selectedVoteTarget = id;
-            document.querySelectorAll('.player-chip').forEach(el => el.classList.remove('selected'));
-            document.getElementById(`p-chip-${id}`).classList.add('selected');
-        }
-
-        function submitVote() {
-            if (!selectedVoteTarget) {
-                alert("Please select a player to vote!");
-                return;
-            }
-
-            let votedPlayer = playersData.find(p => p.id === selectedVoteTarget);
-            let resultMessage = "";
-
-            if (votedPlayer.role === 'spy') {
-                resultMessage = `🎉 Civilians Win! Player ${votedPlayer.id} was indeed the Spy (${chosenPair.spy})!`;
-            } else {
-                let actualSpies = playersData.filter(p => p.role === 'spy').map(p => `Player ${p.id}`).join(', ');
-                resultMessage = `😢 Spy Wins! Player ${votedPlayer.id} was an innocent civilian. The actual Spy was ${actualSpies}!`;
-            }
-
-            document.getElementById('screen-game').style.display = 'none';
-            document.getElementById('screen-result').style.display = 'block';
-            document.getElementById('resultText').innerText = resultMessage;
-        }
-
-        function resetGame() {
-            document.getElementById('screen-result').style.display = 'none';
-            document.getElementById('screen-setup').style.display = 'block';
-        }
-    </script>
-</body>
-</html>
