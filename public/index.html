@@ -35,7 +35,6 @@
         
         .real-ludo-grid { width: 330px; height: 330px; background: #fff; border: 3px solid #000; display: grid; grid-template-columns: repeat(15, 1fr); grid-template-rows: repeat(15, 1fr); position: relative; margin: 5px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
 
-        /* Bases */
         .base-red { grid-column: 1 / span 6; grid-row: 1 / span 6; background: #ef4444; border: 2px solid #000; padding: 8px; }
         .base-green { grid-column: 10 / span 6; grid-row: 1 / span 6; background: #10b981; border: 2px solid #000; padding: 8px; }
         .base-yellow { grid-column: 10 / span 6; grid-row: 10 / span 6; background: #f59e0b; border: 2px solid #000; padding: 8px; }
@@ -44,14 +43,12 @@
         .inner-box { width: 100%; height: 100%; background: #fff; border-radius: 4px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 8px; padding: 8px; border: 2px solid #000; }
         .spot-circle { border-radius: 50%; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; }
         
-        /* Pawns */
         .pawn { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid #000; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.4); }
         .pawn-red { background: #ef4444; }
         .pawn-green { background: #10b981; }
         .pawn-yellow { background: #f59e0b; }
         .pawn-blue { background: #3b82f6; }
 
-        /* Track Cells */
         .cell { border: 0.5px solid #000; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; position: relative; }
         .c-red { background: #ef4444; color: #fff; }
         .c-green { background: #10b981; color: #fff; }
@@ -59,7 +56,6 @@
         .c-blue { background: #3b82f6; color: #fff; }
         .c-star { background: #fef08a; }
 
-        /* Center Triangles Home */
         .center-home { grid-column: 7 / span 3; grid-row: 7 / span 3; background: #fff; border: 2px solid #000; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); position: relative; }
         .tri-red { background: #ef4444; grid-column: 1; grid-row: 1 / span 3; clip-path: polygon(0 0, 100% 50%, 0 100%); }
         .tri-green { background: #10b981; grid-column: 1 / span 3; grid-row: 1; clip-path: polygon(0 0, 50% 100%, 100% 0); }
@@ -70,7 +66,6 @@
         .player-card-box { background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; opacity: 0.5; border: 1px solid transparent; }
         .player-card-box.active-turn { opacity: 1; border-color: #f59e0b; background: rgba(245,158,11,0.2); }
 
-        /* Room & Nav */
         #roomScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #111827; color: #fff; flex-direction: column; z-index: 50; padding: 15px; }
         .seat-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-areas: "seat1 seat1" "seat2 seat3" "seat4 seat5"; gap: 15px; text-align: center; margin: 15px auto; max-width: 250px; }
         .seat:nth-child(1) { grid-area: seat1; } .seat:nth-child(2) { grid-area: seat2; } .seat:nth-child(3) { grid-area: seat3; } .seat:nth-child(4) { grid-area: seat4; } .seat:nth-child(5) { grid-area: seat5; }
@@ -127,7 +122,7 @@
             <div class="game-banner-large" onclick="openLudoArena()">
                 <div>
                     <h3 style="margin: 0; font-size: 16px;">🎲 Real Ludo King 15x15</h3>
-                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Real tracks, home paths & 4 pawns each</p>
+                    <p style="margin: 4px 0 0 0; font-size: 11px; opacity: 0.9;">Manual dice roll & 4 pawns each</p>
                 </div>
                 <span style="background: rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold;">Play</span>
             </div>
@@ -223,17 +218,17 @@
 
             <!-- 15x15 Standard Ludo Board -->
             <div class="real-ludo-grid">
-                <!-- RED BASE (Top-Left 6x6) -->
+                <!-- RED BASE -->
                 <div class="base-red">
                     <div class="inner-box">
-                        <div class="spot-circle"><div class="pawn pawn-red" onclick="rollRealDice()"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red" onclick="rollRealDice()"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red" onclick="rollRealDice()"></div></div>
-                        <div class="spot-circle"><div class="pawn pawn-red" onclick="rollRealDice()"></div></div>
+                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
+                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
+                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
+                        <div class="spot-circle"><div class="pawn pawn-red"></div></div>
                     </div>
                 </div>
 
-                <!-- TOP TRACK (Green Path) -->
+                <!-- TOP TRACK -->
                 <div class="cell"></div><div class="cell"></div><div class="cell"></div>
                 <div class="cell c-green">↓</div><div class="cell c-green"></div><div class="cell c-star">⭐</div>
                 <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
@@ -241,7 +236,7 @@
                 <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
                 <div class="cell"></div><div class="cell c-green"></div><div class="cell"></div>
 
-                <!-- GREEN BASE (Top-Right 6x6) -->
+                <!-- GREEN BASE -->
                 <div class="base-green">
                     <div class="inner-box">
                         <div class="spot-circle"><div class="pawn pawn-green"></div></div>
@@ -251,7 +246,7 @@
                     </div>
                 </div>
 
-                <!-- LEFT TRACK (Red Path) -->
+                <!-- LEFT TRACK -->
                 <div class="cell"></div><div class="cell c-red">⭐</div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
                 <div class="cell c-red">→</div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div><div class="cell c-red"></div>
                 <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
@@ -264,12 +259,12 @@
                     <div class="tri-blue"></div>
                 </div>
 
-                <!-- RIGHT TRACK (Yellow Path) -->
+                <!-- RIGHT TRACK -->
                 <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
                 <div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow"></div><div class="cell c-yellow">←</div>
                 <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell c-yellow">⭐</div><div class="cell"></div>
 
-                <!-- BLUE BASE (Bottom-Left 6x6) -->
+                <!-- BLUE BASE -->
                 <div class="base-blue">
                     <div class="inner-box">
                         <div class="spot-circle"><div class="pawn pawn-blue"></div></div>
@@ -279,7 +274,7 @@
                     </div>
                 </div>
 
-                <!-- BOTTOM TRACK (Blue Path) -->
+                <!-- BOTTOM TRACK -->
                 <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
                 <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
                 <div class="cell"></div><div class="cell c-blue"></div><div class="cell"></div>
@@ -287,7 +282,7 @@
                 <div class="cell c-star">⭐</div><div class="cell c-blue"></div><div class="cell c-blue">↑</div>
                 <div class="cell"></div><div class="cell"></div><div class="cell"></div>
 
-                <!-- YELLOW BASE (Bottom-Right 6x6) -->
+                <!-- YELLOW BASE -->
                 <div class="base-yellow">
                     <div class="inner-box">
                         <div class="spot-circle"><div class="pawn pawn-yellow"></div></div>
@@ -298,7 +293,7 @@
                 </div>
             </div>
 
-            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Roll dice to advance.</p>
+            <p id="ludoStatusText" style="font-size: 11px; color: #9ca3af; margin: 2px 0;">🔴 Red's turn! Tap 'Roll Dice' when ready.</p>
 
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 2px;">
                 <span id="ludoDiceShow" style="font-size: 28px; background: rgba(255,255,255,0.1); padding: 2px 10px; border-radius: 6px;">🎲</span>
@@ -371,6 +366,7 @@
             document.getElementById('ludoArenaModal').style.display = 'none';
         }
 
+        // Manual Click-Based Dice Roll Function
         function rollRealDice() {
             if (isRolling) return;
             isRolling = true;
@@ -404,15 +400,12 @@
             document.getElementById(cardIds[turnIndex]).classList.add('active-turn');
 
             let nextColor = playerList[turnIndex];
-            document.getElementById('ludoStatusText').innerText = `${nextColor.toUpperCase()}'s turn! Roll the dice.`;
             isRolling = false;
 
-            if(nextColor !== 'red') {
-                setTimeout(() => {
-                    if(document.getElementById('ludoArenaModal').style.display === 'flex') {
-                        rollRealDice();
-                    }
-                }, 1000);
+            if (nextColor === 'red') {
+                document.getElementById('ludoStatusText').innerText = `🔴 Your turn (Red)! Tap 'Roll Dice'.`;
+            } else {
+                document.getElementById('ludoStatusText').innerText = `🤖 ${nextColor.toUpperCase()}'s turn. Tap 'Roll Dice'.`;
             }
         }
 
@@ -451,3 +444,4 @@
     </script>
 </body>
 </html>
+                                                                                                                                                                           
